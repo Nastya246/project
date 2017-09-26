@@ -9,3 +9,14 @@ C:\Users\Lenovo\Documents\Visual Studio 2012\Projects\taoOpenGLtest\taoOpenGLtes
 C:\Users\Lenovo\Documents\Visual Studio 2012\Projects\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.Slaid.resources
 C:\Users\Lenovo\Documents\Visual Studio 2012\Projects\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.VizBrOt.resources
 C:\Users\Lenovo\Documents\Visual Studio 2012\Projects\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.AlgCDA.resources
+C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.exe
+C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.pdb
+C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\bin\Debug\taoOpenGLtest.exe
+C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\bin\Debug\taoOpenGLtest.pdb
+C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.csprojResolveAssemblyReference.cache
+C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.AlgCDA.resources
+C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.VizBrOt.resources
+C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.Menu.resources
+C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.Properties.Resources.resources
+C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.Slaid.resources
+C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.csproj.GenerateResource.Cache

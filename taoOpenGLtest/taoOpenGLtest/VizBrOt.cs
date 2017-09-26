@@ -14,8 +14,8 @@ namespace taoOpenGLtest
 {
     public partial class VizBrOt : Form
     {
-        float[,] ValuesArray;
-        float x1, y1, x2, y2;
+        double[,] ValuesArray;
+        int x1, y1, x2, y2;
 
         public VizBrOt()
         {
@@ -26,21 +26,21 @@ namespace taoOpenGLtest
 
         private void button1_Click(object sender, EventArgs e)
         {
-            timer1.Start();
-         
-            Brezenhem(x1, y1, x2, y2);
-          /*  timer1.Enabled = false;
-            timer1.Start();*/
-            
+      //      timer1.Start();
+
+            Draw();
+            Gl.glFlush();
+
+            anT.Invalidate();
 
         }
-        private void fuctionCalculation(float x11, float y11, float x22, float y22)
+        private void fuctionCalculation(int x11, int y11, int x22, int y22)
         {
             float res;
             int count = 0;
-            int len =Math.Abs((int)x1 - (int)x2 - 1);
-            ValuesArray = new float[len, 2];
-            for (float i = x1; i <= x2; i++) 
+            int len =Math.Abs(x1 - x2 - 1);
+            ValuesArray = new double[len, 2];
+            for (int i = x1; i <= x2; i++) 
             {
                 res = ((i - x1) * (y2 - y1) / (x2 - x1)) + y1;
                 ValuesArray[count, 0] = i;
@@ -50,135 +50,241 @@ namespace taoOpenGLtest
             }
 
         }
-        private void Brezenhem(float x11, float y11, float x22, float y22)
+        private void setka()
         {
-            float k;
-            float temp;
-            k = (y22 - y11) / (x22 - x11); //угловой коэффициент
-        /*   if (Math.Abs(k) > 1) //проверяем |k|>1
-            {
-                temp = y11;
-                y11 = x11;
-                x11 = temp;
-                temp = y22;
-                y22 = x22;
-                x22 = temp;
-
-            }*/
-            // сохранение исходных начальных и конечных координат прямой
-            float saveX1 = x11; 
-            float saveY1 = y11;
-            float saveX2 = x22;
-            float saveY2 = y22;
-          
-            int el = 1; // счетчик элементов массива, который хранит координаты x и y с шагом x=1
-            float d; // отклонение
-            Gl.glPointSize(5);
-            Gl.glColor3f(0, 0, 255);
-            Gl.glBegin(Gl.GL_POINTS); // ставлю точку
-            Gl.glVertex2d(saveX1, saveY1);
-            Gl.glEnd();
             Gl.glColor3f(255, 255, 255);
+            Gl.glPointSize(1);
+            Gl.glBegin(Gl.GL_POINTS);
+            for (int ax = -15; ax < 15; ax++)
+            {
+                for (int bx = -15; bx < 15; bx++)
+                {
+                    Gl.glVertex2d(ax, bx);
+                }
 
-           
-            Gl.glFlush();
-            anT.Invalidate();
-            timer1.Start();
-            
-            fuctionCalculation(x11, y11, x22, y22); // заполнение массива координатами
+            }
+            Gl.glEnd();
+            Gl.glBegin(Gl.GL_LINES);
+            Gl.glVertex2d(0, -25);
+            Gl.glVertex2d(0, 25);
+            Gl.glVertex2d(-25, 0);
+            Gl.glVertex2d(25, 0);
 
-            Gl.glBegin(Gl.GL_QUAD_STRIP); //рисую "пиксель"
-            Gl.glVertex2d(x11, y11);
-            Gl.glVertex2d(x11 + 1, y11);
-            Gl.glVertex2d(x11, y11 + 1);
-            Gl.glVertex2d(x11 + 1, y11 + 1);
+            Gl.glVertex2d(0, 15);
+            Gl.glVertex2d(0.1, 14.5);
+            Gl.glVertex2d(0, 14.5);
+            Gl.glVertex2d(-0.1, 14.5);
+
+            Gl.glVertex2d(15, 0);
+            Gl.glVertex2d(14.5, 0.1);
+            Gl.glVertex2d(15, 0);
+            Gl.glVertex2d(14.5, -0.1);
 
             Gl.glEnd();
 
            
-            Gl.glFlush();
-            anT.Invalidate();
-            timer1.Start();
+           
+            Gl.glColor3f(255, 0, 0);
+            Gl.glBegin(Gl.GL_LINES);
+            Gl.glVertex2d(x1, y1);
+            Gl.glVertex2d(x2, y2);
+            Gl.glEnd();
+        
+        }
+        private void ObRes(int x11, int y11, int x22, int y22 )
+        {
+            
+            Gl.glColor3f(255, 255, 0);
+      //      Gl.glPointSize(25);
+            double k = ((double)y22 - (double)y11) / ((double)x22 - (double)x11);
+            double b = y11 - k * x11;
+            double temp;
+            for (int i = x11; i <= x22; i++)
+            {
+
+                temp = Math.Round(k * i + b);
+               Gl.glColor3f(255, 255, 0);
+      /*         Gl.glBegin(Gl.GL_POINTS);
+                Gl.glVertex2d(i, temp);
+                Gl.glEnd();*/
+                
+                
+              Gl.glBegin(Gl.GL_QUAD_STRIP);
+                Gl.glVertex2d((double)i-0.5, (double)temp-0.5);
+                Gl.glVertex2d((double)i + 0.5, (double)temp - 0.5);
+                Gl.glVertex2d((double)i - 0.5, (double)temp + 0.5);
+                Gl.glVertex2d((double)i + 0.5, (double)temp + 0.5);
+
+                Gl.glEnd();
+              
+            }
+            setka(); 
+        }
+        private void PervChet(int x11, int y11, int x22, int y22)
+        {
+
+            int d = ((y22 - y11) << 1) - (x22 - x11);
+            int d1 = (y22 - y11) << 1;
+            int d2 = ((y22 - y11) - (x22 - x11)) << 1;
+            Gl.glColor3f(0, 255, 255);
+        /*    Gl.glPointSize(5);
+
+               Gl.glBegin(Gl.GL_POINTS);
+               Gl.glVertex2d(x11, y11);
+               Gl.glEnd();*/
+            Gl.glBegin(Gl.GL_QUAD_STRIP);
            
 
-            Gl.glPointSize(5);
-            if (k < 0.5)
+            Gl.glVertex2d((double)x11 - 0.5, (double)y11 - 0.5);
+            Gl.glVertex2d((double)x11 + 0.5, (double)y11 - 0.5);
+            Gl.glVertex2d((double)x11 - 0.5, (double)y11 + 0.5);
+            Gl.glVertex2d((double)x11 + 0.5, (double)y11 + 0.5);
+            Gl.glEnd();
+
+               for (int x = x11 + 1, y = y11; x <= x22; x++)
+               {
+                   if (d > 0)
+                   {
+                       d += d2;
+                       y += 1;
+                   }
+                   else
+                   {
+                       d += d1;
+                   }
+
+                  /* Gl.glBegin(Gl.GL_POINTS);
+                   Gl.glVertex2d(x, y);
+                   Gl.glEnd();
+                   * */
+
+                   Gl.glBegin(Gl.GL_QUAD_STRIP);
+
+
+                   Gl.glVertex2d((double)x - 0.5, (double)y - 0.5);
+                   Gl.glVertex2d((double)x + 0.5, (double)y - 0.5);
+                   Gl.glVertex2d((double)x - 0.5, (double)y + 0.5);
+                   Gl.glVertex2d((double)x + 0.5, (double)y + 0.5);
+                   Gl.glEnd();
+                   
+               }
+               setka();
+
+        }
+        private void Brezenhem(int x11, int y11, int x22, int y22)
+        {
+            int dx = Math.Abs(x22 - x11);
+            int dy = Math.Abs(y22 - y11);
+            double k = ((double)y22 - (double)y11) / ((double)x22 - (double)x11);
+            int sx, sy;
+            
+            if (x22 >= x11)
             {
-                x11++;
-                
+                sx = 1;
+            }
+            else 
+            {
+                sx = -1;
+            }
+            if (y22 >= y11)
+            {
+                sy = 1;
+            }
+            else
+            {
+                sy = -1;
+            }
+
+            if (k <= 1)
+            {
+                int d = (dy << 1) - dx;
+                int d1 = dy << 1;
+                int d2 = (dy - dx) << 1;
+
+                Gl.glColor3f(0, 0, 255);
+             
+                Gl.glBegin(Gl.GL_QUAD_STRIP);
+
+
+                Gl.glVertex2d((double)x11 - 0.5, (double)y11 - 0.5);
+                Gl.glVertex2d((double)x11 + 0.5, (double)y11 - 0.5);
+                Gl.glVertex2d((double)x11 - 0.5, (double)y11 + 0.5);
+                Gl.glVertex2d((double)x11 + 0.5, (double)y11 + 0.5);
+                Gl.glEnd();
+                for (int x = x11 + sx, y = y11, i = 1; i <= dx; i++, x += sx)
+                {
+                    if (d > 0)
+                    {
+                        d += d2;
+                        y += sy;
+                    }
+                    else
+                        d += d1;
+
+
+                    Gl.glBegin(Gl.GL_QUAD_STRIP);
+
+
+                    Gl.glVertex2d((double)x - 0.5, (double)y - 0.5);
+                    Gl.glVertex2d((double)x + 0.5, (double)y - 0.5);
+                    Gl.glVertex2d((double)x - 0.5, (double)y + 0.5);
+                    Gl.glVertex2d((double)x + 0.5, (double)y + 0.5);
+                    Gl.glEnd();
+               
+                }
 
             }
             else 
             {
-                x11++;
-                y11++;
-                
-            }
-            Gl.glColor3f(255, 255, 255);
-           Gl.glBegin(Gl.GL_QUAD_STRIP);
-            Gl.glVertex2d(x11, y11);
-            Gl.glVertex2d(x11 + 1, y11);
-            Gl.glVertex2d(x11, y11 + 1);
-            Gl.glVertex2d(x11 + 1, y11 + 1);
+                int d = (dx << 2) - dy;
+                int d1 = dx << 1;
+                int d2 = (dx - dy) << 1;
 
-            Gl.glEnd();
-
-            Gl.glColor3f(0, 0, 255);
-            Gl.glBegin(Gl.GL_POINTS);
-            Gl.glVertex2d(x11, y11);
-            Gl.glEnd();
-         //   for (float i = x11; i <= x22; i++)
-       //     {
-            // вычисление d по формуле d=(X2исх-X1исх)*(P2-P1), для данного отрезка X1исх=2, Y1исх=1, X2исх=8, Y2исх=3
-                d = (saveX2 - saveX1) * ((ValuesArray[el, 1] - ValuesArray[el - 1, 1]) - (ValuesArray[el+1, 1] - ValuesArray[el, 1]));
-                //теперь работа с формулами d=d+2*((Y2исх-Y1исх)-(X2-X1исх)) либо с d=2*(Y2исх-Y1исх),для данного отрезка X1исх=2, Y1исх=1, X2исх=8, Y2исх=3
-             for (float i = x11; i < x22; i++)
-            {
-                if (d > 0)
-                {
-
-                    y11++;
-                    x11++;
-
-                    d = d + 2 * ((saveY2 - saveY1) - (saveX2 - saveX1));
-                    Gl.glColor3f(0, 0, 255);
-                    Gl.glBegin(Gl.GL_POINTS);
-                    Gl.glVertex2d(x11, y11);
-                    Gl.glEnd();
-                    
-                }
-                else 
-                {
-                    d = 2 * (saveY2 - saveY1);
-                   
-                        x11++;
-
-                    Gl.glColor3f(0, 0, 255);
-                    Gl.glBegin(Gl.GL_POINTS);
-                    Gl.glVertex2d(x11, y11);
-                    Gl.glEnd();
-
-                }
-                Gl.glColor3f(255, 255, 255);
+                Gl.glColor3f(0, 0, 255);
+          
                 Gl.glBegin(Gl.GL_QUAD_STRIP);
-                Gl.glVertex2d(x11-1, y11-1);
-                Gl.glVertex2d(x11 , y11-1);
-                Gl.glVertex2d(x11-1, y11 );
-                Gl.glVertex2d(x11 , y11 );
 
+
+                Gl.glVertex2d((double)x11 - 0.5, (double)y11 - 0.5);
+                Gl.glVertex2d((double)x11 + 0.5, (double)y11 - 0.5);
+                Gl.glVertex2d((double)x11 - 0.5, (double)y11 + 0.5);
+                Gl.glVertex2d((double)x11 + 0.5, (double)y11 + 0.5);
                 Gl.glEnd();
-                Gl.glColor3f(0, 255, 0);
-                Gl.glBegin(Gl.GL_POINTS);
-                Gl.glVertex2d(x11, y11);
-                Gl.glEnd();
-            
-                el++;
+                for (int x = x11, y = y11 + sy, i = 1; i <= dy; i++, y += sy)
+                {
+                    if (d > 0)
+                    {
+                        d += d2;
+                        x += sx;
+                    }
+                    else
+                        d += d1;
+                    Gl.glColor3f(0, 0, 255);
+               
+                    Gl.glBegin(Gl.GL_QUAD_STRIP);
+
+
+                    Gl.glVertex2d((double)x - 0.5, (double)y - 0.5);
+                    Gl.glVertex2d((double)x + 0.5, (double)y - 0.5);
+                    Gl.glVertex2d((double)x - 0.5, (double)y + 0.5);
+                    Gl.glVertex2d((double)x + 0.5, (double)y + 0.5);
+                    Gl.glEnd();
+               
+                   
+                }
+
             }
+
+
+             setka(); 
  
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            //инициализация glut
+            groupBox1.Controls.Add(urav);
+            groupBox1.Controls.Add(chetv);
+            groupBox1.Controls.Add(resh);
+            groupBox1.Controls.Add(urav);
 
             Glut.glutInit();
             Glut.glutInitDisplayMode(Glut.GLUT_RGB | Glut.GLUT_DOUBLE | Glut.GLUT_DEPTH);
@@ -200,58 +306,20 @@ namespace taoOpenGLtest
             Gl.glMatrixMode(Gl.GL_MODELVIEW);
          //  Gl.glLoadIdentity();
         //   Gl.glColor3f(0, 0, 0);
-           Gl.glPushMatrix();
+        //   Gl.glPushMatrix();
            Gl.glTranslated(10, 10, 0);
-           Gl.glBegin(Gl.GL_POINTS);
-           for (int ax = -15; ax < 15; ax++)
-           {
-               for (int bx = -15; bx < 15; bx++)
-               {
-                   Gl.glVertex2d(ax, bx);
-               }
- 
-           }
-           Gl.glEnd();
-           Gl.glBegin(Gl.GL_LINES);
-           Gl.glVertex2d(0, -25);
-           Gl.glVertex2d(0, 25);
-           Gl.glVertex2d(-25, 0);
-           Gl.glVertex2d(25, 0);
-
-           Gl.glVertex2d(0, 15);
-           Gl.glVertex2d(0.1, 14.5);
-           Gl.glVertex2d(0, 14.5);
-           Gl.glVertex2d(-0.1, 14.5);
-
-           Gl.glVertex2d(15,0);
-           Gl.glVertex2d(14.5, 0.1);
-           Gl.glVertex2d(15, 0);
-           Gl.glVertex2d(14.5, -0.1);
-
-           Gl.glEnd();
-        /*   Gl.glBegin(Gl.GL_QUAD_STRIP);
-           Gl.glVertex2d(1, 1);
-           Gl.glVertex2d(2, 1);
-           Gl.glVertex2d(1, 2);
-           Gl.glVertex2d(2, 2);
-           
-           Gl.glEnd();
-         * */
+     
+          
        //    Gl.glPopMatrix();
            x1 = 2;
            y1 = 1;
            x2 = 8;
            y2 = 3;
-           Gl.glColor3f(255, 0, 0);
-           Gl.glBegin(Gl.GL_LINES);
-           Gl.glVertex2d(x1, y1);
-           Gl.glVertex2d(x2, y2);
-           Gl.glEnd();
-       // Brezenhem(x1,y1,x2,y2);
-            
-           Gl.glFlush();
+           setka();
+      
+         Gl.glFlush();
            anT.Invalidate();
-
+           Gl.glPushMatrix();
         //    Gl.glEnable(Gl.GL_DEPTH_TEST);
 
       //      timer1.Start();
@@ -259,11 +327,23 @@ namespace taoOpenGLtest
 
         private void Draw()
         {
-        //    Brezenhem(x1, y1, x2, y2);
+            if (urav.Checked)
+                {
+                    ObRes(x1, y1, x2, y2);
+                }
+            if (chetv.Checked)
+            {
+                PervChet(x1, y1, x2, y2);
+            }
+            if (resh.Checked)
+            {
+                Brezenhem(x1, y1, x2, y2);
+            }
+          // Brezenhem(x1, y1, x2, y2);
             
-      //      Gl.glFlush();
+       //     Gl.glFlush();
 
-     //       anT.Invalidate();
+//           anT.Invalidate();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -273,7 +353,10 @@ namespace taoOpenGLtest
 
         private void button2_Click(object sender, EventArgs e)
         {
-            timer1.Enabled = true; 
+            timer1.Enabled=false; 
+            
         }
+
+       
     }
 }

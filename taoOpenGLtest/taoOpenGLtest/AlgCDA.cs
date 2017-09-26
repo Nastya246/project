@@ -26,10 +26,19 @@ namespace taoOpenGLtest
             double saveY1 = y11;
             double saveX2 = x22;
             double saveY2 = y22;
-            Gl.glPointSize(5);
+       /*     Gl.glPointSize(5);
             Gl.glColor3f(0, 0, 255);
             Gl.glBegin(Gl.GL_POINTS); 
             Gl.glVertex2d(saveX1, saveY1);
+            Gl.glEnd();
+        * */
+            Gl.glColor3f(0, 0, 255);
+            Gl.glBegin(Gl.GL_QUAD_STRIP); 
+            Gl.glVertex2d(saveX1, saveY1);
+            Gl.glVertex2d(saveX1 + 1, saveY1);
+            Gl.glVertex2d(saveX1, saveY1 + 1);
+            Gl.glVertex2d(saveX1 + 1, saveY1 + 1);
+
             Gl.glEnd();
            
            // x11++;
@@ -42,10 +51,18 @@ namespace taoOpenGLtest
                     y11 = y11 + k;
                     y11 = Math.Round(y11);
                     
-                    Gl.glPointSize(5);
+               /*     Gl.glPointSize(5);
                     Gl.glColor3f(0, 0, 255);
                     Gl.glBegin(Gl.GL_POINTS);
                     Gl.glVertex2d(x11, y11);
+                    Gl.glEnd();
+*/
+                    Gl.glBegin(Gl.GL_QUAD_STRIP);
+                    Gl.glVertex2d(x11, y11);
+                    Gl.glVertex2d(x11 + 1, y11);
+                    Gl.glVertex2d(x11, y11 + 1);
+                    Gl.glVertex2d(x11 + 1, y11 + 1);
+
                     Gl.glEnd();
                    
                 }
@@ -58,10 +75,20 @@ namespace taoOpenGLtest
                     x11 = x11 +(1/ k);
                     x11 = Math.Round(x11);
                     
-                    Gl.glPointSize(5);
+               /*     Gl.glPointSize(5);
                     Gl.glColor3f(0, 0, 255);
                     Gl.glBegin(Gl.GL_POINTS);
                     Gl.glVertex2d(x11, y11);
+                    Gl.glEnd();
+                * */
+
+                    Gl.glColor3f(0, 0, 255);
+                    Gl.glBegin(Gl.GL_QUAD_STRIP);
+                    Gl.glVertex2d(x11, y11);
+                    Gl.glVertex2d(x11 + 1, y11);
+                    Gl.glVertex2d(x11, y11 + 1);
+                    Gl.glVertex2d(x11 + 1, y11 + 1);
+
                     Gl.glEnd();
                   
                 }
