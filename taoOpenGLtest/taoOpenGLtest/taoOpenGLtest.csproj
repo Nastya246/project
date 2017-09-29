@@ -62,6 +62,12 @@
     <Compile Include="AlgCDA.Designer.cs">
       <DependentUpon>AlgCDA.cs</DependentUpon>
     </Compile>
+    <Compile Include="AlgVu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AlgVu.Designer.cs">
+      <DependentUpon>AlgVu.cs</DependentUpon>
+    </Compile>
     <Compile Include="VizBrOt.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,6 +90,9 @@
     </Compile>
     <EmbeddedResource Include="AlgCDA.resx">
       <DependentUpon>AlgCDA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AlgVu.resx">
+      <DependentUpon>AlgVu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VizBrOt.resx">
       <DependentUpon>VizBrOt.cs</DependentUpon>

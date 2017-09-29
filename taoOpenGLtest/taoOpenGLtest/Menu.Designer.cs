@@ -30,6 +30,7 @@
         {
             this.brOtr = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.algVu = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // brOtr
@@ -51,11 +52,22 @@
             this.button1.Text = "Алгоритм ЦДА";
             this.button1.UseVisualStyleBackColor = true;
             // 
+            // algVu
+            // 
+            this.algVu.Location = new System.Drawing.Point(12, 202);
+            this.algVu.Name = "algVu";
+            this.algVu.Size = new System.Drawing.Size(137, 58);
+            this.algVu.TabIndex = 2;
+            this.algVu.Text = "Алгоритм Ву";
+            this.algVu.UseVisualStyleBackColor = true;
+            this.algVu.Click += new System.EventHandler(this.algVu_Click);
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(322, 290);
+            this.Controls.Add(this.algVu);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.brOtr);
             this.Name = "Menu";
@@ -68,6 +80,7 @@
 
         private System.Windows.Forms.Button brOtr;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button algVu;
 
     }
 }

@@ -21,5 +21,10 @@ namespace taoOpenGLtest
             Slaid slBr = new Slaid();
             slBr.Show();
         }
+
+        private void algVu_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

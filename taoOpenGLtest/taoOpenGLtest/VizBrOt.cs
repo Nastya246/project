@@ -16,6 +16,7 @@ namespace taoOpenGLtest
     {
         double[,] ValuesArray;
         int x1, y1, x2, y2;
+        int num = 0;
 
         public VizBrOt()
         {
@@ -26,15 +27,16 @@ namespace taoOpenGLtest
 
         private void button1_Click(object sender, EventArgs e)
         {
-      //      timer1.Start();
 
             Draw();
-            Gl.glFlush();
+                  timer1.Start();
+           
+                  Glut.glutSwapBuffers();
 
             anT.Invalidate();
 
         }
-        private void fuctionCalculation(int x11, int y11, int x22, int y22)
+    /*    private void fuctionCalculation(int x11, int y11, int x22, int y22)
         {
             float res;
             int count = 0;
@@ -49,7 +51,7 @@ namespace taoOpenGLtest
 
             }
 
-        }
+        }*/
         private void setka()
         {
             Gl.glColor3f(255, 255, 255);
@@ -99,6 +101,9 @@ namespace taoOpenGLtest
             double k = ((double)y22 - (double)y11) / ((double)x22 - (double)x11);
             double b = y11 - k * x11;
             double temp;
+            int len = Math.Abs(x1 - x2 - 1);
+            int count = 0;
+            ValuesArray = new double[len, 2];
             for (int i = x11; i <= x22; i++)
             {
 
@@ -107,8 +112,14 @@ namespace taoOpenGLtest
       /*         Gl.glBegin(Gl.GL_POINTS);
                 Gl.glVertex2d(i, temp);
                 Gl.glEnd();*/
-                
-                
+
+              
+                   ValuesArray[count, 0] = i;
+                   ValuesArray[count, 1] = temp;
+                   count++;
+
+               
+       /*         
               Gl.glBegin(Gl.GL_QUAD_STRIP);
                 Gl.glVertex2d((double)i-0.5, (double)temp-0.5);
                 Gl.glVertex2d((double)i + 0.5, (double)temp - 0.5);
@@ -117,6 +128,7 @@ namespace taoOpenGLtest
 
                 Gl.glEnd();
               
+        * */
             }
             setka(); 
         }
@@ -324,7 +336,28 @@ namespace taoOpenGLtest
 
       //      timer1.Start();
         }
+        private void drawPixel(int x22)
+        {
+            if (ValuesArray[num, 0] < x22)
+            {
+                Gl.glBegin(Gl.GL_QUAD_STRIP);
+                Gl.glVertex2d((double)ValuesArray[num, 0] - 0.5, ValuesArray[num, 1] - 0.5);
+                Gl.glVertex2d((double)ValuesArray[num, 0] + 0.5, ValuesArray[num, 1] - 0.5);
+                Gl.glVertex2d((double)ValuesArray[num, 0] - 0.5, ValuesArray[num, 1] + 0.5);
+                Gl.glVertex2d((double)ValuesArray[num, 0] + 0.5, ValuesArray[num, 1] + 0.5);
 
+                Gl.glEnd();
+
+                num++;
+            }
+            else
+            {
+                num = 0;
+                timer1.Stop();
+            }
+         //   Glut.glutSwapBuffers();
+            anT.Invalidate();
+        }
         private void Draw()
         {
             if (urav.Checked)
@@ -348,7 +381,7 @@ namespace taoOpenGLtest
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            Draw();
+            drawPixel(x2);
         }
 
         private void button2_Click(object sender, EventArgs e)
