@@ -11,6 +11,11 @@ using Tao.FreeGlut;
 using Tao.Platform.Windows;
 namespace taoOpenGLtest
 {
+    static class Sinhr
+    {
+        public static string Value { get; set; }
+       
+    }
     static class Program
     {
         /// <summary>
@@ -23,7 +28,10 @@ namespace taoOpenGLtest
             Application.SetCompatibleTextRenderingDefault(false);
           //Application.Run(new Menu());
            // Application.Run(new AlgCDA());
+           
             Application.Run(new VizBrOt());
+     
+             
         }
     }
 }

@@ -20,3 +20,5 @@ C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.Menu
 C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.Properties.Resources.resources
 C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.Slaid.resources
 C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.csproj.GenerateResource.Cache
+C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.AlgVu.resources
+C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.DataAl.resources
