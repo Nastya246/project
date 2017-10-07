@@ -27,9 +27,9 @@ namespace taoOpenGLtest
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
           //Application.Run(new Menu());
-           // Application.Run(new AlgCDA());
-           
-            Application.Run(new VizBrOt());
+         //   Application.Run(new AlgCDA());
+         //   Application.Run(new VizBrOt());
+           Application.Run(new AlgVu());
      
              
         }

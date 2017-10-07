@@ -142,7 +142,7 @@ namespace taoOpenGLtest
            x1 = 2;
            y1 = 1;
            x2 = 8;
-           y2 = 9;
+           y2 = 3;
            
            Gl.glColor3f(255, 0, 0);
            Gl.glBegin(Gl.GL_LINES);

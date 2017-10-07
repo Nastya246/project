@@ -201,7 +201,7 @@ namespace taoOpenGLtest
         private void Brezenhem(int x11, int y11, int x22, int y22)
         {
             ValuesArray = null;
-            int len = Math.Abs(x1 - x2 - 1);
+            int len = Math.Abs(x11 - x22 - 1);
             ValuesArray = new double[len, 2];
             int count = 0;
 
@@ -375,7 +375,7 @@ namespace taoOpenGLtest
    
             Glu.gluOrtho2D(0.0, 25, 0.0, 25); 
             Gl.glMatrixMode(Gl.GL_MODELVIEW);
-       
+            Gl.glPushMatrix();
            Gl.glTranslated(10, 10, 0);
      
        
@@ -387,7 +387,7 @@ namespace taoOpenGLtest
          
          Gl.glFlush();
            anT.Invalidate();
-           Gl.glPushMatrix();
+           
      
         }
         private void drawPixel(int x22)

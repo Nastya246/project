@@ -15,31 +15,28 @@ namespace taoOpenGLtest
     public partial class AlgVu : Form
     {
         int x1, y1, x2, y2;
+        double[,] ValuesArray;
+        double[,] LineKoord;
+       
         public AlgVu()
         {
             InitializeComponent();
             vu.InitializeContexts();
         }
-        private void VU(int x11, int y11,int  x22,int  y22)
+        private void PrintText(double x, double y, string text)
         {
+
+            Gl.glRasterPos2d(x, y);
+            foreach (char sign in text)
+            {
+                Glut.glutBitmapCharacter(Glut.GLUT_BITMAP_9_BY_15, sign);
+            }
 
         }
-        private void AlgVu_Load(object sender, EventArgs e)
+        private void setka()
         {
-
-            Glut.glutInit();
-            Glut.glutInitDisplayMode(Glut.GLUT_RGB | Glut.GLUT_DOUBLE | Glut.GLUT_DEPTH);
-            Gl.glClearColor(255, 255, 255, 1);
-
-            Gl.glViewport(0, 0, vu.Width, vu.Height);
-            Gl.glMatrixMode(Gl.GL_PROJECTION);
-            Gl.glLoadIdentity();
-
-            Glu.gluOrtho2D(0.0, 25, 0.0, 25);
-            Gl.glMatrixMode(Gl.GL_MODELVIEW);
-
-            Gl.glPushMatrix();
-            Gl.glTranslated(10, 10, 0);
+            Gl.glColor3f(255, 255, 255);
+            Gl.glPointSize(1);
             Gl.glBegin(Gl.GL_POINTS);
             for (int ax = -15; ax < 15; ax++)
             {
@@ -47,7 +44,6 @@ namespace taoOpenGLtest
                 {
                     Gl.glVertex2d(ax, bx);
                 }
-
 
             }
             Gl.glEnd();
@@ -69,16 +65,314 @@ namespace taoOpenGLtest
 
             Gl.glEnd();
 
-            x1 = 2;
-            y1 = 1;
-            x2 = 8;
-            y2 = 9;
+
 
             Gl.glColor3f(255, 0, 0);
             Gl.glBegin(Gl.GL_LINES);
             Gl.glVertex2d(x1, y1);
             Gl.glVertex2d(x2, y2);
             Gl.glEnd();
+            Gl.glColor3f(255, 255, 255);
+            PrintText(14.5, 0.5, "x");
+            PrintText(0.5, 14.5, "y");
+            Gl.glColor3f(0, 0, 255);
+        }
+        private double koordLine(int x1,int y1,int x2,int y2)
+        {
+            int num = 0;
+            double k = ((double)y2 - (double)y1) / ((double)x2 - (double)x1);
+            for (int i = x1; i <= x2; i++)
+            {
+                LineKoord[num, 0] = i;
+                LineKoord[num, 1] = k * i + y1;
+                num++;
+
+            }
+            return k;
+        }
+        private void VU(int x11, int y11,int  x22,int  y22)
+        {
+             ValuesArray = null;
+             LineKoord = null;
+            int len = Math.Abs(x1 - x2 - 1);
+            ValuesArray = new double[len, 2];
+            LineKoord = new double[len, 2];
+            int count = 0;
+
+            int dx = Math.Abs(x22 - x11);
+            int dy = Math.Abs(y22 - y11);
+            double k = koordLine(x1,y1,x2,y2);
+            int sx, sy;
+            
+            if (x22 >= x11)
+            {
+                sx = 1;
+            }
+            else 
+            {
+                sx = -1;
+            }
+            if (y22 >= y11)
+            {
+                sy = 1;
+            }
+            else
+            {
+                sy = -1;
+            }
+
+            if (k <= 1) // основная ось x
+            {
+                int d = (dy << 1) - dx;
+                int d1 = dy << 1;
+                int d2 = (dy - dx) << 1;
+
+               double intens = Math.Abs(y11-LineKoord[0, 1]); // разница между ординатой идеальной линии и пикселем растровой
+              if (intens == 0)
+               {
+                   Gl.glColor3d(0, 0, 255);
+
+                   Gl.glBegin(Gl.GL_QUAD_STRIP);
+
+
+                   Gl.glVertex2d((double)x11 - 0.5, (double)y11 - 0.5);
+                   Gl.glVertex2d((double)x11 + 0.5, (double)y11 - 0.5);
+                   Gl.glVertex2d((double)x11 - 0.5, (double)y11 + 0.5);
+                   Gl.glVertex2d((double)x11 + 0.5, (double)y11 + 0.5);
+                   Gl.glEnd();
+               }
+               else
+               {
+                   Gl.glColor3d(0, 0, intens * 255); //выбор соответствующей интенсивности
+
+
+                   Gl.glBegin(Gl.GL_QUAD_STRIP);
+
+
+                   Gl.glVertex2d((double)x11 - 0.5, (double)y11 - 0.5);
+                   Gl.glVertex2d((double)x11 + 0.5, (double)y11 - 0.5);
+                   Gl.glVertex2d((double)x11 - 0.5, (double)y11 + 0.5);
+                   Gl.glVertex2d((double)x11 + 0.5, (double)y11 + 0.5);
+                   Gl.glEnd();
+
+
+
+                   Gl.glColor3d(0, 0, 1 - 255 * intens);
+                   Gl.glBegin(Gl.GL_QUAD_STRIP);
+
+                   Gl.glVertex2d((double)x11 - 0.5, (double)y11 - 0.5 + 1);
+                   Gl.glVertex2d((double)x11 + 0.5, (double)y11 - 0.5 + 1);
+                   Gl.glVertex2d((double)x11 - 0.5, (double)y11 + 0.5 + 1);
+                   Gl.glVertex2d((double)x11 + 0.5, (double)y11 + 0.5 + 1);
+                   Gl.glEnd();
+
+               }
+                ValuesArray[count, 0] = x11;
+                ValuesArray[count, 1] = y11;
+
+
+                count++;
+                for (int x = x11 + sx, y = y11, i = 1; i <= dx; i++, x += sx)
+                {
+                    if (d > 0)
+                    {
+                        d += d2;
+                        y += sy;
+                    }
+                    else
+                        d += d1;
+
+                    intens = Math.Abs(y11 - LineKoord[count, 1]); // разница между ординатой идеальной линии и пикселем растровой
+
+                    if (intens == 0)
+                    {
+                        Gl.glColor3d(0, 0, 255);
+
+                        Gl.glBegin(Gl.GL_QUAD_STRIP);
+
+
+                        Gl.glVertex2d((double)x - 0.5, (double)y - 0.5);
+                        Gl.glVertex2d((double)x + 0.5, (double)y - 0.5);
+                        Gl.glVertex2d((double)x - 0.5, (double)y + 0.5);
+                        Gl.glVertex2d((double)x + 0.5, (double)y + 0.5);
+                        Gl.glEnd();
+                    }
+                    else
+                    {
+
+                        Gl.glColor3d(0, 0, intens * 255);
+
+                        Gl.glBegin(Gl.GL_QUAD_STRIP);
+
+                        Gl.glVertex2d((double)x - 0.5, (double)y - 0.5);
+                        Gl.glVertex2d((double)x + 0.5, (double)y - 0.5);
+                        Gl.glVertex2d((double)x - 0.5, (double)y + 0.5);
+                        Gl.glVertex2d((double)x + 0.5, (double)y + 0.5);
+                        Gl.glEnd();
+
+
+                        Gl.glColor3d(0, 0, 1 - 255 * intens);
+                        Gl.glBegin(Gl.GL_QUAD_STRIP);
+
+                        Gl.glVertex2d((double)x - 0.5, (double)y - 0.5 + 1);
+                        Gl.glVertex2d((double)x + 0.5, (double)y - 0.5 + 1);
+                        Gl.glVertex2d((double)x - 0.5, (double)y + 0.5 + 1);
+                        Gl.glVertex2d((double)x + 0.5, (double)y + 0.5 + 1);
+                        Gl.glEnd();
+
+                    }
+                    ValuesArray[count, 0] = x;
+                    ValuesArray[count, 1] = y;
+
+
+                    count++;
+                }
+
+            }
+            else //основная ось y
+            {
+                int d = (dx << 2) - dy;
+                int d1 = dx << 1;
+                int d2 = (dx - dy) << 1;
+
+
+              double  intens = Math.Abs(y11 - LineKoord[0, 1]); // разница между ординатой идеальной линии и пикселем растровой
+              if (intens == 0)
+              {
+                  Gl.glColor3d(0, 0, 255);
+
+                  Gl.glBegin(Gl.GL_QUAD_STRIP);
+
+
+                  Gl.glVertex2d((double)x11 - 0.5, (double)y11 - 0.5);
+                  Gl.glVertex2d((double)x11 + 0.5, (double)y11 - 0.5);
+                  Gl.glVertex2d((double)x11 - 0.5, (double)y11 + 0.5);
+                  Gl.glVertex2d((double)x11 + 0.5, (double)y11 + 0.5);
+                  Gl.glEnd();
+              }
+              else
+              {
+
+
+                  Gl.glColor3d(0, 0, intens * 255); //выбор соответствующей интенсивности
+
+
+                  Gl.glBegin(Gl.GL_QUAD_STRIP);
+
+
+                  Gl.glVertex2d((double)x11 - 0.5, (double)y11 - 0.5);
+                  Gl.glVertex2d((double)x11 + 0.5, (double)y11 - 0.5);
+                  Gl.glVertex2d((double)x11 - 0.5, (double)y11 + 0.5);
+                  Gl.glVertex2d((double)x11 + 0.5, (double)y11 + 0.5);
+                  Gl.glEnd();
+
+
+
+                  Gl.glColor3d(0, 0, 1 - 255 * intens);
+                  Gl.glBegin(Gl.GL_QUAD_STRIP);
+
+                  Gl.glVertex2d((double)x11 - 0.5+1, (double)y11 - 0.5);
+                  Gl.glVertex2d((double)x11 + 0.5+1, (double)y11 - 0.5);
+                  Gl.glVertex2d((double)x11 - 0.5+1, (double)y11 + 0.5);
+                  Gl.glVertex2d((double)x11 + 0.5+1, (double)y11 + 0.5);
+                  Gl.glEnd();
+
+               
+              }
+                ValuesArray[count, 0] = x11;
+                ValuesArray[count, 1] = y11;
+
+
+                count++;
+
+                for (int x = x11, y = y11 + sy, i = 1; i <= dy; i++, y += sy)
+                {
+                    if (d > 0)
+                    {
+                        d += d2;
+                        x += sx;
+                    }
+                    else
+                        d += d1;
+
+                    intens = Math.Abs(y11 - LineKoord[count, 1]);
+                    if (intens == 0)
+                    {
+                        Gl.glColor3d(0, 0, 255);
+
+                        Gl.glBegin(Gl.GL_QUAD_STRIP);
+
+
+                        Gl.glVertex2d((double)x - 0.5, (double)y - 0.5);
+                        Gl.glVertex2d((double)x + 0.5, (double)y - 0.5);
+                        Gl.glVertex2d((double)x - 0.5, (double)y + 0.5);
+                        Gl.glVertex2d((double)x + 0.5, (double)y + 0.5);
+                        Gl.glEnd();
+                    }
+                    else
+                    {
+
+                        Gl.glColor3d(0, 0, intens * 255);
+
+                        Gl.glBegin(Gl.GL_QUAD_STRIP);
+
+
+                        Gl.glVertex2d((double)x - 0.5, (double)y - 0.5);
+                        Gl.glVertex2d((double)x + 0.5, (double)y - 0.5);
+                        Gl.glVertex2d((double)x - 0.5, (double)y + 0.5);
+                        Gl.glVertex2d((double)x + 0.5, (double)y + 0.5);
+                        Gl.glEnd();
+
+                        Gl.glColor3d(0, 0, 1 - 255 * intens);
+                        Gl.glBegin(Gl.GL_QUAD_STRIP);
+
+                        Gl.glVertex2d((double)x - 0.5+1, (double)y - 0.5 );
+                        Gl.glVertex2d((double)x + 0.5+1, (double)y - 0.5 );
+                        Gl.glVertex2d((double)x - 0.5+1, (double)y + 0.5 );
+                        Gl.glVertex2d((double)x + 0.5+1, (double)y + 0.5 );
+                        Gl.glEnd();
+                    }
+                    ValuesArray[count, 0] = x;
+                    ValuesArray[count, 1] = y;
+
+
+                    count++;
+               
+                   
+                }
+
+            }
+
+
+             setka(); 
+ 
+        
+
+        }
+        private void AlgVu_Load(object sender, EventArgs e)
+        {
+
+            Glut.glutInit();
+            Glut.glutInitDisplayMode(Glut.GLUT_RGB | Glut.GLUT_DOUBLE | Glut.GLUT_DEPTH);
+            Gl.glClearColor(255, 255, 255, 1);
+
+            Gl.glViewport(0, 0, vu.Width, vu.Height);
+            Gl.glMatrixMode(Gl.GL_PROJECTION);
+            Gl.glLoadIdentity();
+
+            Glu.gluOrtho2D(0.0, 25, 0.0, 25);
+            Gl.glMatrixMode(Gl.GL_MODELVIEW);
+
+            Gl.glPushMatrix();
+            Gl.glTranslated(10, 10, 0);
+         
+
+            x1 = 2;
+            y1 = 1;
+            x2 = 8;
+            y2 = 3;
+
+            setka();
             VU(x1, y1, x2, y2);
 
             Gl.glFlush();

@@ -13,7 +13,6 @@ C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.exe
 C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.pdb
 C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\bin\Debug\taoOpenGLtest.exe
 C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\bin\Debug\taoOpenGLtest.pdb
-C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.csprojResolveAssemblyReference.cache
 C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.AlgCDA.resources
 C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.VizBrOt.resources
 C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.Menu.resources
