@@ -29,7 +29,7 @@ namespace taoOpenGLtest
           //Application.Run(new Menu());
          //   Application.Run(new AlgCDA());
          //   Application.Run(new VizBrOt());
-           Application.Run(new AlgVu());
+         Application.Run(new AlgVu());
      
              
         }

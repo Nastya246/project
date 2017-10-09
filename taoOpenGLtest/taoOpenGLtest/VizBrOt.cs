@@ -392,6 +392,7 @@ namespace taoOpenGLtest
         }
         private void drawPixel(int x22)
         {
+            Gl.glClear(Gl.GL_COLOR_BUFFER_BIT);
             if (ValuesArray[num, 0] <= x22)
             {
 
@@ -423,29 +424,32 @@ namespace taoOpenGLtest
                 num = 0;
                timer1.Stop();
             }
-         //   Glut.glutSwapBuffers();
            
-         Gl.glFlush();
+            Glut.glutPostRedisplay();
+           Glut.glutSwapBuffers();
+            
+         //Gl.glFlush();
             anT.Invalidate();
         }
         private void Draw()
         {
 
-        //    Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
+          
             if (urav.Checked)
                 {
-                    Iniz();
+                   // Iniz();
+
                     ObRes(x1, y1, x2, y2);
                     
                 }
             if (chetv.Checked)
             {
-                Iniz();
+             //   Iniz();
                 PervChet(x1, y1, x2, y2);
             }
             if (resh.Checked)
             {
-                Iniz();
+            //    Iniz();
                 Brezenhem(x1, y1, x2, y2);
             }
 
@@ -458,6 +462,7 @@ namespace taoOpenGLtest
         private void timer1_Tick(object sender, EventArgs e)
         {
             drawPixel(x2);
+            
         }
 
         private void button2_Click(object sender, EventArgs e)

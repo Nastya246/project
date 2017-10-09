@@ -77,31 +77,33 @@ namespace taoOpenGLtest
             PrintText(0.5, 14.5, "y");
             Gl.glColor3f(0, 0, 255);
         }
-        private double koordLine(int x1,int y1,int x2,int y2)
+        private void koordLine(int x1,int y1,int x2,int y2)
         {
             int num = 0;
-            double k = ((double)y2 - (double)y1) / ((double)x2 - (double)x1);
+            
             for (int i = x1; i <= x2; i++)
             {
                 LineKoord[num, 0] = i;
-                LineKoord[num, 1] = k * i + y1;
+                LineKoord[num, 1] = ((((double)i - (double)x1) * ((double)y2 - (double)y1)) / ((double)x2 - (double)x1)) + (double)y1;
                 num++;
 
             }
-            return k;
+            
         }
         private void VU(int x11, int y11,int  x22,int  y22)
         {
+            
+
              ValuesArray = null;
              LineKoord = null;
             int len = Math.Abs(x1 - x2 - 1);
             ValuesArray = new double[len, 2];
             LineKoord = new double[len, 2];
             int count = 0;
-
+            koordLine(x11, y11, x22, y22);
             int dx = Math.Abs(x22 - x11);
             int dy = Math.Abs(y22 - y11);
-            double k = koordLine(x1,y1,x2,y2);
+             double k = ((double)y2 - (double)y1) / ((double)x2 - (double)x1);
             int sx, sy;
             
             if (x22 >= x11)
@@ -130,7 +132,8 @@ namespace taoOpenGLtest
                double intens = Math.Abs(y11-LineKoord[0, 1]); // разница между ординатой идеальной линии и пикселем растровой
               if (intens == 0)
                {
-                   Gl.glColor3d(0, 0, 255);
+                   Gl.glColor4d(0, 0, 255, 1);
+                  
 
                    Gl.glBegin(Gl.GL_QUAD_STRIP);
 
@@ -143,9 +146,9 @@ namespace taoOpenGLtest
                }
                else
                {
-                   Gl.glColor3d(0, 0, intens * 255); //выбор соответствующей интенсивности
+                
 
-
+                   Gl.glColor4d(0, 0, 255, intens);//выбор соответствующей интенсивности
                    Gl.glBegin(Gl.GL_QUAD_STRIP);
 
 
@@ -157,7 +160,7 @@ namespace taoOpenGLtest
 
 
 
-                   Gl.glColor3d(0, 0, 1 - 255 * intens);
+                   Gl.glColor4d(0, 0, 255, 1-intens);
                    Gl.glBegin(Gl.GL_QUAD_STRIP);
 
                    Gl.glVertex2d((double)x11 - 0.5, (double)y11 - 0.5 + 1);
@@ -182,11 +185,11 @@ namespace taoOpenGLtest
                     else
                         d += d1;
 
-                    intens = Math.Abs(y11 - LineKoord[count, 1]); // разница между ординатой идеальной линии и пикселем растровой
+                    intens = Math.Abs(y - LineKoord[count, 1]); // разница между ординатой идеальной линии и пикселем растровой
 
                     if (intens == 0)
                     {
-                        Gl.glColor3d(0, 0, 255);
+                        Gl.glColor4d(0, 0, 255, 1);
 
                         Gl.glBegin(Gl.GL_QUAD_STRIP);
 
@@ -200,7 +203,7 @@ namespace taoOpenGLtest
                     else
                     {
 
-                        Gl.glColor3d(0, 0, intens * 255);
+                        Gl.glColor4d(0, 0, 255, intens);
 
                         Gl.glBegin(Gl.GL_QUAD_STRIP);
 
@@ -211,7 +214,7 @@ namespace taoOpenGLtest
                         Gl.glEnd();
 
 
-                        Gl.glColor3d(0, 0, 1 - 255 * intens);
+                        Gl.glColor4d(0, 0, 255, 1-intens);
                         Gl.glBegin(Gl.GL_QUAD_STRIP);
 
                         Gl.glVertex2d((double)x - 0.5, (double)y - 0.5 + 1);
@@ -239,7 +242,7 @@ namespace taoOpenGLtest
               double  intens = Math.Abs(y11 - LineKoord[0, 1]); // разница между ординатой идеальной линии и пикселем растровой
               if (intens == 0)
               {
-                  Gl.glColor3d(0, 0, 255);
+                  Gl.glColor4d(0, 0, 255, 1);
 
                   Gl.glBegin(Gl.GL_QUAD_STRIP);
 
@@ -254,7 +257,7 @@ namespace taoOpenGLtest
               {
 
 
-                  Gl.glColor3d(0, 0, intens * 255); //выбор соответствующей интенсивности
+                  Gl.glColor4d(0, 0, 255, intens); ; //выбор соответствующей интенсивности
 
 
                   Gl.glBegin(Gl.GL_QUAD_STRIP);
@@ -268,7 +271,7 @@ namespace taoOpenGLtest
 
 
 
-                  Gl.glColor3d(0, 0, 1 - 255 * intens);
+                  Gl.glColor4d(0, 0, 255, 1-intens); ;
                   Gl.glBegin(Gl.GL_QUAD_STRIP);
 
                   Gl.glVertex2d((double)x11 - 0.5+1, (double)y11 - 0.5);
@@ -295,10 +298,10 @@ namespace taoOpenGLtest
                     else
                         d += d1;
 
-                    intens = Math.Abs(y11 - LineKoord[count, 1]);
+                    intens = Math.Abs(y1 - LineKoord[count, 1]);
                     if (intens == 0)
                     {
-                        Gl.glColor3d(0, 0, 255);
+                        Gl.glColor4d(0, 0, 255, 1);
 
                         Gl.glBegin(Gl.GL_QUAD_STRIP);
 
@@ -312,7 +315,7 @@ namespace taoOpenGLtest
                     else
                     {
 
-                        Gl.glColor3d(0, 0, intens * 255);
+                        Gl.glColor4d(0, 0, 255, intens);
 
                         Gl.glBegin(Gl.GL_QUAD_STRIP);
 
@@ -323,7 +326,7 @@ namespace taoOpenGLtest
                         Gl.glVertex2d((double)x + 0.5, (double)y + 0.5);
                         Gl.glEnd();
 
-                        Gl.glColor3d(0, 0, 1 - 255 * intens);
+                        Gl.glColor4d(0, 0, 255, 1-intens);
                         Gl.glBegin(Gl.GL_QUAD_STRIP);
 
                         Gl.glVertex2d((double)x - 0.5+1, (double)y - 0.5 );
@@ -353,7 +356,11 @@ namespace taoOpenGLtest
         {
 
             Glut.glutInit();
-            Glut.glutInitDisplayMode(Glut.GLUT_RGB | Glut.GLUT_DOUBLE | Glut.GLUT_DEPTH);
+            Glut.glutInitDisplayMode(Glut.GLUT_RGBA | Glut.GLUT_DOUBLE | Glut.GLUT_DEPTH);
+            Gl.glEnable(Gl.GL_BLEND);
+            Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE_MINUS_SRC_ALPHA);
+         //   Gl.glEnable(Glut.GL);
+          //  Gl.glBlendFunc(Glut.GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
             Gl.glClearColor(255, 255, 255, 1);
 
             Gl.glViewport(0, 0, vu.Width, vu.Height);
