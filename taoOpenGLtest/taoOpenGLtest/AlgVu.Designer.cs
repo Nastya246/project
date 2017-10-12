@@ -36,6 +36,9 @@
             // vu
             // 
             this.vu.AccumBits = ((byte)(0));
+            this.vu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.vu.AutoCheckErrors = false;
             this.vu.AutoFinish = false;
             this.vu.AutoMakeCurrent = true;
@@ -51,6 +54,7 @@
             // 
             // button1
             // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.Location = new System.Drawing.Point(649, 28);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(91, 39);
@@ -60,6 +64,7 @@
             // 
             // button2
             // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button2.Location = new System.Drawing.Point(649, 85);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(91, 37);

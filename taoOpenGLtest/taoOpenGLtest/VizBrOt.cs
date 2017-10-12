@@ -13,23 +13,83 @@ using Tao.Platform.Windows;
 namespace taoOpenGLtest
 {
     public partial class VizBrOt : Form
-        
     {
+        #region +++ GLOBAL +++
+        //флаг полноэкранного режима
+        private bool FS;
+        #endregion
 
-     private   DataAl D = new DataAl();
+        private   DataAl D = new DataAl();
         
     
         double[,] ValuesArray;
         int x1, y1, x2, y2;
         int num = 0;
 
+ #region CONSTRUCTORS
+
         public VizBrOt()
         {
             InitializeComponent();
         
             anT.InitializeContexts();
+            Iniz();
+            ResizeGlScene();
+            drawSc();
         }
+        public VizBrOt(bool fullscreen)
+        {
+            InitializeComponent();
+            anT.InitializeContexts();
+            Iniz();
+            ResizeGlScene();
+            drawSc();
+        }
+ #endregion
+        private void Iniz()
+        {
+            Glut.glutInit();
+            Glut.glutInitDisplayMode(Glut.GLUT_RGB | Glut.GLUT_DOUBLE | Glut.GLUT_DEPTH);
+            Gl.glClearColor(255, 255, 255, 1);
+        
+        }
+        void ResizeGlScene()
+        {
+            if (anT.Height == 0)
+            {
+                anT.Height = 1;
+            }
 
+            Gl.glViewport(0, 0, anT.Width, anT.Height);
+            Gl.glMatrixMode(Gl.GL_PROJECTION);
+            Gl.glLoadIdentity();
+
+            Glu.gluOrtho2D(0.0, 25, 0.0, 25);
+            Gl.glMatrixMode(Gl.GL_MODELVIEW);
+            Gl.glLoadIdentity();
+        }
+        private void drawSc()
+        {
+            Gl.glTranslated(10, 10, 0);
+
+
+            Gl.glPushMatrix();
+            x1 = 2;
+            y1 = 1;
+            x2 = 8;
+            y2 = 3;
+            setka();
+            Gl.glPushMatrix();
+          /*  Glu.GLUquadric disk = Glu.gluNewQuadric();
+            Glu.gluQuadricDrawStyle(disk, Glu.GLU_FILL); 
+            Gl.glColor3ub(255, 0, 150);
+            Glu.gluDisk(disk, 0.5, 1.0, 30, 1);
+            */
+            Gl.glPopMatrix();
+            Gl.glFlush();
+            anT.Invalidate();
+           
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             
@@ -338,7 +398,7 @@ namespace taoOpenGLtest
              setka(); 
  
         }
-        private void Iniz()
+    /*    private void Iniz()
         {
             Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
             Gl.glClearColor(255, 255, 255, 1);
@@ -356,7 +416,7 @@ namespace taoOpenGLtest
 
             Gl.glFlush();
             anT.Invalidate();
-        }
+        }*/
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -365,17 +425,17 @@ namespace taoOpenGLtest
             groupBox1.Controls.Add(resh);
             groupBox1.Controls.Add(urav);
 
-            Glut.glutInit();
+         /*   Glut.glutInit();
             Glut.glutInitDisplayMode(Glut.GLUT_RGB | Glut.GLUT_DOUBLE | Glut.GLUT_DEPTH);
             Gl.glClearColor(255, 255, 255, 1);
-        
-            Gl.glViewport(0, 0, anT.Width, anT.Height);
+        */
+           /* Gl.glViewport(0, 0, anT.Width, anT.Height);
             Gl.glMatrixMode(Gl.GL_PROJECTION);
             Gl.glLoadIdentity();
-   
             Glu.gluOrtho2D(0.0, 25, 0.0, 25); 
             Gl.glMatrixMode(Gl.GL_MODELVIEW);
-            Gl.glPushMatrix();
+            Gl.glLoadIdentity(); */
+         /*   Gl.glPushMatrix();
            Gl.glTranslated(10, 10, 0);
      
        
@@ -388,7 +448,7 @@ namespace taoOpenGLtest
          Gl.glFlush();
            anT.Invalidate();
            
-     
+     */
         }
         private void drawPixel(int x22)
         {
@@ -469,6 +529,12 @@ namespace taoOpenGLtest
         {
             timer1.Enabled=false; 
             
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            ResizeGlScene();
+            drawSc();
         }
 
        
