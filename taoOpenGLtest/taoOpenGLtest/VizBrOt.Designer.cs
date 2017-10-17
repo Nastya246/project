@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.anT = new Tao.Platform.Windows.SimpleOpenGlControl();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -37,27 +36,9 @@
             this.chetv = new System.Windows.Forms.RadioButton();
             this.resh = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.glControl1 = new OpenTK.GLControl();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // anT
-            // 
-            this.anT.AccumBits = ((byte)(0));
-            this.anT.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.anT.AutoCheckErrors = false;
-            this.anT.AutoFinish = false;
-            this.anT.AutoMakeCurrent = true;
-            this.anT.AutoSwapBuffers = true;
-            this.anT.BackColor = System.Drawing.Color.Black;
-            this.anT.ColorBits = ((byte)(32));
-            this.anT.DepthBits = ((byte)(16));
-            this.anT.Location = new System.Drawing.Point(12, 12);
-            this.anT.Name = "anT";
-            this.anT.Size = new System.Drawing.Size(618, 370);
-            this.anT.StencilBits = ((byte)(0));
-            this.anT.TabIndex = 0;
             // 
             // button1
             // 
@@ -132,14 +113,28 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Сделайте выбор";
             // 
+            // glControl1
+            // 
+            this.glControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.glControl1.BackColor = System.Drawing.Color.Black;
+            this.glControl1.Location = new System.Drawing.Point(12, 12);
+            this.glControl1.Name = "glControl1";
+            this.glControl1.Size = new System.Drawing.Size(626, 370);
+            this.glControl1.TabIndex = 7;
+            this.glControl1.VSync = false;
+            this.glControl1.Load += new System.EventHandler(this.glControl1_Load);
+            this.glControl1.Paint += new System.Windows.Forms.PaintEventHandler(this.glControl1_Paint);
+            // 
             // VizBrOt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(808, 394);
+            this.Controls.Add(this.glControl1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.anT);
             this.Controls.Add(this.groupBox1);
             this.Name = "VizBrOt";
             this.Text = "Form1";
@@ -153,7 +148,6 @@
 
         #endregion
 
-        private Tao.Platform.Windows.SimpleOpenGlControl anT;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Timer timer1;
@@ -161,6 +155,7 @@
         private System.Windows.Forms.RadioButton chetv;
         private System.Windows.Forms.RadioButton resh;
         private System.Windows.Forms.GroupBox groupBox1;
+        private OpenTK.GLControl glControl1;
     }
 }
 

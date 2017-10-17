@@ -9,7 +9,8 @@ using System.Windows.Forms;
 using Tao.OpenGl;
 using Tao.FreeGlut;
 using Tao.Platform.Windows;
-
+using OpenTK;
+using OpenTK.Graphics.OpenGL;
 namespace taoOpenGLtest
 {
     public partial class VizBrOt : Form
@@ -20,8 +21,8 @@ namespace taoOpenGLtest
         #endregion
 
         private   DataAl D = new DataAl();
-        
-    
+
+        bool loaded = false;
         double[,] ValuesArray;
         int x1, y1, x2, y2;
         int num = 0;
@@ -32,28 +33,28 @@ namespace taoOpenGLtest
         {
             InitializeComponent();
         
-            anT.InitializeContexts();
-            Iniz();
-            ResizeGlScene();
-            drawSc();
+         //   anT.InitializeContexts();
+           // Iniz();
+            //ResizeGlScene();
+            //drawSc();
         }
         public VizBrOt(bool fullscreen)
         {
             InitializeComponent();
-            anT.InitializeContexts();
-            Iniz();
-            ResizeGlScene();
-            drawSc();
+            //anT.InitializeContexts();
+         //   Iniz();
+         //   ResizeGlScene();
+        //    drawSc();
         }
  #endregion
-        private void Iniz()
+    /*    private void Iniz()
         {
             Glut.glutInit();
             Glut.glutInitDisplayMode(Glut.GLUT_RGB | Glut.GLUT_DOUBLE | Glut.GLUT_DEPTH);
             Gl.glClearColor(255, 255, 255, 1);
         
-        }
-        void ResizeGlScene()
+        }*/
+      /*  void ResizeGlScene()
         {
             if (anT.Height == 0)
             {
@@ -71,6 +72,7 @@ namespace taoOpenGLtest
         private void drawSc()
         {
             Gl.glTranslated(10, 10, 0);
+           
 
 
             Gl.glPushMatrix();
@@ -79,28 +81,30 @@ namespace taoOpenGLtest
             x2 = 8;
             y2 = 3;
             setka();
+
+
             Gl.glPushMatrix();
           /*  Glu.GLUquadric disk = Glu.gluNewQuadric();
             Glu.gluQuadricDrawStyle(disk, Glu.GLU_FILL); 
             Gl.glColor3ub(255, 0, 150);
             Glu.gluDisk(disk, 0.5, 1.0, 30, 1);
             */
-            Gl.glPopMatrix();
-            Gl.glFlush();
-            anT.Invalidate();
+        //    Gl.glPopMatrix();
+       //     Gl.glFlush();
+       //     anT.Invalidate();
            
-        }
+      //  }
         private void button1_Click(object sender, EventArgs e)
         {
             
             Draw();
-            D.Show();
+          //  D.Show();
           
                   timer1.Start();
        
         }
  
-        private void PrintText(double x, double y, string text)
+  /*      private void PrintText(double x, double y, string text)
         {
 
             Gl.glRasterPos2d(x, y);
@@ -109,56 +113,61 @@ namespace taoOpenGLtest
                 Glut.glutBitmapCharacter(Glut.GLUT_BITMAP_9_BY_15, sign);
             }
 
-        }
+        }*/
         private void setka()
         {
-            Gl.glColor3f(255, 255, 255);
-            Gl.glPointSize(1);
-            Gl.glBegin(Gl.GL_POINTS);
-            for (int ax = -15; ax < 15; ax++)
+            x1 = 2;
+            y1 = 1;
+            x2 = 8;
+            y2 = 3;
+            GL.Color3(Color.White);
+            GL.PointSize(1);
+            GL.Begin(PrimitiveType.Points);
+            for (int ax = -100; ax < 100; ax++)
             {
-                for (int bx = -15; bx < 15; bx++)
+                for (int bx = -100; bx < 100; bx++)
                 {
-                    Gl.glVertex2d(ax, bx);
+                    GL.Vertex2(ax, bx);
                 }
 
             }
-            Gl.glEnd();
-            Gl.glBegin(Gl.GL_LINES);
-            Gl.glVertex2d(0, -25);
-            Gl.glVertex2d(0, 25);
-            Gl.glVertex2d(-25, 0);
-            Gl.glVertex2d(25, 0);
+            GL.End();
+            
+            GL.Begin(PrimitiveType.Lines);
+            GL.Vertex2(0, -25);
+            GL.Vertex2(0, 25);
+            GL.Vertex2(-25, 0);
+            GL.Vertex2(25, 0);
 
-            Gl.glVertex2d(0, 15);
-            Gl.glVertex2d(0.1, 14.5);
-            Gl.glVertex2d(0, 14.5);
-            Gl.glVertex2d(-0.1, 14.5);
+            GL.Vertex2(0, 15);
+            GL.Vertex2(0.1, 14.5);
+            GL.Vertex2(0, 14.5);
+            GL.Vertex2(-0.1, 14.5);
 
-            Gl.glVertex2d(15, 0);
-            Gl.glVertex2d(14.5, 0.1);
-            Gl.glVertex2d(15, 0);
-            Gl.glVertex2d(14.5, -0.1);
+            GL.Vertex2(15, 0);
+            GL.Vertex2(14.5, 0.1);
+            GL.Vertex2(15, 0);
+            GL.Vertex2(14.5, -0.1);
 
-            Gl.glEnd();
+            GL.End();
 
-           
-           
-            Gl.glColor3f(255, 0, 0);
-            Gl.glBegin(Gl.GL_LINES);
-            Gl.glVertex2d(x1, y1);
-            Gl.glVertex2d(x2, y2);
-            Gl.glEnd();
-            Gl.glColor3f(255, 255, 255);
-            PrintText(14.5, 0.5, "x");
-            PrintText(0.5, 14.5, "y");
-            Gl.glColor3f(0, 0, 255);
+
+
+            GL.Color3(1.0f,0.0f,0.0f);
+            GL.Begin(PrimitiveType.Lines);
+            GL.Vertex2(x1, y1);
+            GL.Vertex2(x2, y2);
+            GL.End();
+            GL.Color3(255, 255, 255);
+        //    PrintText(14.5, 0.5, "x");
+          //  PrintText(0.5, 14.5, "y");
+            GL.Color3(0, 0, 255);
         }
         private void ObRes(int x11, int y11, int x22, int y22 )
         {
             ValuesArray = null;
             
-            Gl.glColor3f(255, 255, 0);
+       //     Gl.glColor3f(255, 255, 0);
       //      Gl.glPointSize(25);
             double k = ((double)y22 - (double)y11) / ((double)x22 - (double)x11);
             double b = y11 - k * x11;
@@ -170,7 +179,7 @@ namespace taoOpenGLtest
             {
 
                 temp = Math.Round(k * i + b);
-               Gl.glColor3f(255, 255, 0);
+       //        Gl.glColor3f(255, 255, 0);
       /*         Gl.glBegin(Gl.GL_POINTS);
                 Gl.glVertex2d(i, temp);
                 Gl.glEnd();*/
@@ -197,7 +206,7 @@ namespace taoOpenGLtest
             int d = ((y22 - y11) << 1) - (x22 - x11);
             int d1 = (y22 - y11) << 1;
             int d2 = ((y22 - y11) - (x22 - x11)) << 1;
-            Gl.glColor3f(0, 255, 255);
+       //     Gl.glColor3f(0, 255, 255);
         /*    Gl.glPointSize(5);
 
                Gl.glBegin(Gl.GL_POINTS);
@@ -255,7 +264,7 @@ namespace taoOpenGLtest
                    Gl.glEnd();*/
                    
                }
-               setka();
+         //      setka();
 
         }
         private void Brezenhem(int x11, int y11, int x22, int y22)
@@ -395,7 +404,7 @@ namespace taoOpenGLtest
             }
 
 
-             setka(); 
+      //       setka(); 
  
         }
     /*    private void Iniz()
@@ -420,6 +429,7 @@ namespace taoOpenGLtest
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            
             groupBox1.Controls.Add(urav);
             groupBox1.Controls.Add(chetv);
             groupBox1.Controls.Add(resh);
@@ -452,23 +462,23 @@ namespace taoOpenGLtest
         }
         private void drawPixel(int x22)
         {
-            Gl.glClear(Gl.GL_COLOR_BUFFER_BIT);
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             if (ValuesArray[num, 0] <= x22)
             {
 
-             Gl.glColor3f(255, 255, 255);
-             PrintText((double)ValuesArray[num, 0], -0.8, Convert.ToString((double)ValuesArray[num, 0]));
+                GL.Color3(1.0f, 1.0f, 1.0f);
+          //  PrintText((double)ValuesArray[num, 0], -0.8, Convert.ToString((double)ValuesArray[num, 0]));
 
-             PrintText(-0.8, (double)ValuesArray[num, 1], Convert.ToString((double)ValuesArray[num, 1]));
-             Gl.glColor3f(0, 0, 255);
-  
-                Gl.glBegin(Gl.GL_QUAD_STRIP);
-                Gl.glVertex2d((double)ValuesArray[num, 0] - 0.5, ValuesArray[num, 1] - 0.5);
-                Gl.glVertex2d((double)ValuesArray[num, 0] + 0.5, ValuesArray[num, 1] - 0.5);
-                Gl.glVertex2d((double)ValuesArray[num, 0] - 0.5, ValuesArray[num, 1] + 0.5);
-                Gl.glVertex2d((double)ValuesArray[num, 0] + 0.5, ValuesArray[num, 1] + 0.5);
+           //  PrintText(-0.8, (double)ValuesArray[num, 1], Convert.ToString((double)ValuesArray[num, 1]));
+                GL.Color3(0.0f, 0.0f, 1.0f);
+                GL.Begin(PrimitiveType.QuadStrip);
+                //GL.glBegin(Gl.GL_QUAD_STRIP);
+                GL.Vertex2((double)ValuesArray[num, 0] - 0.5, ValuesArray[num, 1] - 0.5);
+                GL.Vertex2((double)ValuesArray[num, 0] + 0.5, ValuesArray[num, 1] - 0.5);
+                GL.Vertex2((double)ValuesArray[num, 0] - 0.5, ValuesArray[num, 1] + 0.5);
+                GL.Vertex2((double)ValuesArray[num, 0] + 0.5, ValuesArray[num, 1] + 0.5);
 
-                Gl.glEnd();
+                GL.End();
                 if (ValuesArray[num, 0] == x22)
                 { num = 0;
                 timer1.Stop();
@@ -484,12 +494,13 @@ namespace taoOpenGLtest
                 num = 0;
                timer1.Stop();
             }
-           
-            Glut.glutPostRedisplay();
-           Glut.glutSwapBuffers();
+            setka();
+            glControl1.SwapBuffers();
+          //  Glut.glutPostRedisplay();
+        //   Glut.glutSwapBuffers();
             
          //Gl.glFlush();
-            anT.Invalidate();
+         //   anT.Invalidate();
         }
         private void Draw()
         {
@@ -514,7 +525,7 @@ namespace taoOpenGLtest
             }
 
 
-            setka();
+        //    setka();
             
       
         }
@@ -533,8 +544,75 @@ namespace taoOpenGLtest
 
         private void Form1_Resize(object sender, EventArgs e)
         {
-            ResizeGlScene();
-            drawSc();
+         //   ResizeGlScene();
+           // drawSc();
+        }
+
+        private void glControl1_Paint(object sender, PaintEventArgs e)
+        {
+            if (!loaded)
+                return;
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+      
+            //код с tao
+            if (glControl1.Height == 0)
+            {
+                glControl1.Height = 1;
+            }
+
+            GL.Viewport(0, 0, glControl1.Width, glControl1.Height);
+            GL.MatrixMode(MatrixMode.Projection);
+            GL.LoadIdentity();
+
+           // GL.Ortho(-1, 1, -1, 1, -1, 1);
+            Glu.gluOrtho2D(0.0, 25, 0.0, 25);
+           
+            GL.MatrixMode(MatrixMode.Modelview);
+            GL.LoadIdentity();
+
+            GL.Translate(10, 10, 0);
+            setka();
+            
+           
+        /*    Gl.glBegin(Gl.GL_LINES);
+            Gl.glVertex2d(0, -25);
+            Gl.glVertex2d(0, 25);
+            Gl.glVertex2d(-25, 0);
+            Gl.glVertex2d(25, 0);
+
+            Gl.glVertex2d(0, 15);
+            Gl.glVertex2d(0.1, 14.5);
+            Gl.glVertex2d(0, 14.5);
+            Gl.glVertex2d(-0.1, 14.5);
+
+            Gl.glVertex2d(15, 0);
+            Gl.glVertex2d(14.5, 0.1);
+            Gl.glVertex2d(15, 0);
+            Gl.glVertex2d(14.5, -0.1);
+
+            Gl.glEnd();
+
+
+
+            Gl.glColor3f(255, 0, 0);
+            Gl.glBegin(Gl.GL_LINES);
+            Gl.glVertex2d(x1, y1);
+            Gl.glVertex2d(x2, y2);
+            Gl.glEnd();
+            Gl.glColor3f(255, 255, 255);
+            PrintText(14.5, 0.5, "x");
+            PrintText(0.5, 14.5, "y");
+            Gl.glColor3f(0, 0, 255);
+            */
+            glControl1.SwapBuffers();
+
+        }
+
+        private void glControl1_Load(object sender, EventArgs e)
+        {
+            loaded = true;
+            GL.ClearColor(Color.Black);
+
         }
 
        
