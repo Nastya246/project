@@ -149,7 +149,7 @@ namespace taoOpenGLtest
             Glut.glutInitDisplayMode(Glut.GLUT_RGB | Glut.GLUT_DOUBLE | Glut.GLUT_DEPTH);
             Gl.glClearColor(255, 255, 255, 1);
         
-            Gl.glViewport(0, 0, cda.Width, cda.Height);
+        //    Gl.glViewport(0, 0, cda.Width, cda.Height);
             Gl.glMatrixMode(Gl.GL_PROJECTION);
             Gl.glLoadIdentity();
      
@@ -200,14 +200,14 @@ namespace taoOpenGLtest
            CDA(x1, y1, x2, y2);
             
            Gl.glFlush();
-           cda.Invalidate();
+           //cda.Invalidate();
 
       
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Draw();
+            //Draw();
             timer1.Start();
         }
 

@@ -272,7 +272,95 @@ namespace taoOpenGLtest
             }
  
         }
-   
+        private void Brezenhem4(int x11, int y11, int x22, int y22)
+        {
+            ValuesArray = null;
+            int len = Math.Abs(x11 - x22 - 1);
+            ValuesArray = new double[len*2, 2];
+            int count = 0;
+
+            int dx = Math.Abs(x22 - x11);
+            int dy = Math.Abs(y22 - y11);
+            double k = ((double)y22 - (double)y11) / ((double)x22 - (double)x11);
+            int sx, sy;
+
+            if (x22 >= x11)
+            {
+                sx = 1;
+            }
+            else
+            {
+                sx = -1;
+            }
+            if (y22 >= y11)
+            {
+                sy = 1;
+            }
+            else
+            {
+                sy = -1;
+            }
+
+            if (k <= 1)
+            {
+                int d = (dy << 1) - dx;
+                for (int i = 1; i <= dx+dy; i++)
+                {
+                  
+                          ValuesArray[count, 0] = x11;
+                          ValuesArray[count, 1] = y11;
+                          count++;
+                     
+                          if (d <dx)
+                          {
+                              x11 = x11 + sx;
+                              d = d + (dy << 1);
+                              
+                          }
+                          else
+                          {
+                              y11 = y11 + sy;
+                              d = d - (dx << 1);
+                              
+                          }
+                }
+
+                ValuesArray[count, 0] = x11;
+                ValuesArray[count, 1] = y11;
+
+            }
+            else
+            {
+                int z = dx;
+                dx = dy;
+                dy = z;
+                int d = (dy << 1) - dx;
+                for (int i = 1; i <= dx+dy; i++)
+                {
+
+                    ValuesArray[count, 0] = x11;
+                    ValuesArray[count, 1] = y11;
+                    count++;
+                
+                    if (d < dx)
+                    {
+                        y11 = y11 + sy;
+                        d = d + (dy << 1) ;
+                       
+                    }
+                    else
+                    {
+                        x11 = x11 + sx;
+                        d = d - (dx << 1);
+
+                    }
+                }
+                ValuesArray[count, 0] = x11;
+                ValuesArray[count, 1] = y11;
+
+            }
+
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             
@@ -280,9 +368,9 @@ namespace taoOpenGLtest
             groupBox1.Controls.Add(chetv);
             groupBox1.Controls.Add(resh);
             groupBox1.Controls.Add(urav);
-            groupBox2.Controls.Add(radioButton1);
-            groupBox2.Controls.Add(radioButton2);
-            groupBox2.Controls.Add(radioButton3);
+            groupBox2.Controls.Add(ob8);
+            groupBox2.Controls.Add(resur8);
+            groupBox2.Controls.Add(chet8);
 
           
         }
@@ -350,18 +438,33 @@ namespace taoOpenGLtest
                 {
                    
 
-                    ObRes(x1, y1, x2, y2);
+              //      ObRes(x1, y1, x2, y2);
                     
                 }
             if (chetv.Checked)
             {
              
-                PervChet(x1, y1, x2, y2);
+            //    PervChet(x1, y1, x2, y2);
             }
             if (resh.Checked)
             {
             
+                Brezenhem4(x1, y1, x2, y2);
+            }
+            if (ob8.Checked)
+            {
+
                 Brezenhem(x1, y1, x2, y2);
+            }
+            if (chet8.Checked)
+            {
+
+                PervChet(x1, y1, x2, y2);
+            }
+            if (resur8.Checked)
+            {
+
+                ObRes(x1, y1, x2, y2);
             }
    
       

@@ -38,9 +38,9 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.glControl1 = new OpenTK.GLControl();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.ob8 = new System.Windows.Forms.RadioButton();
+            this.resur8 = new System.Windows.Forms.RadioButton();
+            this.chet8 = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -135,9 +135,9 @@
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.radioButton1);
-            this.groupBox2.Controls.Add(this.radioButton2);
-            this.groupBox2.Controls.Add(this.radioButton3);
+            this.groupBox2.Controls.Add(this.ob8);
+            this.groupBox2.Controls.Add(this.resur8);
+            this.groupBox2.Controls.Add(this.chet8);
             this.groupBox2.Location = new System.Drawing.Point(731, 149);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(152, 122);
@@ -145,38 +145,38 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Восьмисвязные";
             // 
-            // radioButton1
+            // ob8
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(6, 99);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(107, 17);
-            this.radioButton1.TabIndex = 5;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Общее решение";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.ob8.AutoSize = true;
+            this.ob8.Location = new System.Drawing.Point(6, 99);
+            this.ob8.Name = "ob8";
+            this.ob8.Size = new System.Drawing.Size(107, 17);
+            this.ob8.TabIndex = 5;
+            this.ob8.TabStop = true;
+            this.ob8.Text = "Общее решение";
+            this.ob8.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // resur8
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(6, 32);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(126, 17);
-            this.radioButton2.TabIndex = 3;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Решение уравнения";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.resur8.AutoSize = true;
+            this.resur8.Location = new System.Drawing.Point(6, 32);
+            this.resur8.Name = "resur8";
+            this.resur8.Size = new System.Drawing.Size(126, 17);
+            this.resur8.TabIndex = 3;
+            this.resur8.TabStop = true;
+            this.resur8.Text = "Решение уравнения";
+            this.resur8.UseVisualStyleBackColor = true;
             // 
-            // radioButton3
+            // chet8
             // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(6, 65);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(133, 17);
-            this.radioButton3.TabIndex = 4;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "Для первой четверти";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.chet8.AutoSize = true;
+            this.chet8.Location = new System.Drawing.Point(6, 65);
+            this.chet8.Name = "chet8";
+            this.chet8.Size = new System.Drawing.Size(133, 17);
+            this.chet8.TabIndex = 4;
+            this.chet8.TabStop = true;
+            this.chet8.Text = "Для первой четверти";
+            this.chet8.UseVisualStyleBackColor = true;
             // 
             // VizBrOt
             // 
@@ -210,9 +210,9 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private OpenTK.GLControl glControl1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton3;
+        private System.Windows.Forms.RadioButton ob8;
+        private System.Windows.Forms.RadioButton resur8;
+        private System.Windows.Forms.RadioButton chet8;
     }
 }
 
