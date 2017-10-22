@@ -41,16 +41,20 @@
             this.ob8 = new System.Windows.Forms.RadioButton();
             this.resur8 = new System.Windows.Forms.RadioButton();
             this.chet8 = new System.Windows.Forms.RadioButton();
+            this.dan = new System.Windows.Forms.Label();
+            this.backBut = new System.Windows.Forms.Button();
+            this.TextData1 = new System.Windows.Forms.RichTextBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(762, 291);
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(267, 5);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(91, 39);
+            this.button1.Size = new System.Drawing.Size(89, 32);
             this.button1.TabIndex = 1;
             this.button1.Text = "Визуализация";
             this.button1.UseVisualStyleBackColor = true;
@@ -58,10 +62,10 @@
             // 
             // button2
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(762, 350);
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.Location = new System.Drawing.Point(407, 5);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(91, 37);
+            this.button2.Size = new System.Drawing.Size(91, 32);
             this.button2.TabIndex = 2;
             this.button2.Text = "Пауза";
             this.button2.UseVisualStyleBackColor = true;
@@ -111,7 +115,7 @@
             this.groupBox1.Controls.Add(this.resh);
             this.groupBox1.Controls.Add(this.urav);
             this.groupBox1.Controls.Add(this.chetv);
-            this.groupBox1.Location = new System.Drawing.Point(731, 12);
+            this.groupBox1.Location = new System.Drawing.Point(761, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(152, 122);
             this.groupBox1.TabIndex = 6;
@@ -124,9 +128,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.glControl1.BackColor = System.Drawing.Color.Black;
-            this.glControl1.Location = new System.Drawing.Point(12, 12);
+            this.glControl1.Location = new System.Drawing.Point(12, 44);
             this.glControl1.Name = "glControl1";
-            this.glControl1.Size = new System.Drawing.Size(713, 449);
+            this.glControl1.Size = new System.Drawing.Size(732, 464);
             this.glControl1.TabIndex = 7;
             this.glControl1.VSync = false;
             this.glControl1.Load += new System.EventHandler(this.glControl1_Load);
@@ -138,7 +142,7 @@
             this.groupBox2.Controls.Add(this.ob8);
             this.groupBox2.Controls.Add(this.resur8);
             this.groupBox2.Controls.Add(this.chet8);
-            this.groupBox2.Location = new System.Drawing.Point(731, 149);
+            this.groupBox2.Location = new System.Drawing.Point(761, 152);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(152, 122);
             this.groupBox2.TabIndex = 7;
@@ -178,11 +182,59 @@
             this.chet8.Text = "Для первой четверти";
             this.chet8.UseVisualStyleBackColor = true;
             // 
+            // dan
+            // 
+            this.dan.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dan.AutoSize = true;
+            this.dan.Location = new System.Drawing.Point(758, 283);
+            this.dan.Name = "dan";
+            this.dan.Size = new System.Drawing.Size(48, 13);
+            this.dan.TabIndex = 8;
+            this.dan.Text = "Данные";
+            // 
+            // backBut
+            // 
+            this.backBut.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.backBut.Location = new System.Drawing.Point(555, 6);
+            this.backBut.Name = "backBut";
+            this.backBut.Size = new System.Drawing.Size(91, 31);
+            this.backBut.TabIndex = 9;
+            this.backBut.Text = "Назад";
+            this.backBut.UseVisualStyleBackColor = true;
+            // 
+            // TextData1
+            // 
+            this.TextData1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TextData1.Enabled = false;
+            this.TextData1.Location = new System.Drawing.Point(750, 303);
+            this.TextData1.Name = "TextData1";
+            this.TextData1.Size = new System.Drawing.Size(184, 205);
+            this.TextData1.TabIndex = 10;
+            this.TextData1.Text = "";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(12, 12);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(91, 17);
+            this.checkBox1.TabIndex = 11;
+            this.checkBox1.Text = "Открыть код";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // VizBrOt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(895, 473);
+            this.ClientSize = new System.Drawing.Size(938, 520);
+            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.TextData1);
+            this.Controls.Add(this.backBut);
+            this.Controls.Add(this.dan);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.glControl1);
             this.Controls.Add(this.button2);
@@ -196,6 +248,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -213,6 +266,10 @@
         private System.Windows.Forms.RadioButton ob8;
         private System.Windows.Forms.RadioButton resur8;
         private System.Windows.Forms.RadioButton chet8;
+        private System.Windows.Forms.Label dan;
+        private System.Windows.Forms.Button backBut;
+        private System.Windows.Forms.RichTextBox TextData1;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 

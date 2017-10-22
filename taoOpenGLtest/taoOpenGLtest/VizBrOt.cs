@@ -14,7 +14,7 @@ using OpenTK.Graphics.OpenGL;
 using System.Drawing.Imaging;
 namespace taoOpenGLtest
 {
-    //сделать восьмисвязность,подписать отрезки
+    
     public partial class VizBrOt : Form
     {
       
@@ -23,7 +23,7 @@ namespace taoOpenGLtest
 
         bool loaded = false;
         double[,] ValuesArray;
-        int x1, y1, x2, y2;
+        int x1=2, y1=1, x2=8, y2=3;
         int tempDraw = 0;
         int num = 0;
       
@@ -43,26 +43,44 @@ namespace taoOpenGLtest
        
         }
  
-     /*   private void PrintText(double x, double y, string text)
+        private void PrintText(double x, double y, string text)
         {
+
             uint texture_text = 0;
+        //    GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+         //   GL.ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
             Bitmap text_bmp = new Bitmap(glControl1.Width, glControl1.Height);
-            Graphics gfx = Graphics.FromImage(text_bmp);
-            gfx.Clear(Color.Beige);
-            Font font = new Font(FontFamily.GenericSerif, 7.0f);
-            gfx.DrawString(text, font, Brushes.Gold, new PointF((float)x, (float)y));
+            Graphics gfx = Graphics.FromImage(text_bmp); //поверхность для рис.
+            gfx.Clear(Color.Black);
+            Font font = new Font(FontFamily.GenericSerif, 500.0f);
+            gfx.DrawString(text, font, Brushes.White, new PointF(30, -170)); 
+            //Вытягивание данных из картинки
             BitmapData data = text_bmp.LockBits(new Rectangle(0, 0, text_bmp.Width, text_bmp.Height), ImageLockMode.ReadOnly,System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             GL.Enable(EnableCap.Texture2D);
             GL.GenTextures(1,out texture_text);
-            GL.BindTexture(TextureTarget.Texture2D, texture_text);
-            GL.TexParameterI(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, ui)
-        }*/
-        private void setka()
+            GL.BindTexture(TextureTarget.Texture2D, texture_text);  //Текстура становится текущей
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
+            GL.TexEnv(TextureEnvTarget.TextureEnv, TextureEnvParameter.TextureEnvMode, (float)TextureEnvMode.Replace);
+           //загрузка картинки в текстуру
+            GL.TexImage2D(TextureTarget.Texture2D,0,PixelInternalFormat.Rgba,text_bmp.Width,text_bmp.Height,0,OpenTK.Graphics.OpenGL.PixelFormat.Bgra,PixelType.UnsignedByte, data.Scan0);
+            text_bmp.UnlockBits(data);
+            GL.Enable(EnableCap.Blend);
+            GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+            GL.BindTexture(TextureTarget.Texture2D,texture_text);
+            GL.Color3(0.0f, 0.0f, 0.0f);
+            GL.Begin(PrimitiveType.Quads);
+
+            GL.TexCoord2(0.0f, 1.0f); GL.Vertex2(x, y);
+            GL.TexCoord2(1.0f, 1.0f); GL.Vertex2(x + 0.5f, y);
+            GL.TexCoord2(1.0f, 0.0f); GL.Vertex2(x + 0.5f, y + 0.5f);
+            GL.TexCoord2(0.0f, 0.0f); GL.Vertex2(x, y + 0.5f);
+            GL.End();
+        }
+        private void setka(int x11,int y11, int x22, int y22)
         {
-            x1 = 2;
-            y1 = 1;
-            x2 = 8;
-            y2 = 3;
+
+           
             GL.Color3(Color.White);
             GL.PointSize(1);
             GL.Begin(PrimitiveType.Points);
@@ -94,17 +112,16 @@ namespace taoOpenGLtest
 
             GL.End();
 
-
-
             GL.Color3(1.0f,0.0f,0.0f);
             GL.Begin(PrimitiveType.Lines);
             GL.Vertex2(x1, y1);
             GL.Vertex2(x2, y2);
             GL.End();
             GL.Color3(255, 255, 255);
-           //PrintText(14.5, 0.5, "x");
-           // PrintText(0.5, 14.5, "y");
+           
             GL.Color3(0, 0, 255);
+        //    PrintText(14.3, 0.5, "x");
+        //    PrintText(0.5, 14.5, "y");
         }
         private void ObRes(int x11, int y11, int x22, int y22 )
         {
@@ -130,7 +147,6 @@ namespace taoOpenGLtest
       
             }
           
-         
         }
         private void PervChet(int x11, int y11, int x22, int y22)
         {
@@ -211,14 +227,14 @@ namespace taoOpenGLtest
                 int d1 = dy << 1;
                 int d2 = (dy - dx) << 1;
 
-            
-
+             
                 ValuesArray[count, 0] = x11;
                 ValuesArray[count, 1] = y11;
 
 
                 count++;
                 for (int x = x11 + sx, y = y11, i = 1; i <= dx; i++, x += sx)
+                   
                 {
                     if (d > 0)
                     {
@@ -265,12 +281,82 @@ namespace taoOpenGLtest
 
 
                     count++;
-               
-                   
+                             
                 }
 
             }
  
+        }
+        private void ObRes4(int x11, int y11, int x22, int y22)
+        {
+
+            ValuesArray = null;
+
+            double k = ((double)y22 - (double)y11) / ((double)x22 - (double)x11);
+            double b = y11 - k * x11;
+            double temp;
+            int len = 2*Math.Abs(x1 - x2 - 1);
+            int count = 0;
+            ValuesArray = new double[len, 2];
+            for (int i = x11; i <= x22; i++)
+            {
+
+                temp = Math.Round(k * i + b);
+                if (temp > y1)
+                {
+                    if (((temp - ValuesArray[count - 1, 1]) == 1) && (i - ValuesArray[count - 1, 0]==1))
+                    {
+                        ValuesArray[count, 0] = i;
+                        ValuesArray[count, 1] = ValuesArray[count - 1, 1];
+
+
+                        count++;
+                    }
+                }
+                Sinhr.Value = Sinhr.Value + "x = " + Convert.ToString(i) + " " + " y = " + Convert.ToString(temp) + "\n";
+                ValuesArray[count, 0] = i;
+                ValuesArray[count, 1] = temp;
+
+
+                count++;
+
+            }
+        }
+        private void PervChet4(int x11, int y11, int x22, int y22)
+        {
+            ValuesArray = null;
+            int len = Math.Abs(x11 - x22 - 1);
+            ValuesArray = new double[len * 2, 2];
+            int count = 0;
+            int dx = Math.Abs(x22 - x11);
+            int dy = Math.Abs(y22 - y11);
+            int d = (dy << 1) - dx;
+            int d1 = dy << 1;
+            int d2 = (dy - dx) << 1;
+
+            for (int i = 1; i <= dx + dy; i++)
+            {
+
+                ValuesArray[count, 0] = x11;
+                ValuesArray[count, 1] = y11;
+                count++;
+
+                if (d < dx)
+                {
+                    x11 += 1;
+                    d += dy << 1;
+
+                }
+                else
+                {
+                    y11 += 1;
+                    d = d - (dx << 1);
+
+                }
+            }
+
+            ValuesArray[count, 0] = x11;
+            ValuesArray[count, 1] = y11;
         }
         private void Brezenhem4(int x11, int y11, int x22, int y22)
         {
@@ -313,13 +399,13 @@ namespace taoOpenGLtest
                      
                           if (d <dx)
                           {
-                              x11 = x11 + sx;
-                              d = d + (dy << 1);
+                              x11 += sx;
+                              d += dy << 1;
                               
                           }
                           else
                           {
-                              y11 = y11 + sy;
+                              y11 +=  sy;
                               d = d - (dx << 1);
                               
                           }
@@ -344,13 +430,13 @@ namespace taoOpenGLtest
                 
                     if (d < dx)
                     {
-                        y11 = y11 + sy;
-                        d = d + (dy << 1) ;
+                        y11 += sy;
+                        d += dy << 1 ;
                        
                     }
                     else
                     {
-                        x11 = x11 + sx;
+                        x11 += sx;
                         d = d - (dx << 1);
 
                     }
@@ -372,7 +458,6 @@ namespace taoOpenGLtest
             groupBox2.Controls.Add(resur8);
             groupBox2.Controls.Add(chet8);
 
-          
         }
         private void drawPixel(int x11,int x22)
         {
@@ -393,6 +478,7 @@ namespace taoOpenGLtest
                 GL.Vertex2((double)ValuesArray[num, 0] + 0.5, ValuesArray[num, 1] + 0.5);
 
                 GL.End();
+                TextData1.AppendText("(" + Convert.ToString((double)ValuesArray[num, 0]) + "; " + Convert.ToString((double)ValuesArray[num, 1]) + ")\n");
                 tempDraw++;
           
                 for (int j = 0; j < tempDraw; j++)
@@ -425,26 +511,27 @@ namespace taoOpenGLtest
                 num = 0;
                timer1.Stop();
             }
-            setka();
+            setka(x1,y1,x2,y2);
             
             glControl1.SwapBuffers();
         
         }
         private void Draw()
         {
-
+            TextData1.Clear();
+            TextData1.Text = "Задана прямая:( " + Convert.ToString(x1) + "; " + Convert.ToString(y1) + ") и (" + Convert.ToString(x2) + ", " + Convert.ToString(y2) + ")\n";
+            TextData1.AppendText("Координаты вычисленных пикселей:\n");
           
             if (urav.Checked)
                 {
-                   
 
-              //      ObRes(x1, y1, x2, y2);
+                   ObRes4(x1, y1, x2, y2);
                     
                 }
             if (chetv.Checked)
             {
              
-            //    PervChet(x1, y1, x2, y2);
+                PervChet4(x1, y1, x2, y2);
             }
             if (resh.Checked)
             {
@@ -489,7 +576,7 @@ namespace taoOpenGLtest
             if (!loaded)
                 return;
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-      
+          
             
             if (glControl1.Height == 0)
             {
@@ -506,11 +593,11 @@ namespace taoOpenGLtest
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadIdentity();
 
-            GL.Translate(10, 10, 0);
-            setka();
-            
-           
-      
+            GL.Translate(10, 10, 0);     
+            setka(x1,y1,x2,y2);
+        //    PrintText(14.3, 0.5, "x");
+         //   PrintText(0.5, 14.5, "y");
+       
             glControl1.SwapBuffers();
 
         }
@@ -519,7 +606,8 @@ namespace taoOpenGLtest
         {
             loaded = true;
             GL.ClearColor(Color.Black);
-
+            TextData1.Text = "Задана прямая:( " + Convert.ToString(x1) + "; " + Convert.ToString(y1) + ") и (" + Convert.ToString(x2) + ", " + Convert.ToString(y2)+")\n";
+            TextData1.AppendText("Координаты вычисленных пикселей:\n");
         }
 
        
