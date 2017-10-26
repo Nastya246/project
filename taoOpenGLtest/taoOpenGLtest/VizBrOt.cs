@@ -23,6 +23,8 @@ namespace taoOpenGLtest
 
         bool loaded = false;
         double[,] ValuesArray;
+        double[,] LineKoord;
+        double[] intensiv;
         int x1=2, y1=1, x2=8, y2=3;
         int tempDraw = 0;
         int num = 0;
@@ -42,7 +44,19 @@ namespace taoOpenGLtest
                   timer1.Start();
        
         }
- 
+        private void koordLine(int x1, int y1, int x2, int y2) //для алгоритма ву, чтобы рассчитывать ближний пиксель.
+        {
+            int num = 0;
+
+            for (int i = x1; i <= x2; i++)
+            {
+                LineKoord[num, 0] = i;
+                LineKoord[num, 1] = ((((double)i - (double)x1) * ((double)y2 - (double)y1)) / ((double)x2 - (double)x1)) + (double)y1;
+                num++;
+
+            }
+
+        }
         private void PrintText(double x, double y, string text)
         {
 
@@ -123,7 +137,7 @@ namespace taoOpenGLtest
         //    PrintText(14.3, 0.5, "x");
         //    PrintText(0.5, 14.5, "y");
         }
-        private void ObRes(int x11, int y11, int x22, int y22 )
+        private void ObResB(int x11, int y11, int x22, int y22 )
         {
             ValuesArray = null;
             
@@ -148,7 +162,7 @@ namespace taoOpenGLtest
             }
           
         }
-        private void PervChet(int x11, int y11, int x22, int y22)
+        private void PervChetB(int x11, int y11, int x22, int y22)
         {
             ValuesArray = null;
             int len = Math.Abs(x1 - x2 - 1);
@@ -287,7 +301,7 @@ namespace taoOpenGLtest
             }
  
         }
-        private void ObRes4(int x11, int y11, int x22, int y22)
+        private void ObRes4B(int x11, int y11, int x22, int y22)
         {
 
             ValuesArray = null;
@@ -322,7 +336,7 @@ namespace taoOpenGLtest
 
             }
         }
-        private void PervChet4(int x11, int y11, int x22, int y22)
+        private void PervChet4B(int x11, int y11, int x22, int y22)
         {
             ValuesArray = null;
             int len = Math.Abs(x11 - x22 - 1);
@@ -447,9 +461,263 @@ namespace taoOpenGLtest
             }
 
         }
+        private void CDA8(double x11, double y11, double x22, double y22)
+        {
+            ValuesArray = null;
+            int len = Math.Abs((int)x22 - (int)x11) ;
+            int count = 0;
+            ValuesArray = new double[len+2, 2];
+            double saveX1 = x11;
+            double saveY1 = y11;
+            double saveX2 = x22;
+            double saveY2 = y22;
+            int sx, sy;
+            if (x22 >= x11)
+            {
+                sx = 1;
+            }
+            else {
+                sx = -1;
+            }
+            if (y22 >= y11)
+            {
+                sy = 1;
+            }
+            else
+            {
+                sy = -1;
+            }
+
+            ValuesArray[count, 0] = saveX1;
+            ValuesArray[count, 1] = saveY1;
+            count++;
+            double k = (y22 - y11) / (x22 - x11);
+
+            if (k > 1)
+            {
+                double temp=x11;
+                x11 = y11;
+                y11 = temp;
+                temp = x22;
+                x22 = y22;
+                y22 = temp;
+                temp = sx;
+                sx = sy;
+               
+            }
+                    while (x11 < x22)
+                    {
+                        x11=x11+sx;
+                        y11 = Math.Round(y11 + k);
+                        ValuesArray[count, 0] = x11;
+                        ValuesArray[count, 1] = y11;
+                        count++;
+                    }
+                
+           
+         
+        }
+        private void VU8(int x11, int y11, int x22, int y22)
+        {
+
+
+            ValuesArray = null;
+            LineKoord = null;
+            intensiv = null;
+            int len = Math.Abs(x1 - x2 - 1);
+            ValuesArray = new double[2*len, 2];
+            LineKoord = new double[2*len, 2];
+            intensiv = new double[2 * len];
+            int count = 0;
+            int cnt1 = 0;
+            koordLine(x11, y11, x22, y22);
+
+            if (((x1 != 0) && (x2 != 0)) || ((y1 != 0) && (y2 != 0)))
+            {
+                int dx = Math.Abs(x22 - x11);
+                int dy = Math.Abs(y22 - y11);
+                double k = ((double)y2 - (double)y1) / ((double)x2 - (double)x1);
+                int sx, sy;
+
+                if (x22 >= x11)
+                {
+                    sx = 1;
+                }
+                else
+                {
+                    sx = -1;
+                }
+                if (y22 >= y11)
+                {
+                    sy = 1;
+                }
+                else
+                {
+                    sy = -1;
+                }
+
+                if (k <= 1) // основная ось x
+                {
+                    int d = (dy << 1) - dx;
+                    int d1 = dy << 1;
+                    int d2 = (dy - dx) << 1;
+
+                    double intens = Math.Abs((double)y11 - LineKoord[0, 1]); // разница между ординатой идеальной линии и пикселем растровой
+                    cnt1++;
+                        if (intens == 0)
+                        {
+                            intensiv[count] = 1;
+                            ValuesArray[count, 0] = x11;
+                            ValuesArray[count, 1] = y11;
+                            count++;
+                        }
+                       if (intens != 0)
+                       {
+                           intensiv[count] = intens;
+                           ValuesArray[count, 0] = x11;
+                           ValuesArray[count, 1] = y11;
+                           count++;
+
+                           intensiv[count] = 1 - intens;
+                           ValuesArray[count, 0] = x11;
+                           ValuesArray[count, 1] = y11 + 1;
+                           count++;
+                       }
+                      
+                   
+                    for (int x = x11 + sx, y = y11, i = 1; i <= dx; i++, x += sx)
+                    {
+                        if (d > 0)
+                        {
+                            d += d2;
+                            y += sy;
+                        }
+                        else
+                            d += d1;
+
+                        intens = Math.Abs((double)y - LineKoord[cnt1, 1]); // разница между ординатой идеальной линии и пикселем растровой
+                        cnt1++;
+                        if (intens == 0)
+                        {
+                            intensiv[count] = 1;
+                            ValuesArray[count, 0] = x;
+                            ValuesArray[count, 1] = y;
+                            count++;
+                        }
+                        if (intens != 0)
+                        {
+                            intensiv[count] =  intens;
+                            ValuesArray[count, 0] = x;
+                            ValuesArray[count, 1] = y;
+                            count++;
+
+                            intensiv[count] = 1 - intens;
+                            ValuesArray[count, 0] = x;
+                            ValuesArray[count, 1] = y + 1;
+                            count++;
+                        }
+                   
+                    }
+
+                }
+                else //основная ось y
+                {
+                    int d = (dx << 2) - dy;
+                    int d1 = dx << 1;
+                    int d2 = (dx - dy) << 1;
+
+
+                    double intens = Math.Abs((double)y11 - LineKoord[0, 1]); // разница между ординатой идеальной линии и пикселем растровой
+                    cnt1++;
+                    if (intens == 0)
+                    {
+                        intensiv[count] = 1;
+                        ValuesArray[count, 0] = x11;
+                        ValuesArray[count, 1] = y11;
+                        count++;
+                    }
+                    if (intens != 0)
+                    {
+                        intensiv[count] = intens;
+                        ValuesArray[count, 0] = x11;
+                        ValuesArray[count, 1] = y11 ;
+                        count++;
+
+                        intensiv[count] = 1 - intens;
+                        ValuesArray[count, 0] = x11+1;
+                        ValuesArray[count, 1] = y11 ;
+                        count++;
+                    }
+
+                    for (int x = x11, y = y11 + sy, i = 1; i <= dy; i++, y += sy)
+                    {
+                        if (d > 0)
+                        {
+                            d += d2;
+                            x += sx;
+                        }
+                        else
+                            d += d1;
+
+                        intens = Math.Abs((double)y - LineKoord[cnt1, 1]);
+                        cnt1++;
+                        if (intens == 0)
+                        {
+                            intensiv[count] = 1;
+                            ValuesArray[count, 0] = x;
+                            ValuesArray[count, 1] = y;
+                            count++;
+                            cnt1++;
+                        }
+                        if (intens != 0)
+                        {
+                            intensiv[count] = intens;
+                            ValuesArray[count, 0] = x;
+                            ValuesArray[count, 1] = y;
+                            count++;
+
+                            intensiv[count] = 1 - intens;
+                            ValuesArray[count, 0] = x+1;
+                            ValuesArray[count, 1] = y;
+                            count++;
+                        }
+
+
+                    }
+
+                }
+
+            }
+            else
+            {
+                if ((x1 == 0) && (x2 == 0))
+                {
+                    for (int y = y1; y <= y2; y++)
+                    {
+                      
+                        ValuesArray[count, 0] = x1;
+                        ValuesArray[count, 1] = y;
+                    }
+                }
+
+                if ((y1 == 0) && (y2 == 0))
+                {
+                    for (int x = x1; x <= x2; x++)
+                    {
+                        ValuesArray[count, 0] = x;
+                        ValuesArray[count, 1] = y1;
+                    }
+                }
+
+            }
+
+
+
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            GL.Enable(EnableCap.Blend);
+            GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
             groupBox1.Controls.Add(urav);
             groupBox1.Controls.Add(chetv);
             groupBox1.Controls.Add(resh);
@@ -461,15 +729,23 @@ namespace taoOpenGLtest
         }
         private void drawPixel(int x11,int x22)
         {
+          
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             if (ValuesArray[num, 0] <= x22)
             {
+                if (вуToolStripMenuItem.Checked==false)
+                {
+                    GL.Color3(1.0f, 1.0f, 1.0f);
+                    //  PrintText((double)ValuesArray[num, 0], -0.8, Convert.ToString((double)ValuesArray[num, 0]));
 
-                GL.Color3(1.0f, 1.0f, 1.0f);
-          //  PrintText((double)ValuesArray[num, 0], -0.8, Convert.ToString((double)ValuesArray[num, 0]));
-
-           //  PrintText(-0.8, (double)ValuesArray[num, 1], Convert.ToString((double)ValuesArray[num, 1]));
-                GL.Color3(0.0f, 0.0f, 1.0f);
+                    //  PrintText(-0.8, (double)ValuesArray[num, 1], Convert.ToString((double)ValuesArray[num, 1]));
+                    GL.Color3(0.0f, 0.0f, 1.0f);
+                }
+                else {
+                    GL.Color4(1.0f, 1.0, 1.0f, 1.0f);
+                    GL.Color4(0.0f, 0.0f, 1.0f, intensiv[num]);
+                   
+                }
                 GL.Begin(PrimitiveType.QuadStrip);
                 
                 GL.Vertex2((double)ValuesArray[num, 0] - 0.5, ValuesArray[num, 1] - 0.5);
@@ -480,18 +756,39 @@ namespace taoOpenGLtest
                 GL.End();
                 TextData1.AppendText("(" + Convert.ToString((double)ValuesArray[num, 0]) + "; " + Convert.ToString((double)ValuesArray[num, 1]) + ")\n");
                 tempDraw++;
-          
-                for (int j = 0; j < tempDraw; j++)
+                if (вуToolStripMenuItem.Checked == false)
                 {
-                    GL.Color3(0.0f, 0.0f, 1.0f);
-                    GL.Begin(PrimitiveType.QuadStrip);
+                    for (int j = 0; j < tempDraw; j++)
+                    {
 
-                    GL.Vertex2((double)ValuesArray[j, 0] - 0.5, ValuesArray[j, 1] - 0.5);
-                    GL.Vertex2((double)ValuesArray[j, 0] + 0.5, ValuesArray[j, 1] - 0.5);
-                    GL.Vertex2((double)ValuesArray[j, 0] - 0.5, ValuesArray[j, 1] + 0.5);
-                    GL.Vertex2((double)ValuesArray[j, 0] + 0.5, ValuesArray[j, 1] + 0.5);
+                        GL.Color3(0.0f, 0.0f, 1.0f);
 
-                    GL.End();
+                        GL.Begin(PrimitiveType.QuadStrip);
+
+                        GL.Vertex2((double)ValuesArray[j, 0] - 0.5, ValuesArray[j, 1] - 0.5);
+                        GL.Vertex2((double)ValuesArray[j, 0] + 0.5, ValuesArray[j, 1] - 0.5);
+                        GL.Vertex2((double)ValuesArray[j, 0] - 0.5, ValuesArray[j, 1] + 0.5);
+                        GL.Vertex2((double)ValuesArray[j, 0] + 0.5, ValuesArray[j, 1] + 0.5);
+
+                        GL.End();
+                    }
+                }
+                else {
+                    for (int j = 0; j < tempDraw; j++)
+                    {
+
+                        GL.Color3(0.0f, 0.0f, intensiv[j]);
+                 
+                        GL.Begin(PrimitiveType.QuadStrip);
+
+                        GL.Vertex2((double)ValuesArray[j, 0] - 0.5, ValuesArray[j, 1] - 0.5);
+                        GL.Vertex2((double)ValuesArray[j, 0] + 0.5, ValuesArray[j, 1] - 0.5);
+                        GL.Vertex2((double)ValuesArray[j, 0] - 0.5, ValuesArray[j, 1] + 0.5);
+                        GL.Vertex2((double)ValuesArray[j, 0] + 0.5, ValuesArray[j, 1] + 0.5);
+
+                        GL.End();
+                    }
+ 
                 }
       
                 if (ValuesArray[num, 0] == x22)
@@ -521,40 +818,66 @@ namespace taoOpenGLtest
             TextData1.Clear();
             TextData1.Text = "Задана прямая:( " + Convert.ToString(x1) + "; " + Convert.ToString(y1) + ") и (" + Convert.ToString(x2) + ", " + Convert.ToString(y2) + ")\n";
             TextData1.AppendText("Координаты вычисленных пикселей:\n");
-          
-            if (urav.Checked)
+            if (брензенхемДляОтрезкаToolStripMenuItem.Checked)
+            {
+                if (urav.Checked)
                 {
 
-                   ObRes4(x1, y1, x2, y2);
-                    
+                    ObRes4B(x1, y1, x2, y2);
+
                 }
-            if (chetv.Checked)
-            {
-             
-                PervChet4(x1, y1, x2, y2);
-            }
-            if (resh.Checked)
-            {
-            
-                Brezenhem4(x1, y1, x2, y2);
-            }
-            if (ob8.Checked)
-            {
+                if (chetv.Checked)
+                {
 
-                Brezenhem(x1, y1, x2, y2);
-            }
-            if (chet8.Checked)
-            {
+                    PervChet4B(x1, y1, x2, y2);
+                }
+                if (resh.Checked)
+                {
 
-                PervChet(x1, y1, x2, y2);
-            }
-            if (resur8.Checked)
-            {
+                    Brezenhem4(x1, y1, x2, y2);
+                }
+                if (ob8.Checked)
+                {
 
-                ObRes(x1, y1, x2, y2);
+                    Brezenhem(x1, y1, x2, y2);
+                }
+                if (chet8.Checked)
+                {
+
+                    PervChetB(x1, y1, x2, y2);
+                }
+                if (resur8.Checked)
+                {
+
+                    ObResB(x1, y1, x2, y2);
+                }
+
             }
-   
-      
+            if (цДАToolStripMenuItem.Checked)
+            {
+               
+                if (resh.Checked)
+                { 
+
+                }
+                if (ob8.Checked)
+                {
+                    CDA8(x1,y1,x2,y2);
+                }
+                    
+
+            }
+            if (вуToolStripMenuItem.Checked)
+            {
+                if (resh.Checked)
+                {
+
+                }
+                if (ob8.Checked)
+                {
+                    VU8(x1, y1, x2, y2);
+                }
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -595,6 +918,7 @@ namespace taoOpenGLtest
 
             GL.Translate(10, 10, 0);     
             setka(x1,y1,x2,y2);
+           
         //    PrintText(14.3, 0.5, "x");
          //   PrintText(0.5, 14.5, "y");
        
@@ -608,6 +932,114 @@ namespace taoOpenGLtest
             GL.ClearColor(Color.Black);
             TextData1.Text = "Задана прямая:( " + Convert.ToString(x1) + "; " + Convert.ToString(y1) + ") и (" + Convert.ToString(x2) + ", " + Convert.ToString(y2)+")\n";
             TextData1.AppendText("Координаты вычисленных пикселей:\n");
+            GL.Enable(EnableCap.Blend);
+            GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+        }
+
+        private void брензенхемДляОтрезкаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            брензенхемДляОтрезкаToolStripMenuItem.Checked = true;
+            цДАToolStripMenuItem.Checked = false;
+            вуToolStripMenuItem.Checked = false;
+            эллипсToolStripMenuItem.Checked = false;
+            окружностьToolStripMenuItem.Checked = false;
+            chet8.Checked = false;  chet8.Enabled = true;
+            chetv.Checked = false;  chetv.Enabled = true;
+            urav.Checked = false;   urav.Enabled = true;
+            resur8.Checked = false; resur8.Enabled = true;
+            ob8.Checked = false;
+            resh.Checked = false;
+        }
+
+        private void цДАToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            брензенхемДляОтрезкаToolStripMenuItem.Checked = false;
+            цДАToolStripMenuItem.Checked = true;
+            вуToolStripMenuItem.Checked = false;
+            эллипсToolStripMenuItem.Checked = false;
+            окружностьToolStripMenuItem.Checked = false;
+            chet8.Checked = false;   chet8.Enabled = false;
+            chetv.Checked = false;   chetv.Enabled = false;
+            urav.Checked = false;    urav.Enabled = false;
+            resur8.Checked = false;  resur8.Enabled = false;
+            ob8.Checked = false;  ob8.Enabled = true;
+            resh.Checked = false;  resh.Enabled = true;
+        }
+
+        private void вуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            брензенхемДляОтрезкаToolStripMenuItem.Checked = false;
+            цДАToolStripMenuItem.Checked = false;
+            вуToolStripMenuItem.Checked = true;
+            эллипсToolStripMenuItem.Checked = false;
+            окружностьToolStripMenuItem.Checked = false;
+
+            chet8.Checked = false; chet8.Enabled = false;
+            chetv.Checked = false; chetv.Enabled = false;
+            urav.Checked = false; urav.Enabled = false;
+            resur8.Checked = false; resur8.Enabled = false;
+            ob8.Checked = false; ob8.Enabled = true;
+            resh.Checked = false; resh.Enabled = true;
+        }
+
+        private void эллипсToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            брензенхемДляОтрезкаToolStripMenuItem.Checked = false;
+            цДАToolStripMenuItem.Checked = false;
+            вуToolStripMenuItem.Checked = false;
+            эллипсToolStripMenuItem.Checked = true;
+            окружностьToolStripMenuItem.Checked = false;
+        }
+
+        private void окружностьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            брензенхемДляОтрезкаToolStripMenuItem.Checked = false;
+            цДАToolStripMenuItem.Checked = false;
+            вуToolStripMenuItem.Checked = false;
+            эллипсToolStripMenuItem.Checked = false;
+            окружностьToolStripMenuItem.Checked = true;
+        }
+
+        private void resur8_CheckedChanged(object sender, EventArgs e)
+        {
+            resh.Checked = false;
+            urav.Checked = false;
+            chetv.Checked = false;
+        }
+
+        private void chet8_CheckedChanged(object sender, EventArgs e)
+        {
+            resh.Checked = false;
+            urav.Checked = false;
+            chetv.Checked = false;
+        }
+
+        private void ob8_CheckedChanged(object sender, EventArgs e)
+        {
+            resh.Checked = false;
+            urav.Checked = false;
+            chetv.Checked = false;
+        }
+
+        private void urav_CheckedChanged(object sender, EventArgs e)
+        {
+            resur8.Checked = false;
+            chet8.Checked = false;
+            ob8.Checked = false;
+        }
+
+        private void chetv_CheckedChanged(object sender, EventArgs e)
+        {
+            resur8.Checked = false;
+            chet8.Checked = false;
+            ob8.Checked = false;
+        }
+
+        private void resh_CheckedChanged(object sender, EventArgs e)
+        {
+            resur8.Checked = false;
+            chet8.Checked = false;
+            ob8.Checked = false;
         }
 
        
