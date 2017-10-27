@@ -28,7 +28,7 @@ namespace taoOpenGLtest
         int x1=2, y1=1, x2=8, y2=3;
         int tempDraw = 0;
         int num = 0;
-      
+        double a=5, b=3;
         public VizBrOt()
         {
             InitializeComponent();
@@ -714,6 +714,29 @@ namespace taoOpenGLtest
 
 
         }
+        private void ElUr(int x11, int y11, double a, double b)
+        {
+            ValuesArray = null;
+            int count = 0;
+            double temp = 0;
+            ValuesArray = new double[100, 2];
+            for (int i = x1-((int)a); i <=x11+ (int)a; i++)
+            {
+
+                temp = Math.Abs(Math.Sqrt((a * a * b * b - b * b * (i - x11) * (i - x11)) / (a*a))) + y11;
+
+                //Sinhr.Value = Sinhr.Value + "x = " + Convert.ToString(i) + " " + " y = " + Convert.ToString(temp) + "\n";
+                ValuesArray[count, 0] = i;
+                ValuesArray[count, 1] = temp;
+                count++;
+                ValuesArray[count, 0] = i;
+                ValuesArray[count, 1] = -temp;
+
+                count++;
+
+            }
+
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             GL.Enable(EnableCap.Blend);
@@ -727,162 +750,270 @@ namespace taoOpenGLtest
             groupBox2.Controls.Add(chet8);
 
         }
-        private void drawPixel(int x11,int x22)
+        private void drawPixel(int x11,int x22, double a, double b)
         {
-          
-            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-            if (ValuesArray[num, 0] <= x22)
+            try
             {
-                if (вуToolStripMenuItem.Checked==false)
-                {
-                    GL.Color3(1.0f, 1.0f, 1.0f);
-                    //  PrintText((double)ValuesArray[num, 0], -0.8, Convert.ToString((double)ValuesArray[num, 0]));
 
-                    //  PrintText(-0.8, (double)ValuesArray[num, 1], Convert.ToString((double)ValuesArray[num, 1]));
-                    GL.Color3(0.0f, 0.0f, 1.0f);
-                }
-                else {
-                    GL.Color4(1.0f, 1.0, 1.0f, 1.0f);
-                    GL.Color4(0.0f, 0.0f, 1.0f, intensiv[num]);
-                   
-                }
-                GL.Begin(PrimitiveType.QuadStrip);
-                
-                GL.Vertex2((double)ValuesArray[num, 0] - 0.5, ValuesArray[num, 1] - 0.5);
-                GL.Vertex2((double)ValuesArray[num, 0] + 0.5, ValuesArray[num, 1] - 0.5);
-                GL.Vertex2((double)ValuesArray[num, 0] - 0.5, ValuesArray[num, 1] + 0.5);
-                GL.Vertex2((double)ValuesArray[num, 0] + 0.5, ValuesArray[num, 1] + 0.5);
-
-                GL.End();
-                TextData1.AppendText("(" + Convert.ToString((double)ValuesArray[num, 0]) + "; " + Convert.ToString((double)ValuesArray[num, 1]) + ")\n");
-                tempDraw++;
-                if (вуToolStripMenuItem.Checked == false)
+                GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+                if ((эллипсToolStripMenuItem.Checked == true) || (окружностьToolStripMenuItem.Checked == true))
                 {
-                    for (int j = 0; j < tempDraw; j++)
+                    if ((ValuesArray[num, 0] <= x1+a))
                     {
+                        GL.Color3(1.0f, 1.0f, 1.0f);
 
                         GL.Color3(0.0f, 0.0f, 1.0f);
-
                         GL.Begin(PrimitiveType.QuadStrip);
 
-                        GL.Vertex2((double)ValuesArray[j, 0] - 0.5, ValuesArray[j, 1] - 0.5);
-                        GL.Vertex2((double)ValuesArray[j, 0] + 0.5, ValuesArray[j, 1] - 0.5);
-                        GL.Vertex2((double)ValuesArray[j, 0] - 0.5, ValuesArray[j, 1] + 0.5);
-                        GL.Vertex2((double)ValuesArray[j, 0] + 0.5, ValuesArray[j, 1] + 0.5);
+                        GL.Vertex2((double)ValuesArray[num, 0] - 0.5, ValuesArray[num, 1] - 0.5);
+                        GL.Vertex2((double)ValuesArray[num, 0] + 0.5, ValuesArray[num, 1] - 0.5);
+                        GL.Vertex2((double)ValuesArray[num, 0] - 0.5, ValuesArray[num, 1] + 0.5);
+                        GL.Vertex2((double)ValuesArray[num, 0] + 0.5, ValuesArray[num, 1] + 0.5);
 
                         GL.End();
+                        TextData1.AppendText("(" + Convert.ToString((double)ValuesArray[num, 0]) + "; " + Convert.ToString((double)ValuesArray[num, 1]) + ")\n");
+                        tempDraw++;
+                        for (int j = 0; j < tempDraw; j++)
+                        {
+
+                            GL.Color3(0.0f, 0.0f, 1.0f);
+
+                            GL.Begin(PrimitiveType.QuadStrip);
+
+                            GL.Vertex2((double)ValuesArray[j, 0] - 0.5, ValuesArray[j, 1] - 0.5);
+                            GL.Vertex2((double)ValuesArray[j, 0] + 0.5, ValuesArray[j, 1] - 0.5);
+                            GL.Vertex2((double)ValuesArray[j, 0] - 0.5, ValuesArray[j, 1] + 0.5);
+                            GL.Vertex2((double)ValuesArray[j, 0] + 0.5, ValuesArray[j, 1] + 0.5);
+
+                            GL.End();
+                        }
+                        if ((ValuesArray[num, 0] == x1+a)&&(ValuesArray[num,1]<0))
+                        {
+                            GL.Color3(0.0f, 0.0f, 1.0f);
+
+                            GL.Begin(PrimitiveType.QuadStrip);
+
+                            GL.Vertex2((double)ValuesArray[num, 0] - 0.5, ValuesArray[num, 1] - 0.5);
+                            GL.Vertex2((double)ValuesArray[num, 0] + 0.5, ValuesArray[num, 1] - 0.5);
+                            GL.Vertex2((double)ValuesArray[num, 0] - 0.5, ValuesArray[num, 1] + 0.5);
+                            GL.Vertex2((double)ValuesArray[num, 0] + 0.5, ValuesArray[num, 1] + 0.5);
+
+                            GL.End();
+                            tempDraw = 0;
+                            num = 0;
+                            timer1.Stop();
+                        }
+                     
+                        else
+                        {
+
+                            num++;
+                        }
                     }
-                }
-                else {
-                    for (int j = 0; j < tempDraw; j++)
-                    {
-
-                        GL.Color3(0.0f, 0.0f, intensiv[j]);
-                 
-                        GL.Begin(PrimitiveType.QuadStrip);
-
-                        GL.Vertex2((double)ValuesArray[j, 0] - 0.5, ValuesArray[j, 1] - 0.5);
-                        GL.Vertex2((double)ValuesArray[j, 0] + 0.5, ValuesArray[j, 1] - 0.5);
-                        GL.Vertex2((double)ValuesArray[j, 0] - 0.5, ValuesArray[j, 1] + 0.5);
-                        GL.Vertex2((double)ValuesArray[j, 0] + 0.5, ValuesArray[j, 1] + 0.5);
-
-                        GL.End();
-                    }
+                    else {
  
-                }
-      
-                if (ValuesArray[num, 0] == x22)
-                {
-                    tempDraw = 0;
-                    num = 0;
-                timer1.Stop();
+                    }
+
+
                 }
                 else
                 {
+                    if (ValuesArray[num, 0] <= x22)
+                    {
+                        if (вуToolStripMenuItem.Checked == false)
+                        {
+                            GL.Color3(1.0f, 1.0f, 1.0f);
+                            //  PrintText((double)ValuesArray[num, 0], -0.8, Convert.ToString((double)ValuesArray[num, 0]));
 
-                    num++;
+                            //  PrintText(-0.8, (double)ValuesArray[num, 1], Convert.ToString((double)ValuesArray[num, 1]));
+                            GL.Color3(0.0f, 0.0f, 1.0f);
+                        }
+                        else
+                        {
+                            GL.Color4(1.0f, 1.0, 1.0f, 1.0f);
+                            GL.Color4(0.0f, 0.0f, 1.0f, intensiv[num]);
+
+                        }
+                        GL.Begin(PrimitiveType.QuadStrip);
+
+                        GL.Vertex2((double)ValuesArray[num, 0] - 0.5, ValuesArray[num, 1] - 0.5);
+                        GL.Vertex2((double)ValuesArray[num, 0] + 0.5, ValuesArray[num, 1] - 0.5);
+                        GL.Vertex2((double)ValuesArray[num, 0] - 0.5, ValuesArray[num, 1] + 0.5);
+                        GL.Vertex2((double)ValuesArray[num, 0] + 0.5, ValuesArray[num, 1] + 0.5);
+
+                        GL.End();
+                        TextData1.AppendText("(" + Convert.ToString((double)ValuesArray[num, 0]) + "; " + Convert.ToString((double)ValuesArray[num, 1]) + ")\n");
+                        tempDraw++;
+                        if (вуToolStripMenuItem.Checked == false)
+                        {
+                            for (int j = 0; j < tempDraw; j++)
+                            {
+
+                                GL.Color3(0.0f, 0.0f, 1.0f);
+
+                                GL.Begin(PrimitiveType.QuadStrip);
+
+                                GL.Vertex2((double)ValuesArray[j, 0] - 0.5, ValuesArray[j, 1] - 0.5);
+                                GL.Vertex2((double)ValuesArray[j, 0] + 0.5, ValuesArray[j, 1] - 0.5);
+                                GL.Vertex2((double)ValuesArray[j, 0] - 0.5, ValuesArray[j, 1] + 0.5);
+                                GL.Vertex2((double)ValuesArray[j, 0] + 0.5, ValuesArray[j, 1] + 0.5);
+
+                                GL.End();
+                            }
+                        }
+                        else
+                        {
+
+                            for (int j = 0; j < tempDraw; j++)
+                            {
+
+                                GL.Color3(0.0f, 0.0f, intensiv[j]);
+
+                                GL.Begin(PrimitiveType.QuadStrip);
+
+                                GL.Vertex2((double)ValuesArray[j, 0] - 0.5, ValuesArray[j, 1] - 0.5);
+                                GL.Vertex2((double)ValuesArray[j, 0] + 0.5, ValuesArray[j, 1] - 0.5);
+                                GL.Vertex2((double)ValuesArray[j, 0] - 0.5, ValuesArray[j, 1] + 0.5);
+                                GL.Vertex2((double)ValuesArray[j, 0] + 0.5, ValuesArray[j, 1] + 0.5);
+
+                                GL.End();
+                            }
+
+                        }
+
+
+                        if (ValuesArray[num, 0] == x22)
+                        {
+                            tempDraw = 0;
+                            num = 0;
+                            timer1.Stop();
+                        }
+                        else
+                        {
+
+                            num++;
+                        }
+                    }
+                    else
+                    {
+                        num = 0;
+                        timer1.Stop();
+                    }
                 }
+                setka(x1, y1, x2, y2);
+
+                glControl1.SwapBuffers();
             }
-            else
+            catch (Exception)
             {
-                num = 0;
-               timer1.Stop();
+        TextData1.Clear();
+        TextData1.Text = "Ошибка";
             }
-            setka(x1,y1,x2,y2);
-            
-            glControl1.SwapBuffers();
-        
         }
         private void Draw()
         {
             TextData1.Clear();
             TextData1.Text = "Задана прямая:( " + Convert.ToString(x1) + "; " + Convert.ToString(y1) + ") и (" + Convert.ToString(x2) + ", " + Convert.ToString(y2) + ")\n";
             TextData1.AppendText("Координаты вычисленных пикселей:\n");
-            if (брензенхемДляОтрезкаToolStripMenuItem.Checked)
+            try
             {
-                if (urav.Checked)
+                if (брензенхемДляОтрезкаToolStripMenuItem.Checked)
                 {
+                    if (urav.Checked)
+                    {
 
-                    ObRes4B(x1, y1, x2, y2);
+                        ObRes4B(x1, y1, x2, y2);
+
+                    }
+                    if (chetv.Checked)
+                    {
+
+                        PervChet4B(x1, y1, x2, y2);
+                    }
+                    if (resh.Checked)
+                    {
+
+                        Brezenhem4(x1, y1, x2, y2);
+                    }
+                    if (ob8.Checked)
+                    {
+
+                        Brezenhem(x1, y1, x2, y2);
+                    }
+                    if (chet8.Checked)
+                    {
+
+                        PervChetB(x1, y1, x2, y2);
+                    }
+                    if (resur8.Checked)
+                    {
+
+                        ObResB(x1, y1, x2, y2);
+                    }
 
                 }
-                if (chetv.Checked)
+                if (цДАToolStripMenuItem.Checked)
                 {
 
-                    PervChet4B(x1, y1, x2, y2);
+                    if (resh.Checked)
+                    {
+
+                    }
+                    if (ob8.Checked)
+                    {
+                        CDA8(x1, y1, x2, y2);
+                    }
+
+
                 }
-                if (resh.Checked)
+                if (вуToolStripMenuItem.Checked)
                 {
+                    if (resh.Checked)
+                    {
 
-                    Brezenhem4(x1, y1, x2, y2);
+                    }
+                    if (ob8.Checked)
+                    {
+                        VU8(x1, y1, x2, y2);
+                    }
                 }
-                if (ob8.Checked)
+                if (эллипсToolStripMenuItem.Checked)
                 {
+                    if (urav.Checked)
+                    {
 
-                    Brezenhem(x1, y1, x2, y2);
+                      
+
+                    }
+                
+                    if (resh.Checked)
+                    {
+
+                        
+                    }
+                    if (ob8.Checked)
+                    {
+
+                    }
+                
+                    if (resur8.Checked)
+                    {
+                        ElUr(x1, y1, a, b);
+                        
+                    }
+
                 }
-                if (chet8.Checked)
-                {
-
-                    PervChetB(x1, y1, x2, y2);
-                }
-                if (resur8.Checked)
-                {
-
-                    ObResB(x1, y1, x2, y2);
-                }
-
             }
-            if (цДАToolStripMenuItem.Checked)
+            catch (Exception)
             {
-               
-                if (resh.Checked)
-                { 
-
-                }
-                if (ob8.Checked)
-                {
-                    CDA8(x1,y1,x2,y2);
-                }
-                    
-
-            }
-            if (вуToolStripMenuItem.Checked)
-            {
-                if (resh.Checked)
-                {
-
-                }
-                if (ob8.Checked)
-                {
-                    VU8(x1, y1, x2, y2);
-                }
+                TextData1.Clear();
+                TextData1.Text = "Ошибка";
             }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            drawPixel(x1,x2);
+            drawPixel(x1,x2,a,b);
             
         }
 
@@ -891,8 +1022,6 @@ namespace taoOpenGLtest
             timer1.Enabled=false; 
             
         }
-
-       
 
         private void glControl1_Paint(object sender, PaintEventArgs e)
         {
@@ -947,7 +1076,7 @@ namespace taoOpenGLtest
             chetv.Checked = false;  chetv.Enabled = true;
             urav.Checked = false;   urav.Enabled = true;
             resur8.Checked = false; resur8.Enabled = true;
-            ob8.Checked = false;
+            ob8.Checked = true;
             resh.Checked = false;
         }
 
@@ -962,7 +1091,7 @@ namespace taoOpenGLtest
             chetv.Checked = false;   chetv.Enabled = false;
             urav.Checked = false;    urav.Enabled = false;
             resur8.Checked = false;  resur8.Enabled = false;
-            ob8.Checked = false;  ob8.Enabled = true;
+            ob8.Checked = true;  ob8.Enabled = true;
             resh.Checked = false;  resh.Enabled = true;
         }
 
@@ -978,7 +1107,7 @@ namespace taoOpenGLtest
             chetv.Checked = false; chetv.Enabled = false;
             urav.Checked = false; urav.Enabled = false;
             resur8.Checked = false; resur8.Enabled = false;
-            ob8.Checked = false; ob8.Enabled = true;
+            ob8.Checked = true; ob8.Enabled = true;
             resh.Checked = false; resh.Enabled = true;
         }
 
@@ -989,6 +1118,13 @@ namespace taoOpenGLtest
             вуToolStripMenuItem.Checked = false;
             эллипсToolStripMenuItem.Checked = true;
             окружностьToolStripMenuItem.Checked = false;
+
+            chet8.Checked = false; chet8.Enabled = false;
+            chetv.Checked = false; chetv.Enabled = false;
+            urav.Checked = false; urav.Enabled = true;
+            resur8.Checked = false; resur8.Enabled = true;
+            ob8.Checked = true; ob8.Enabled = true;
+            resh.Checked = false; resh.Enabled = true;
         }
 
         private void окружностьToolStripMenuItem_Click(object sender, EventArgs e)
