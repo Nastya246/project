@@ -14,7 +14,6 @@ C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.pdb
 C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\bin\Debug\taoOpenGLtest.exe
 C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\bin\Debug\taoOpenGLtest.pdb
 C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.AlgCDA.resources
-C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.VizBrOt.resources
 C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.Menu.resources
 C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.Properties.Resources.resources
 C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.Slaid.resources
@@ -27,3 +26,4 @@ C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\bin\Debug\OpenTK.GLControl.d
 C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\bin\Debug\OpenTK.pdb
 C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\bin\Debug\OpenTK.xml
 C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\bin\Debug\OpenTK.GLControl.xml
+C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.VizBrOt.resources

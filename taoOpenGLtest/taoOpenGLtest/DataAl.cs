@@ -20,6 +20,7 @@ namespace taoOpenGLtest
         private void DataAl_Load(object sender, EventArgs e)
         {
             koord.Text=Sinhr.Value;
+            code.Text = Sinhr.Code;
         }
     }
 }

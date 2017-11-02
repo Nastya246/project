@@ -12,14 +12,14 @@ using Tao.Platform.Windows;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing.Imaging;
+using System.Threading;
 namespace taoOpenGLtest
 {
-    
+    //примеры алгоритма как картинки
     public partial class VizBrOt : Form
     {
-      
+        
         private   DataAl D = new DataAl();
-
         bool loaded = false;
         double[,] ValuesArray;
         double[,] LineKoord;
@@ -28,13 +28,22 @@ namespace taoOpenGLtest
         int tempDraw = 0;// для анимации 
         int num = 0;
         double a=5, b=3;// для эллипса
+        int temp = 0;
         public VizBrOt()
         {
             InitializeComponent();
        
         }
+      
         int prov = 0; // для проверки было ли что-нибудь нарисовано
-
+        private void Wait(double seconds)
+        {
+            int ticks = System.Environment.TickCount + (int)Math.Round(seconds * 1000.0);
+            while (System.Environment.TickCount < ticks)
+            {
+                Application.DoEvents();
+            }
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             
@@ -58,30 +67,37 @@ namespace taoOpenGLtest
         }
         private void PrintText(double x, double y, string text)
         {
-
-            uint texture_text = 0;
-        //    GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-         //   GL.ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-            Bitmap text_bmp = new Bitmap(glControl1.Width, glControl1.Height);
-            Graphics gfx = Graphics.FromImage(text_bmp); //поверхность для рис.
-            gfx.Clear(Color.Black);
-            Font font = new Font(FontFamily.GenericSerif, 500.0f);
-            gfx.DrawString(text, font, Brushes.White, new PointF(30, -170)); 
-            //Вытягивание данных из картинки
-            BitmapData data = text_bmp.LockBits(new Rectangle(0, 0, text_bmp.Width, text_bmp.Height), ImageLockMode.ReadOnly,System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-            GL.Enable(EnableCap.Texture2D);
-            GL.GenTextures(1,out texture_text);
-           GL.BindTexture(TextureTarget.Texture2D, texture_text);  //Текстура становится текущей
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
-            GL.TexEnv(TextureEnvTarget.TextureEnv, TextureEnvParameter.TextureEnvMode, (float)TextureEnvMode.Replace);
-           //загрузка картинки в текстуру
-            GL.TexImage2D(TextureTarget.Texture2D,0,PixelInternalFormat.Rgba,text_bmp.Width,text_bmp.Height,0,OpenTK.Graphics.OpenGL.PixelFormat.Bgra,PixelType.UnsignedByte, data.Scan0);
-            text_bmp.UnlockBits(data);
-            GL.Enable(EnableCap.Blend);
-            GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
-            GL.BindTexture(TextureTarget.Texture2D,texture_text);
-            GL.Color3(0.0f, 0.0f, 0.0f);
+            
+            
+                uint texture_text = 0;
+               //   GL.Clear(ClearBufferMask.ColorBufferBit);
+         //       GL.ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+                Bitmap text_bmp = new Bitmap(glControl1.Width, glControl1.Height);
+                Graphics gfx = Graphics.FromImage(text_bmp);
+                //поверхность для рис.
+                
+                    gfx.Clear(Color.White);
+                
+     
+                Font font = new Font(FontFamily.GenericSerif, 500.0f);
+                gfx.DrawString(text, font, Brushes.Black, new PointF(30, -170));
+                //Вытягивание данных из картинки
+                BitmapData data = text_bmp.LockBits(new Rectangle(0, 0, text_bmp.Width, text_bmp.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+                GL.Enable(EnableCap.Texture2D);
+                GL.GenTextures(1, out texture_text);
+                GL.BindTexture(TextureTarget.Texture2D, texture_text);  //Текстура становится текущей
+                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
+                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
+                GL.TexEnv(TextureEnvTarget.TextureEnv, TextureEnvParameter.TextureEnvMode, (float)TextureEnvMode.Modulate);
+                //загрузка картинки в текстуру
+                GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, data.Width, data.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
+                text_bmp.UnlockBits(data);
+                GL.Enable(EnableCap.Blend);
+               GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+                GL.BindTexture(TextureTarget.Texture2D, texture_text);
+                GL.Color4(1.0f, 1.0f, 1.0f, 1.0f);
+             //   GL.Color3(Color.Black);
+        //   GL.Color3(Color.White);
             GL.Begin(PrimitiveType.Quads);
 
             GL.TexCoord2(0.0f, 1.0f); GL.Vertex2(x, y);
@@ -89,11 +105,12 @@ namespace taoOpenGLtest
             GL.TexCoord2(1.0f, 0.0f); GL.Vertex2(x + 0.5f, y + 0.5f);
             GL.TexCoord2(0.0f, 0.0f); GL.Vertex2(x, y + 0.5f);
             GL.End();
+
+            temp++;
         }
-        private void setka(int x11,int y11, int x22, int y22)
+        private void setka()
         {
 
-           
             GL.Color3(Color.White);
             GL.PointSize(1);
             GL.Begin(PrimitiveType.Points);
@@ -124,26 +141,29 @@ namespace taoOpenGLtest
             GL.Vertex2(14.5, -0.1);
 
             GL.End();
+            
+            
+           /*     GL.Color3(1.0f, 0.0f, 0.0f);
+                GL.Begin(PrimitiveType.Lines);
+                GL.Vertex2(x1, y1);
+                GL.Vertex2(x2, y2);
+                GL.End();
+                GL.Color3(255, 255, 255);
 
-            GL.Color3(1.0f,0.0f,0.0f);
-            GL.Begin(PrimitiveType.Lines);
-            GL.Vertex2(x1, y1);
-            GL.Vertex2(x2, y2);
-            GL.End();
-            GL.Color3(255, 255, 255);
-           
-            GL.Color3(0, 0, 255);
-        //    PrintText(14.3, 0.5, "x");
-        //    PrintText(0.5, 14.5, "y");
+                GL.Color3(0, 0, 255);*/
+            PrintText(14.3, 0.5, "x");
+            PrintText(0.5, 14.5, "y");
+            
         }
         private void ObResB(int x11, int y11, int x22, int y22 ) // построение линии по уравнению 8
         {
+
             ValuesArray = null;
             tempDraw = 0;
             double k = ((double)y22 - (double)y11) / ((double)x22 - (double)x11);
             double b = y11 - k * x11;
             double temp;
-            int len = Math.Abs(x1 - x2 - 1);
+            int len = Math.Abs(x1 - x2 -1);
             int count = 0;
             ValuesArray = new double[len, 2];
             for (int i = x11; i <= x22; i++)
@@ -152,12 +172,47 @@ namespace taoOpenGLtest
                 temp = Math.Round(k * i + b);
 
              Sinhr.Value=Sinhr.Value+ "x = " + Convert.ToString(i)+" "+ " y = "+Convert.ToString(temp)+"\n";
-                   ValuesArray[count, 0] = i;
-                   ValuesArray[count, 1] = temp;
+             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+             GL.Color3(0.0f, 0.0f, 1.0f);
+
+             GL.Begin(PrimitiveType.QuadStrip);
+
+             GL.Vertex2(i - 0.5, temp - 0.5);
+             GL.Vertex2(i + 0.5, temp - 0.5);
+             GL.Vertex2(i - 0.5, temp + 0.5);
+             GL.Vertex2(i + 0.5, temp + 0.5);
+
+             GL.End();
+             TextData1.Text = "Задана прямая:( " + Convert.ToString(x1) + "; " + Convert.ToString(y1) + ") и (" + Convert.ToString(x2) + ", " + Convert.ToString(y2) + ")\n";
+             TextData1.AppendText("Координаты вычисленных пикселей:\n");
+             TextData1.AppendText("(" + Convert.ToString((double)i) + "; " + Convert.ToString((double)temp) + ")\n");
+             Sinhr.Code = Sinhr.Code + "double k = ((double)y22 - (double)y11) / ((double)x22 - (double)x11);\n double b = y11 - k * x11;\n double temp;\n  for (int i = x11; i <= x22; i++) \n  { temp = Math.Round(k * i + b);\n";
+             Wait(0.5);
+             ValuesArray[count, 0] = i;
+             ValuesArray[count, 1] = temp;
+                     tempDraw++;
+                     count++;
+                    for (int u = 0; u < tempDraw;u++ )
+                     {
+                         GL.Color3(0.0f, 0.0f, 1.0f);
+
+                         GL.Begin(PrimitiveType.QuadStrip);
+
+                         GL.Vertex2(ValuesArray[u,0] - 0.5, ValuesArray[u,1] - 0.5);
+                         GL.Vertex2(ValuesArray[u, 0] + 0.5, ValuesArray[u, 1] - 0.5);
+                         GL.Vertex2(ValuesArray[u, 0] - 0.5, ValuesArray[u, 1] + 0.5);
+                         GL.Vertex2(ValuesArray[u, 0] + 0.5, ValuesArray[u, 1] + 0.5);
+
+                         GL.End();
+                     }
+               
+                     PrintText(i, -0.8, Convert.ToString((double)i));
+
+                     PrintText(-0.8, temp, Convert.ToString((double)temp));
+
+                    setka();
                    
-                
-                   count++;
-      
+                   glControl1.SwapBuffers();
             }
           
         }
@@ -757,6 +812,7 @@ namespace taoOpenGLtest
         }
         private void Pereris(int x11, int x22, double a, double b) // для корректного отображения рисунка после изменения размеров окна
         {
+           
             GL.Color3(1.0f, 1.0f, 1.0f);
             GL.Color3(0.0f, 0.0f, 1.0f);
             for (int j = 0; j < tempDraw; j++)
@@ -772,6 +828,13 @@ namespace taoOpenGLtest
                 GL.Vertex2((double)ValuesArray[j, 0] + 0.5, ValuesArray[j, 1] + 0.5);
 
                 GL.End();
+                PrintText((double)ValuesArray[j, 0], -0.8, Convert.ToString((double)ValuesArray[j, 0]));
+
+                PrintText(-0.8, (double)ValuesArray[j, 1], Convert.ToString((double)ValuesArray[j, 1]));
+            }
+            if ((брензенхемДляОтрезкаToolStripMenuItem.Checked)||(вуToolStripMenuItem.Checked)||(цДАToolStripMenuItem.Checked))
+            {
+            baseEl(x1, y1, x2, y2);
             }
         }
         private void drawPixel(int x11,int x22, double a, double b)
@@ -848,9 +911,9 @@ namespace taoOpenGLtest
                         if (вуToolStripMenuItem.Checked == false)
                         {
                             GL.Color3(1.0f, 1.0f, 1.0f);
-                            //  PrintText((double)ValuesArray[num, 0], -0.8, Convert.ToString((double)ValuesArray[num, 0]));
+                              PrintText((double)ValuesArray[num, 0], -0.8, Convert.ToString((double)ValuesArray[num, 0]));
 
-                            //  PrintText(-0.8, (double)ValuesArray[num, 1], Convert.ToString((double)ValuesArray[num, 1]));
+                              PrintText(-0.8, (double)ValuesArray[num, 1], Convert.ToString((double)ValuesArray[num, 1]));
                             GL.Color3(0.0f, 0.0f, 1.0f);
                         }
                         else
@@ -885,6 +948,9 @@ namespace taoOpenGLtest
                                 GL.Vertex2((double)ValuesArray[j, 0] + 0.5, ValuesArray[j, 1] + 0.5);
 
                                 GL.End();
+                                PrintText((double)ValuesArray[j, 0], -0.8, Convert.ToString((double)ValuesArray[j, 0]));
+
+                                PrintText(-0.8, (double)ValuesArray[j, 1], Convert.ToString((double)ValuesArray[j, 1]));
                             }
                         }
                         else
@@ -903,6 +969,9 @@ namespace taoOpenGLtest
                                 GL.Vertex2((double)ValuesArray[j, 0] + 0.5, ValuesArray[j, 1] + 0.5);
 
                                 GL.End();
+                                PrintText((double)ValuesArray[j, 0], -0.8, Convert.ToString((double)ValuesArray[j, 0]));
+
+                                PrintText(-0.8, (double)ValuesArray[j, 1], Convert.ToString((double)ValuesArray[j, 1]));
                             }
 
                         }
@@ -927,8 +996,8 @@ namespace taoOpenGLtest
                         timer1.Stop();
                     }
                 }
-                setka(x1, y1, x2, y2);
-
+                setka();
+                baseEl(x1,y1,x2,y2);
                 glControl1.SwapBuffers();
             }
             catch (Exception)
@@ -1080,15 +1149,36 @@ namespace taoOpenGLtest
             {
                 Pereris(x1,x2,a,b);
             }
-            setka(x1, y1, x2, y2);
-          //  PrintText(14.3, 0.5, "x");
-          //  PrintText(0.5, 14.5, "y");
-            
        
-            glControl1.SwapBuffers();
+          
+            setka();
+           
+          
+
+          baseEl(x1, y1, x2, y2);
+          ObResB(x1, y1, x2, y2);
+         
+          glControl1.SwapBuffers();
 
         }
+        private void baseEl(int x1,int y1,int x2,int y2)
+        {
+            if ((брензенхемДляОтрезкаToolStripMenuItem.Checked) || (цДАToolStripMenuItem.Checked) || (вуToolStripMenuItem.Checked))
+            {
+                GL.Color3(1.0f, 0.0f, 0.0f);
+            }
+            else {
+                GL.Color4(0.0f, 0.0f, 0.0f,0.0f);
+            }
+            GL.Begin(PrimitiveType.Lines);
+            GL.Vertex2(x1, y1);
+            GL.Vertex2(x2, y2);
+            GL.End();
+            GL.Color3(255, 255, 255);
 
+            GL.Color3(0, 0, 255);
+            
+        }
         private void glControl1_Load(object sender, EventArgs e)
         {
             loaded = true;
@@ -1097,6 +1187,7 @@ namespace taoOpenGLtest
             TextData1.AppendText("Координаты вычисленных пикселей:\n");
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+            
         }
 
         private void брензенхемДляОтрезкаToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1112,6 +1203,12 @@ namespace taoOpenGLtest
             resur8.Checked = false; resur8.Enabled = true;
             ob8.Checked = true;
             resh.Checked = false;
+            ob8.Text = "Общее решение";
+            resh.Text = "Общее решение";
+          
+            baseEl(x1, y1, x2, y2);
+            setka();
+            glControl1.SwapBuffers();
         }
 
         private void цДАToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1127,6 +1224,11 @@ namespace taoOpenGLtest
             resur8.Checked = false;  resur8.Enabled = false;
             ob8.Checked = true;  ob8.Enabled = true;
             resh.Checked = false;  resh.Enabled = true;
+            ob8.Text = "Общее решение";
+            resh.Text = "Общее решение";
+            baseEl(x1, y1, x2, y2);
+            setka();
+            glControl1.SwapBuffers();
         }
 
         private void вуToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1143,6 +1245,11 @@ namespace taoOpenGLtest
             resur8.Checked = false; resur8.Enabled = false;
             ob8.Checked = true; ob8.Enabled = true;
             resh.Checked = false; resh.Enabled = true;
+            ob8.Text = "Общее решение";
+            resh.Text = "Общее решение";
+            baseEl(x1, y1, x2, y2);
+            setka();
+            glControl1.SwapBuffers();
         }
 
         private void эллипсToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1159,6 +1266,12 @@ namespace taoOpenGLtest
             resur8.Checked = false; resur8.Enabled = true;
             ob8.Checked = true; ob8.Enabled = true;
             resh.Checked = false; resh.Enabled = true;
+            ob8.Text = "Алгоритм средней точки";
+            resh.Text = "Алгоритм средней точки";
+            baseEl(x1, y1, x2, y2);
+            setka();
+            glControl1.SwapBuffers();
+           
         }
 
         private void окружностьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1168,6 +1281,11 @@ namespace taoOpenGLtest
             вуToolStripMenuItem.Checked = false;
             эллипсToolStripMenuItem.Checked = false;
             окружностьToolStripMenuItem.Checked = true;
+            ob8.Text = "Алгоритм средней точки";
+            resh.Text = "Алгоритм средней точки";
+            baseEl(x1, y1, x2, y2);
+            setka();
+            glControl1.SwapBuffers();
         }
 
         private void resur8_CheckedChanged(object sender, EventArgs e)
@@ -1189,6 +1307,7 @@ namespace taoOpenGLtest
             resh.Checked = false;
             urav.Checked = false;
             chetv.Checked = false;
+           
         }
 
         private void urav_CheckedChanged(object sender, EventArgs e)
@@ -1210,6 +1329,13 @@ namespace taoOpenGLtest
             resur8.Checked = false;
             chet8.Checked = false;
             ob8.Checked = false;
+           
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            DataAl dataF = new DataAl();
+            dataF.Show();
         }
 
        

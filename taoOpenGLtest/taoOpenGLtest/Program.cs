@@ -14,6 +14,7 @@ namespace taoOpenGLtest
     static class Sinhr
     {
         public static string Value { get; set; }
+        public static string Code { get; set; }
        
     }
     static class Program
