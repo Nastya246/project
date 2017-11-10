@@ -83,7 +83,6 @@
             // timer1
             // 
             this.timer1.Interval = 600;
-//            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // urav
             // 
@@ -319,6 +318,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "VizBrOt";
             this.Text = "Form1";
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.VizBrOt_MouseClick);
             this.Resize += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

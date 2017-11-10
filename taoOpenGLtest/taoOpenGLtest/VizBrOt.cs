@@ -18,7 +18,7 @@ namespace taoOpenGLtest
     //примеры алгоритма как картинки
     public partial class VizBrOt : Form
     {
-        
+        static private bool Exit = false;
         private   DataAl D = new DataAl();
         bool loaded = false;
         double[,] ValuesArray;
@@ -252,7 +252,7 @@ namespace taoOpenGLtest
              Pixel(i,temp,1);
              
              Sinhr.Code = Sinhr.Code + "double k = ((double)y22 - (double)y11) / ((double)x22 - (double)x11);\n double b = y11 - k * x11;\n double temp;\n  for (int i = x11; i <= x22; i++) \n  { temp = Math.Round(k * i + b);\n";
-         
+         //добавить DataLoad здесь 
              ValuesArray[count, 0] = i;
              ValuesArray[count, 1] = temp;
                      tempDraw++;
@@ -1342,16 +1342,16 @@ namespace taoOpenGLtest
             
         }
         */
+        
         private void button2_Click(object sender, EventArgs e)
         {
-            ConsoleKeyInfo cki = new ConsoleKeyInfo();
-            while (cki.Key != ConsoleKey.Enter) 
+          
+            while (Exit==false) 
             {
-                if (Console.KeyAvailable == true)
-                {
-                    cki = Console.ReadKey(true);
-                }
+                Application.DoEvents();
+         
             }
+            Exit = false;
             
         }
 
@@ -1427,6 +1427,7 @@ namespace taoOpenGLtest
 
         private void брензенхемДляОтрезкаToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            prov = 0;
             брензенхемДляОтрезкаToolStripMenuItem.Checked = true;
             цДАToolStripMenuItem.Checked = false;
             вуToolStripMenuItem.Checked = false;
@@ -1440,7 +1441,7 @@ namespace taoOpenGLtest
             resh.Checked = false;
             ob8.Text = "Общее решение";
             resh.Text = "Общее решение";
-          
+           GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             baseEl(x1, y1, x2, y2);
             setka();
             glControl1.SwapBuffers();
@@ -1448,6 +1449,7 @@ namespace taoOpenGLtest
 
         private void цДАToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            prov = 0;
             брензенхемДляОтрезкаToolStripMenuItem.Checked = false;
             цДАToolStripMenuItem.Checked = true;
             вуToolStripMenuItem.Checked = false;
@@ -1461,6 +1463,7 @@ namespace taoOpenGLtest
             resh.Checked = false;  resh.Enabled = true;
             ob8.Text = "Общее решение";
             resh.Text = "Общее решение";
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             baseEl(x1, y1, x2, y2);
             setka();
             glControl1.SwapBuffers();
@@ -1468,6 +1471,7 @@ namespace taoOpenGLtest
 
         private void вуToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            prov = 0;
             брензенхемДляОтрезкаToolStripMenuItem.Checked = false;
             цДАToolStripMenuItem.Checked = false;
             вуToolStripMenuItem.Checked = true;
@@ -1482,6 +1486,7 @@ namespace taoOpenGLtest
             resh.Checked = false; resh.Enabled = true;
             ob8.Text = "Общее решение";
             resh.Text = "Общее решение";
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             baseEl(x1, y1, x2, y2);
             setka();
             glControl1.SwapBuffers();
@@ -1489,6 +1494,7 @@ namespace taoOpenGLtest
 
         private void эллипсToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            prov = 0;
             брензенхемДляОтрезкаToolStripMenuItem.Checked = false;
             цДАToolStripMenuItem.Checked = false;
             вуToolStripMenuItem.Checked = false;
@@ -1503,6 +1509,7 @@ namespace taoOpenGLtest
             resh.Checked = false; resh.Enabled = true;
             ob8.Text = "Алгоритм средней точки";
             resh.Text = "Алгоритм средней точки";
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             baseEl(x1, y1, x2, y2);
             setka();
             glControl1.SwapBuffers();
@@ -1511,6 +1518,7 @@ namespace taoOpenGLtest
 
         private void окружностьToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            prov = 0;
             брензенхемДляОтрезкаToolStripMenuItem.Checked = false;
             цДАToolStripMenuItem.Checked = false;
             вуToolStripMenuItem.Checked = false;
@@ -1518,6 +1526,7 @@ namespace taoOpenGLtest
             окружностьToolStripMenuItem.Checked = true;
             ob8.Text = "Алгоритм средней точки";
             resh.Text = "Алгоритм средней точки";
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             baseEl(x1, y1, x2, y2);
             setka();
             glControl1.SwapBuffers();
@@ -1571,6 +1580,11 @@ namespace taoOpenGLtest
         {
             DataAl dataF = new DataAl();
             dataF.Show();
+        }
+
+        private void VizBrOt_MouseClick(object sender, MouseEventArgs e)
+        {
+            Exit = true;
         }
 
        
