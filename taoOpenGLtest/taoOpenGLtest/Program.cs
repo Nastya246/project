@@ -13,8 +13,10 @@ namespace taoOpenGLtest
 {
     static class Sinhr
     {
+        public static int n = 0;
         public static string Value { get; set; }
         public static string Code { get; set; }
+        public static Color[] colorText = new Color[n];
        
     }
     static class Program

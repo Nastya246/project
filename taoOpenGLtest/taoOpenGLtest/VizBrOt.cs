@@ -231,11 +231,28 @@ namespace taoOpenGLtest
         }
         private void ObResB(int x11, int y11, int x22, int y22 ) // построение линии по уравнению 8
         {
+           Sinhr.Code = Sinhr.Code + "1. double k = ((double)y22 - (double)y11) / ((double)x22 - (double)x11);\n";
+            Sinhr.Code = Sinhr.Code + "2. double b = y11 - k * x11;\n";
+            Sinhr.Code = Sinhr.Code + "3. double temp;\n";
+            Sinhr.Code = Sinhr.Code + "4. for (int i = x11; i <= x22; i++)\n5. {\n";
+            Sinhr.Code = Sinhr.Code + "6. temp = Math.Round(k * i + b);\n";
+            Sinhr.Code = Sinhr.Code + "7. Pixel(i,temp,1);\n8. }\n";
+            Sinhr.Code = Sinhr.Code + "9. glControl1.SwapBuffers();\n";
+            
             int count = 0;
             ValuesArray = null;
             tempDraw = 0;
             double k = ((double)y22 - (double)y11) / ((double)x22 - (double)x11);
+        //    Sinhr.colorText[0] = Color.Red;
+          //  Array.Resize<Color>(ref Sinhr.colorText, (Sinhr.n)++);
+          //  Sinhr.Code = Sinhr.Code + "1. double k = ((double)y22 - (double)y11) / ((double)x22 - (double)x11);\n";
+         //   Sinhr.colorText[1] = Color.Black;
+
+          //  DataAl f = new DataAl();
+          //  f.ShowDialog();
+           // f.code.ForeColor=Color.Aqua;
             double b = y11 - k * x11;
+            Sinhr.Code = Sinhr.Code + "2. double b = y11 - k * x11;\n";
             double temp;
             int len = Math.Abs(x1 - x2-1);
            
@@ -251,7 +268,7 @@ namespace taoOpenGLtest
              GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
              Pixel(i,temp,1);
              
-             Sinhr.Code = Sinhr.Code + "double k = ((double)y22 - (double)y11) / ((double)x22 - (double)x11);\n double b = y11 - k * x11;\n double temp;\n  for (int i = x11; i <= x22; i++) \n  { temp = Math.Round(k * i + b);\n";
+           
          //добавить DataLoad здесь 
              ValuesArray[count, 0] = i;
              ValuesArray[count, 1] = temp;

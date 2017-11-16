@@ -54,8 +54,11 @@
             // 
             // code
             // 
+            this.code.BackColor = System.Drawing.SystemColors.Menu;
+            this.code.ForeColor = System.Drawing.Color.Black;
             this.code.Location = new System.Drawing.Point(12, 56);
             this.code.Name = "code";
+            this.code.ReadOnly = true;
             this.code.Size = new System.Drawing.Size(311, 390);
             this.code.TabIndex = 2;
             this.code.Text = "";
@@ -90,7 +93,7 @@
 
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.RichTextBox koord;
-        private System.Windows.Forms.RichTextBox code;
         private System.Windows.Forms.Label label2;
+        public System.Windows.Forms.RichTextBox code;
     }
 }
