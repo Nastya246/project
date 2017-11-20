@@ -25,6 +25,7 @@ namespace taoOpenGLtest
         double[,] LineKoord;
         double[] intensiv;
         int x1=2, y1=1, x2=8, y2=3;
+        int r = 3;
         int tempDraw = 0;// для анимации 
         int num = 0;
         double a=5, b=3;// для эллипса
@@ -194,9 +195,13 @@ namespace taoOpenGLtest
                 GL.Vertex2(ValuesArray[u, 0] + 0.5, ValuesArray[u, 1] + 0.5);
 
                 GL.End();
-                PrintText(ValuesArray[u, 0], -0.8, Convert.ToString((double)ValuesArray[u, 0]));
+                if (!окружностьToolStripMenuItem.Checked)
+                {
+                    PrintText(ValuesArray[u, 0], -0.8, Convert.ToString((double)ValuesArray[u, 0]));
 
-                PrintText(-0.8, ValuesArray[u, 1], Convert.ToString((double)ValuesArray[u, 1]));
+                    PrintText(-0.8, ValuesArray[u, 1], Convert.ToString((double)ValuesArray[u, 1]));
+                }
+
             }
 
             baseEl(x1, y1, x2, y2);
@@ -223,7 +228,7 @@ namespace taoOpenGLtest
 
                 PrintText(-0.8, (double)ValuesArray[j, 1], Convert.ToString((double)ValuesArray[j, 1]));
             }
-            baseEl(x1, y1, x2, y2);
+           baseEl(x1, y1, x2, y2);
             setka();
 
             glControl1.SwapBuffers();
@@ -1008,6 +1013,87 @@ namespace taoOpenGLtest
 
             prov++;
         }
+        private void CircleB(int x11, int y11, int r) 
+        {
+            int count = 0;
+            ValuesArray = null;
+            tempDraw = 0;
+            int x = 0;
+            int y = r;
+            int d = 3 - 2 * r;
+            int len = Math.Abs(500);
+
+            ValuesArray = new double[len, 2];
+            TextData1.Text = "Задана окружность:( " + Convert.ToString(x1) + "; " + Convert.ToString(y1) + ")"  + ", радиусом "+ Convert.ToString(r)+"\n";
+            TextData1.AppendText("Координаты вычисленных пикселей:\n");
+            while (y >= x)
+            {
+                GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+                Pixel(x+x11, y+y11, 1);
+                ValuesArray[count, 0] = x + x11;
+                ValuesArray[count, 1] = y + y11;
+                tempDraw++;
+                count++;
+                Dorisovka();
+                Pixel(x + x11, -y + y11, 1);
+                ValuesArray[count, 0] = x + x11;
+                ValuesArray[count, 1] = -y + y11;
+                tempDraw++;
+                count++;
+                Dorisovka();
+              
+                Pixel(-x + x11, y + y11, 1);
+                ValuesArray[count, 0] = -x + x11;
+                ValuesArray[count, 1] = y + y11;
+                tempDraw++;
+                count++;
+                Dorisovka();
+                Pixel(-x + x11, -y + y11, 1);
+                ValuesArray[count, 0] = -x + x11;
+                ValuesArray[count, 1] = -y + y11;
+                tempDraw++;
+                count++;
+                Dorisovka();
+                Pixel(y + x11, x + y11, 1);
+                ValuesArray[count, 0] = y + x11;
+                ValuesArray[count, 1] = x + y11;
+                tempDraw++;
+                count++;
+                Dorisovka();
+                Pixel(y + x11, -x + y11, 1);
+                ValuesArray[count, 0] = y + x11;
+                ValuesArray[count, 1] = -x + y11;
+                tempDraw++;
+                count++;
+                Dorisovka();
+                Pixel(-y + x11, x + y11, 1);
+                ValuesArray[count, 0] = -y + x11;
+                ValuesArray[count, 1] = x + y11;
+                tempDraw++;
+                count++;
+                Dorisovka();
+                Pixel(-y + x11, -x + y11, 1);
+                
+                ValuesArray[count, 0] = -y + x11;
+                ValuesArray[count, 1] = -x + y11;
+                tempDraw++;
+                count++;
+                Dorisovka();
+                if (d < 0)
+                {
+                    d = d + 4 * x + 6;
+                }
+                else 
+                {
+                    d = d + 4 * (x - y) + 10;
+                        y--;
+                }
+                x++;
+            }
+            glControl1.SwapBuffers();
+            glControl1.SwapBuffers();
+            prov++;
+        }
         private void ElUr(int x11, int y11, double a, double b)
         {
             tempDraw = 0;
@@ -1069,9 +1155,12 @@ namespace taoOpenGLtest
                     GL.Vertex2((double)ValuesArray[j, 0] + 0.5, ValuesArray[j, 1] + 0.5);
 
                     GL.End();
-                    PrintText((double)ValuesArray[j, 0], -0.8, Convert.ToString((double)ValuesArray[j, 0]));
+                    if (!окружностьToolStripMenuItem.Checked)
+                    {
+                        PrintText((double)ValuesArray[j, 0], -0.8, Convert.ToString((double)ValuesArray[j, 0]));
 
-                    PrintText(-0.8, (double)ValuesArray[j, 1], Convert.ToString((double)ValuesArray[j, 1]));
+                        PrintText(-0.8, (double)ValuesArray[j, 1], Convert.ToString((double)ValuesArray[j, 1]));
+                    }
                 }
             
            
@@ -1345,6 +1434,10 @@ namespace taoOpenGLtest
                     }
 
                 }
+                if (окружностьToolStripMenuItem.Checked)
+                {
+                    CircleB(x1,y1,r);
+                }
             }
             catch (Exception)
             {
@@ -1431,6 +1524,7 @@ namespace taoOpenGLtest
             GL.Color3(0, 0, 255);
             
         }
+        
         private void glControl1_Load(object sender, EventArgs e)
         {
             loaded = true;
@@ -1477,7 +1571,7 @@ namespace taoOpenGLtest
             urav.Checked = false;    urav.Enabled = false;
             resur8.Checked = false;  resur8.Enabled = false;
             ob8.Checked = true;  ob8.Enabled = true;
-            resh.Checked = false;  resh.Enabled = true;
+            resh.Checked = false;  resh.Enabled = false;
             ob8.Text = "Общее решение";
             resh.Text = "Общее решение";
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
@@ -1500,7 +1594,7 @@ namespace taoOpenGLtest
             urav.Checked = false; urav.Enabled = false;
             resur8.Checked = false; resur8.Enabled = false;
             ob8.Checked = true; ob8.Enabled = true;
-            resh.Checked = false; resh.Enabled = true;
+            resh.Checked = false; resh.Enabled = false;
             ob8.Text = "Общее решение";
             resh.Text = "Общее решение";
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
@@ -1520,10 +1614,10 @@ namespace taoOpenGLtest
 
             chet8.Checked = false; chet8.Enabled = false;
             chetv.Checked = false; chetv.Enabled = false;
-            urav.Checked = false; urav.Enabled = true;
+            urav.Checked = false; urav.Enabled = false;
             resur8.Checked = false; resur8.Enabled = true;
             ob8.Checked = true; ob8.Enabled = true;
-            resh.Checked = false; resh.Enabled = true;
+            resh.Checked = false; resh.Enabled = false;
             ob8.Text = "Алгоритм средней точки";
             resh.Text = "Алгоритм средней точки";
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
@@ -1541,6 +1635,12 @@ namespace taoOpenGLtest
             вуToolStripMenuItem.Checked = false;
             эллипсToolStripMenuItem.Checked = false;
             окружностьToolStripMenuItem.Checked = true;
+            chet8.Checked = false; chet8.Enabled = false;
+            chetv.Checked = false; chetv.Enabled = false;
+            urav.Checked = false; urav.Enabled = false;
+            resur8.Checked = false; resur8.Enabled = false;
+            ob8.Checked = true; ob8.Enabled = true;
+            resh.Checked = false; resh.Enabled = false;
             ob8.Text = "Алгоритм средней точки";
             resh.Text = "Алгоритм средней точки";
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);

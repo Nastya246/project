@@ -214,6 +214,8 @@
             this.TextData1.Enabled = false;
             this.TextData1.Location = new System.Drawing.Point(750, 328);
             this.TextData1.Name = "TextData1";
+            this.TextData1.ReadOnly = true;
+            this.TextData1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.TextData1.Size = new System.Drawing.Size(184, 208);
             this.TextData1.TabIndex = 10;
             this.TextData1.Text = "";
