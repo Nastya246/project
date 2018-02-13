@@ -18,6 +18,7 @@ namespace taoOpenGLtest
     //примеры алгоритма как картинки
     public partial class VizBrOt : Form
     {
+        DataAl dataF = new DataAl();
         static private bool Exit = false;
         private   DataAl D = new DataAl();
         bool loaded = false;
@@ -30,6 +31,7 @@ namespace taoOpenGLtest
         int num = 0;
         double a=5, b=3;// для эллипса
         int temp = 0;
+        int formCode = 0;
         public VizBrOt()
         {
             InitializeComponent();
@@ -236,45 +238,28 @@ namespace taoOpenGLtest
         }
         private void ObResB(int x11, int y11, int x22, int y22 ) // построение линии по уравнению 8
         {
-           Sinhr.Code = Sinhr.Code + "1. double k = ((double)y22 - (double)y11) / ((double)x22 - (double)x11);\n";
-            Sinhr.Code = Sinhr.Code + "2. double b = y11 - k * x11;\n";
-            Sinhr.Code = Sinhr.Code + "3. double temp;\n";
-            Sinhr.Code = Sinhr.Code + "4. for (int i = x11; i <= x22; i++)\n5. {\n";
-            Sinhr.Code = Sinhr.Code + "6. temp = Math.Round(k * i + b);\n";
-            Sinhr.Code = Sinhr.Code + "7. Pixel(i,temp,1);\n8. }\n";
-            Sinhr.Code = Sinhr.Code + "9. glControl1.SwapBuffers();\n";
-            
+          
             int count = 0;
+      
             ValuesArray = null;
             tempDraw = 0;
             double k = ((double)y22 - (double)y11) / ((double)x22 - (double)x11);
-        //    Sinhr.colorText[0] = Color.Red;
-          //  Array.Resize<Color>(ref Sinhr.colorText, (Sinhr.n)++);
-          //  Sinhr.Code = Sinhr.Code + "1. double k = ((double)y22 - (double)y11) / ((double)x22 - (double)x11);\n";
-         //   Sinhr.colorText[1] = Color.Black;
-
-          //  DataAl f = new DataAl();
-          //  f.ShowDialog();
-           // f.code.ForeColor=Color.Aqua;
             double b = y11 - k * x11;
-            Sinhr.Code = Sinhr.Code + "2. double b = y11 - k * x11;\n";
             double temp;
             int len = Math.Abs(x1 - x2-1);
-           
             ValuesArray = new double[len, 2];
             TextData1.Text = "Задана прямая:( " + Convert.ToString(x1) + "; " + Convert.ToString(y1) + ") и (" + Convert.ToString(x2) + ", " + Convert.ToString(y2) + ")\n";
             TextData1.AppendText("Координаты вычисленных пикселей:\n");
             for (int i = x11; i <= x22; i++)
+
             {
-
+             
                 temp = Math.Round(k * i + b);
-
-           Sinhr.Value=Sinhr.Value+ "x = " + Convert.ToString(i)+" "+ " y = "+Convert.ToString(temp)+"\n";
+        
              GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
              Pixel(i,temp,1);
              
            
-         //добавить DataLoad здесь 
              ValuesArray[count, 0] = i;
              ValuesArray[count, 1] = temp;
                      tempDraw++;
@@ -1015,6 +1000,7 @@ namespace taoOpenGLtest
         }
         private void CircleB(int x11, int y11, int r) 
         {
+           
             int count = 0;
             ValuesArray = null;
             tempDraw = 0;
@@ -1029,20 +1015,22 @@ namespace taoOpenGLtest
             while (y >= x)
             {
                 GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+               
                 Pixel(x+x11, y+y11, 1);
                 ValuesArray[count, 0] = x + x11;
                 ValuesArray[count, 1] = y + y11;
                 tempDraw++;
                 count++;
                 Dorisovka();
-                Pixel(x + x11, -y + y11, 1);
+                
+              Pixel(x + x11, -y + y11, 1);
                 ValuesArray[count, 0] = x + x11;
                 ValuesArray[count, 1] = -y + y11;
                 tempDraw++;
                 count++;
                 Dorisovka();
               
-                Pixel(-x + x11, y + y11, 1);
+               Pixel(-x + x11, y + y11, 1);
                 ValuesArray[count, 0] = -x + x11;
                 ValuesArray[count, 1] = y + y11;
                 tempDraw++;
@@ -1116,6 +1104,65 @@ namespace taoOpenGLtest
                 count++;
 
             }
+
+        }
+        private void ElB(double x11, double y11, double a, double b)
+        {
+            int count = 0;
+
+            ValuesArray = null;
+            tempDraw = 0;
+            double srPx, srPy;
+            double isX = 0; double isY = b;
+            double d=0;
+            int len = Math.Abs(500);
+            ValuesArray = new double[len, 2];
+
+            int p = 0;
+            for (int xx = 0; xx <= a; xx++)
+            {
+                if ((2 * b * b * xx) < (2 * a * a * xx))
+              {
+                    srPx = xx + 1;
+                    srPy = isY - 0.5;
+               }
+                else
+                {
+                    srPx = xx + 0.5;
+                    srPy = isY - 1;
+               }
+                if (p == 0)
+                {
+                    d = b * b * srPx * srPx + a * a * srPy * srPy - a * a * b * b;
+                    p++;
+                }
+                    if (d < 0)
+                    {
+                        isX = xx + 1;
+                        isY = isY;
+                        d = d + b * b * (2 * xx + 3);
+                    }
+                    else
+                    {
+                         isX = xx + 1;
+                        isY = isY-1;
+                        d = d + b * b * (2 * xx + 3)+a*a*(2-2*isY);
+                    }
+
+
+                    GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+
+                    Pixel(isX, isY, 1);
+                    ValuesArray[count, 0] = isX;
+                    ValuesArray[count, 1] = isY;
+                    tempDraw++;
+                    count++;
+                    Dorisovka();
+               
+            }
+            glControl1.SwapBuffers();
+            glControl1.SwapBuffers();
+            prov++;
 
         }
         private void Form1_Load(object sender, EventArgs e)
@@ -1386,10 +1433,6 @@ namespace taoOpenGLtest
                 if (цДАToolStripMenuItem.Checked)
                 {
 
-                    if (resh.Checked)
-                    {
-
-                    }
                     if (ob8.Checked)
                     {
                         CDA8(x1, y1, x2, y2);
@@ -1399,10 +1442,7 @@ namespace taoOpenGLtest
                 }
                 if (вуToolStripMenuItem.Checked)
                 {
-                    if (resh.Checked)
-                    {
-
-                    }
+                
                     if (ob8.Checked)
                     {
                         VU8(x1, y1, x2, y2);
@@ -1410,21 +1450,10 @@ namespace taoOpenGLtest
                 }
                 if (эллипсToolStripMenuItem.Checked)
                 {
-                    if (urav.Checked)
-                    {
-
-                      
-
-                    }
-                
-                    if (resh.Checked)
-                    {
-
-                        
-                    }
+                    
                     if (ob8.Checked)
                     {
-
+                        ElB(0,0, 6, 4);
                     }
                 
                     if (resur8.Checked)
@@ -1482,7 +1511,7 @@ namespace taoOpenGLtest
             GL.LoadIdentity();
 
            
-            Glu.gluOrtho2D(0.0, 25, 0.0, 25);
+            Glu.gluOrtho2D(0.0, 25, 0.0, 25); //Подредактировать сетку
            
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadIdentity();
@@ -1615,7 +1644,7 @@ namespace taoOpenGLtest
             chet8.Checked = false; chet8.Enabled = false;
             chetv.Checked = false; chetv.Enabled = false;
             urav.Checked = false; urav.Enabled = false;
-            resur8.Checked = false; resur8.Enabled = true;
+            resur8.Checked = false; resur8.Enabled = false;
             ob8.Checked = true; ob8.Enabled = true;
             resh.Checked = false; resh.Enabled = false;
             ob8.Text = "Алгоритм средней точки";
@@ -1695,8 +1724,23 @@ namespace taoOpenGLtest
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            DataAl dataF = new DataAl();
-            dataF.Show();
+           
+            if (checkBox1.Checked == true)
+            {
+                if (formCode == 0)
+                {
+                    dataF.Show();
+                }
+                else {
+                    DataAl dataF = new DataAl();
+                    dataF.Show();
+                }
+            }
+            else {
+               
+                dataF.Close();
+                formCode++;
+            }
         }
 
         private void VizBrOt_MouseClick(object sender, MouseEventArgs e)

@@ -16,7 +16,7 @@ namespace taoOpenGLtest
         public static int n = 0;
         public static string Value { get; set; }
         public static string Code { get; set; }
-        public static Color[] colorText = new Color[n];
+        public static Color color = Color.Black;
        
     }
     static class Program
