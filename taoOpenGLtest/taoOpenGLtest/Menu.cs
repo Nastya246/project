@@ -31,5 +31,19 @@ namespace taoOpenGLtest
         {
             Application.Exit();
         }
+
+        private void справкаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Программа визуализирует растроыве алгоритмы, а также содержит теоретичский материал по ним.\nДля уравления программой используйте мышь.\nВ окне визуализации Вы можете задать параметры визуализации.",
+                "Справка",
+                MessageBoxButtons.OK);
+        }
+
+        private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Программа написана студентом группы КЭ - 484 Козловой Анастасией.",
+                "О программе",
+                MessageBoxButtons.OK);
+        }
     }
 }

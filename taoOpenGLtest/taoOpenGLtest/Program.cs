@@ -14,6 +14,7 @@ namespace taoOpenGLtest
     static class Sinhr
     {
         public static int n = 0;
+        public static int point = 50;
         public static string Value { get; set; }
         public static string Code { get; set; }
         public static Color color = Color.Black;
@@ -33,6 +34,7 @@ namespace taoOpenGLtest
           //  Application.Run(new AlgCDA());
           Application.Run(new VizBrOt());
        // Application.Run(new AlgVu());
+        //    Application.Run(new Menu());
      
              
         }

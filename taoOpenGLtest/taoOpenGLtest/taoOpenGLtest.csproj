@@ -82,6 +82,12 @@
     <Compile Include="DataAl.Designer.cs">
       <DependentUpon>DataAl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Parametrs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Parametrs.Designer.cs">
+      <DependentUpon>Parametrs.cs</DependentUpon>
+    </Compile>
     <Compile Include="VizBrOt.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +116,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DataAl.resx">
       <DependentUpon>DataAl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Parametrs.resx">
+      <DependentUpon>Parametrs.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VizBrOt.resx">
       <DependentUpon>VizBrOt.cs</DependentUpon>

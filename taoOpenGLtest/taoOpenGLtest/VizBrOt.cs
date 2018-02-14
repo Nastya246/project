@@ -25,13 +25,15 @@ namespace taoOpenGLtest
         double[,] ValuesArray;
         double[,] LineKoord;
         double[] intensiv;
-        int x1=2, y1=1, x2=8, y2=3;
+        int x1, y1, x2, y2;
+        double x1d, y1d, x2d, y2d;
         int r = 3;
         int tempDraw = 0;// для анимации 
         int num = 0;
         double a=5, b=3;// для эллипса
         int temp = 0;
         int formCode = 0;
+       
         public VizBrOt()
         {
             InitializeComponent();
@@ -117,9 +119,9 @@ namespace taoOpenGLtest
             GL.Color3(Color.White);
             GL.PointSize(1);
             GL.Begin(PrimitiveType.Points);
-            for (int ax = -100; ax < 100; ax++)
+            for (int ax = -300; ax < 300; ax++)
             {
-                for (int bx = -100; bx < 100; bx++)
+                for (int bx = -300; bx < 300; bx++)
                 {
                     GL.Vertex2(ax, bx);
                 }
@@ -128,20 +130,20 @@ namespace taoOpenGLtest
             GL.End();
             
             GL.Begin(PrimitiveType.Lines);
-            GL.Vertex2(0, -25);
-            GL.Vertex2(0, 25);
-            GL.Vertex2(-25, 0);
-            GL.Vertex2(25, 0);
+            GL.Vertex2(0, -(Sinhr.point/2));
+            GL.Vertex2(0, (Sinhr.point / 2));
+            GL.Vertex2(-(Sinhr.point / 2), 0);
+            GL.Vertex2((Sinhr.point / 2), 0);
 
-            GL.Vertex2(0, 15);
-            GL.Vertex2(0.1, 14.5);
-            GL.Vertex2(0, 14.5);
-            GL.Vertex2(-0.1, 14.5);
+         /*   GL.Vertex2(0, (Sinhr.point / 3));
+            GL.Vertex2(0.1, (Sinhr.point / 3)-0.5);
+            GL.Vertex2(0, (Sinhr.point / 3) - 0.5);
+            GL.Vertex2(-0.1, (Sinhr.point / 3) - 0.5);
 
-            GL.Vertex2(15, 0);
-            GL.Vertex2(14.5, 0.1);
-            GL.Vertex2(15, 0);
-            GL.Vertex2(14.5, -0.1);
+            GL.Vertex2((Sinhr.point / 3), 0);
+            GL.Vertex2((Sinhr.point / 3) - 0.5, 0.1);
+            GL.Vertex2((Sinhr.point / 3), 0);
+            GL.Vertex2((Sinhr.point / 3) - 0.5, -0.1);*/
 
             GL.End();
             
@@ -154,8 +156,8 @@ namespace taoOpenGLtest
                 GL.Color3(255, 255, 255);
 
                 GL.Color3(0, 0, 255);*/
-            PrintText(14.3, 0.5, "x");
-            PrintText(0.5, 14.5, "y");
+      //      PrintText((Sinhr.point / 3) - 0.5, 0.5, "x");
+         //   PrintText(0.5, (Sinhr.point / 3) - 0.5, "y");
             
         }
         private void Pixel(double x11, double y11, double intns)
@@ -366,7 +368,7 @@ namespace taoOpenGLtest
                
                 TextData1.Text = "Задана прямая:( " + Convert.ToString(x1) + "; " + Convert.ToString(y1) + ") и (" + Convert.ToString(x2) + ", " + Convert.ToString(y2) + ")\n";
                 TextData1.AppendText("Координаты вычисленных пикселей:\n");
-                Pixel(x11,y11,1);
+             //   Pixel(x11,y11,1);
              
                 ValuesArray[count, 0] = x11;
                 ValuesArray[count, 1] = y11;
@@ -393,7 +395,7 @@ namespace taoOpenGLtest
                         d += d1;
                     Sinhr.Value = Sinhr.Value + "x = " + Convert.ToString(x) + " " + " y = " + Convert.ToString(y) + "\n";
                     GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-                    Pixel(x, y,1);
+                //   Pixel(x, y,1);
        
                     ValuesArray[count, 0] = x;
                     ValuesArray[count, 1] = y;
@@ -403,6 +405,7 @@ namespace taoOpenGLtest
                     Dorisovka();//параметры
                     
                 }
+               
                 glControl1.SwapBuffers();
                 glControl1.SwapBuffers();
                 prov++;
@@ -419,7 +422,7 @@ namespace taoOpenGLtest
                 
                 TextData1.Text = "Задана прямая:( " + Convert.ToString(x1) + "; " + Convert.ToString(y1) + ") и (" + Convert.ToString(x2) + ", " + Convert.ToString(y2) + ")\n";
                 TextData1.AppendText("Координаты вычисленных пикселей:\n");
-                Pixel(x11,y11,1);
+           //     Pixel(x11,y11,1);
                 ValuesArray[count, 0] = x11;
                 ValuesArray[count, 1] = y11;
                 PrintText(x11, -0.8, Convert.ToString((double)x11));
@@ -445,7 +448,7 @@ namespace taoOpenGLtest
                         d += d1;
                     Sinhr.Value = Sinhr.Value + "x = " + Convert.ToString(x) + " " + " y = " + Convert.ToString(y) + "\n";
                     GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-                    Pixel(x, y,1);
+                //    Pixel(x, y,1);
                     ValuesArray[count, 0] = x;
                     ValuesArray[count, 1] = y;
                     tempDraw++;
@@ -754,7 +757,7 @@ namespace taoOpenGLtest
 
 
                     prov++;
-        }
+        } //исправить ошибки
         
         private void VU8(int x11, int y11, int x22, int y22)
         {
@@ -1117,11 +1120,24 @@ namespace taoOpenGLtest
             double d=0;
             int len = Math.Abs(500);
             ValuesArray = new double[len, 2];
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
+            Pixel(isX+x11, isY+y11, 1);
+            ValuesArray[count, 0] = isX+x11;
+            ValuesArray[count, 1] = isY+y11;
+            tempDraw++;
+            count++;
+            Dorisovka();
+            Pixel(isX+x11, -isY+y11, 1);
+            ValuesArray[count, 0] = isX+x11;
+            ValuesArray[count, 1] = -isY+y11;
+            tempDraw++;
+            count++;
+            Dorisovka();
             int p = 0;
-            for (int xx = 0; xx <= a; xx++)
+            for (int xx = 0; xx < a; xx++)
             {
-                if ((2 * b * b * xx) < (2 * a * a * xx))
+                if (((2 * b * b * xx)/(2 * a * a * isY))>-1)
               {
                     srPx = xx + 1;
                     srPy = isY - 0.5;
@@ -1131,6 +1147,7 @@ namespace taoOpenGLtest
                     srPx = xx + 0.5;
                     srPy = isY - 1;
                }
+              
                 if (p == 0)
                 {
                     d = b * b * srPx * srPx + a * a * srPy * srPy - a * a * b * b;
@@ -1139,7 +1156,7 @@ namespace taoOpenGLtest
                     if (d < 0)
                     {
                         isX = xx + 1;
-                        isY = isY;
+                      
                         d = d + b * b * (2 * xx + 3);
                     }
                     else
@@ -1149,22 +1166,119 @@ namespace taoOpenGLtest
                         d = d + b * b * (2 * xx + 3)+a*a*(2-2*isY);
                     }
 
+               //     GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-                    GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-
-                    Pixel(isX, isY, 1);
-                    ValuesArray[count, 0] = isX;
-                    ValuesArray[count, 1] = isY;
+                    Pixel(isX+x11, isY+y11, 1);
+                    ValuesArray[count, 0] = isX+x11;
+                    ValuesArray[count, 1] = isY+y11;
                     tempDraw++;
                     count++;
                     Dorisovka();
-               
+
+                    Pixel(isX+x11, -isY+y11, 1);
+                    ValuesArray[count, 0] = isX+x11;
+                    ValuesArray[count, 1] = -isY+y11;
+                    tempDraw++;
+                    count++;
+                    Dorisovka();
+
+                    Pixel(-isX+x11, -isY+y11, 1);
+                    ValuesArray[count, 0] = -isX+x11;
+                    ValuesArray[count, 1] = -isY+y11;
+                    tempDraw++;
+                    count++;
+                    Dorisovka();
+
+                    Pixel(-isX+x11, isY+y11, 1);
+                    ValuesArray[count, 0] = -isX+x11;
+                    ValuesArray[count, 1] = isY+y11;
+                    tempDraw++;
+                    count++;
+                    Dorisovka();
+              
             }
+          //  GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+
+            Pixel(a+x11, 0+y11, 1);
+            ValuesArray[count, 0] = a+x11;
+            ValuesArray[count, 1] = 0+y11;
+            tempDraw++;
+            count++;
+            Dorisovka();
+
+            Pixel(-a+x11, 0+y11, 1);
+            ValuesArray[count, 0] = -a+x11;
+            ValuesArray[count, 1] = 0+y11;
+            tempDraw++;
+            count++;
+            Dorisovka();
+
             glControl1.SwapBuffers();
             glControl1.SwapBuffers();
             prov++;
 
+            glControl1.SwapBuffers();
+            glControl1.SwapBuffers();
+            prov++;
+
+
         }
+        private void ReadTextBoxLine()
+        {
+            int temp; double temp1;
+            string inputx1 = textBoxX1.Text;
+            string inputx2 = textBoxX2.Text;
+            string inputy1 = textBoxY1.Text;
+            string inputy2 = textBoxY2.Text;
+            try
+            {
+                if ((брензенхемДляОтрезкаToolStripMenuItem.Checked) || (вуToolStripMenuItem.Checked))
+                {
+                    x1 = Convert.ToInt32(inputx1);
+                    y1 = Convert.ToInt32(inputy1);
+                    x2 = Convert.ToInt32(inputx2);
+                    y2 = Convert.ToInt32(inputy2);
+                    if ((x2 < x1)&&(y2<y1))
+                    {
+                         temp = x2;
+                        x2 = x1;
+                        x1 = temp;
+                        temp = y2;
+                        y2 = y1;
+                        y1 = temp;
+                    }
+                   
+                }
+                else {
+                 
+                    x1d = double.Parse(inputx1.Replace(".", ","));
+                    x2d = double.Parse(inputx2.Replace(".", ","));
+                    y1d = double.Parse(inputy1.Replace(".", ","));
+                    y2d = double.Parse(inputy2.Replace(".", ","));
+
+                    if ((x2d < x1d)&&(y2d<y1d))
+                    {
+                        temp1 = x2d;
+                        x2d = x1d;
+                        x1d = temp1;
+                        temp1 = y2d;
+                        y2d = y1d;
+                        y1d = temp1;
+                    }
+                   
+                }
+
+            }
+            catch
+            {
+                TextData1.Clear();
+                TextData1.Text = "Ошибка при вводе значений.";
+                x1 = 0; y1 = 0; x2 = 0; y2 = 0;
+                x2d = 0; x1d = 0; y1d = 0; y2d = 0;
+                return;
+            }
+        }
+       
         private void Form1_Load(object sender, EventArgs e)
         {
             GL.Enable(EnableCap.Blend);
@@ -1389,63 +1503,92 @@ namespace taoOpenGLtest
         }*/
         private void Draw()
         {
+
             prov = 0;
             TextData1.Clear();
             TextData1.Text = "Задана прямая:( " + Convert.ToString(x1) + "; " + Convert.ToString(y1) + ") и (" + Convert.ToString(x2) + ", " + Convert.ToString(y2) + ")\n";
             TextData1.AppendText("Координаты вычисленных пикселей:\n");
             try
             {
+
+               
                 if (брензенхемДляОтрезкаToolStripMenuItem.Checked)
                 {
-                    if (urav.Checked)
+                    ReadTextBoxLine();
+                    if ((x1 != 0) && (y1 != 0) && (x2 != 0) && (y2 != 0))
                     {
 
-                        ObRes4B(x1, y1, x2, y2);
+                        if (urav.Checked)
+                        {
 
+                            ObRes4B(x1, y1, x2, y2);
+
+                        }
+                        if (chetv.Checked)
+                        {
+                            if ((x1 >= 0) && (x2 >= 0) && (y1 >= 0) && (y2 >= 0))
+                            {
+                                PervChet4B(x1, y1, x2, y2);
+                            }
+                            else {
+                                TextData1.Clear();
+                                TextData1.Text = "Данный метод только для первой четверти, проверьте значения координат. ";
+ 
+                            }
+                        }
+                        if (resh.Checked)
+                        {
+
+                            Brezenhem4(x1, y1, x2, y2);
+                        }
+                        if (ob8.Checked)
+                        {
+
+                            Brezenhem(x1, y1, x2, y2);
+                        }
+                        if (chet8.Checked)
+                        {
+                            if ((x1 >= 0) && (x2 >= 0) && (y1 >= 0) && (y2 >= 0))
+                            {
+                                PervChetB(x1, y1, x2, y2);
+                            }
+                            else
+                            {
+                                TextData1.Clear();
+                                TextData1.Text = "Данный метод только для первой четверти, проверьте значения координат. ";
+
+                            }
+
+                        }
+                        if (resur8.Checked)
+                        {
+
+                            ObResB(x1, y1, x2, y2);
+                        }
                     }
-                    if (chetv.Checked)
-                    {
-
-                        PervChet4B(x1, y1, x2, y2);
-                    }
-                    if (resh.Checked)
-                    {
-
-                        Brezenhem4(x1, y1, x2, y2);
-                    }
-                    if (ob8.Checked)
-                    {
-
-                        Brezenhem(x1, y1, x2, y2);
-                    }
-                    if (chet8.Checked)
-                    {
-
-                        PervChetB(x1, y1, x2, y2);
-                    }
-                    if (resur8.Checked)
-                    {
-
-                        ObResB(x1, y1, x2, y2);
-                    }
-
+                    
                 }
                 if (цДАToolStripMenuItem.Checked)
                 {
-
-                    if (ob8.Checked)
+                    ReadTextBoxLine();
+                    if ((x1d != 0) && (y1d != 0) && (x2d != 0) && (y2d != 0))
                     {
-                        CDA8(x1, y1, x2, y2);
+                        if (ob8.Checked)
+                        {
+                            CDA8(x1d, y1d, x2d, y2d);
+                        }
+
                     }
-
-
                 }
                 if (вуToolStripMenuItem.Checked)
                 {
-                
-                    if (ob8.Checked)
+                    ReadTextBoxLine();
+                    if ((x1 != 0) && (y1 != 0) && (x2 != 0) && (y2 != 0))
                     {
-                        VU8(x1, y1, x2, y2);
+                        if (ob8.Checked)
+                        {
+                            VU8(x1, y1, x2, y2);
+                        }
                     }
                 }
                 if (эллипсToolStripMenuItem.Checked)
@@ -1453,7 +1596,7 @@ namespace taoOpenGLtest
                     
                     if (ob8.Checked)
                     {
-                        ElB(0,0, 6, 4);
+                        ElB(2,-2, 6, 4);
                     }
                 
                     if (resur8.Checked)
@@ -1510,8 +1653,8 @@ namespace taoOpenGLtest
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
 
-           
-            Glu.gluOrtho2D(0.0, 25, 0.0, 25); //Подредактировать сетку
+
+            Glu.gluOrtho2D(0.0, (Sinhr.point / 2), 0.0, (Sinhr.point / 2)); //Подредактировать сетку
            
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadIdentity();
@@ -1746,6 +1889,26 @@ namespace taoOpenGLtest
         private void VizBrOt_MouseClick(object sender, MouseEventArgs e)
         {
             Exit = true;
+        }
+
+        private void справкаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Программа визуализирует растроыве алгоритмы, а также содержит теоретичский материал по ним.\nДля уравления программой используйте мышь.\nВ окне визуализации Вы можете задать параметры визуализации.",
+                "Справка",
+                MessageBoxButtons.OK);
+        }
+
+        private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Программа написана студентом группы КЭ - 484 Козловой Анастасией.",
+               "О программе",
+               MessageBoxButtons.OK);
+        }
+
+        private void назадToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Parametrs f = new Parametrs();
+           f.Show();
         }
 
        

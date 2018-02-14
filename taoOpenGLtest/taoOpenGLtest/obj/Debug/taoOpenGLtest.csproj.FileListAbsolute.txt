@@ -27,3 +27,4 @@ C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\bin\Debug\OpenTK.pdb
 C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\bin\Debug\OpenTK.xml
 C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\bin\Debug\OpenTK.GLControl.xml
 C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.VizBrOt.resources
+C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.Parametrs.resources
