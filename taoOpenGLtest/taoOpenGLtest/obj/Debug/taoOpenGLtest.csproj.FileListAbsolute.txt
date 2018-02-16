@@ -20,7 +20,6 @@ C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.Slai
 C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.csproj.GenerateResource.Cache
 C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.AlgVu.resources
 C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.DataAl.resources
-C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\obj\Debug\taoOpenGLtest.csprojResolveAssemblyReference.cache
 C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\bin\Debug\OpenTK.dll
 C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\bin\Debug\OpenTK.GLControl.dll
 C:\Users\Lenovo\project\taoOpenGLtest\taoOpenGLtest\bin\Debug\OpenTK.pdb

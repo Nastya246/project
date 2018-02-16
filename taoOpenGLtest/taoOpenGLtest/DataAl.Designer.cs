@@ -28,38 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.koord = new System.Windows.Forms.RichTextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.code = new System.Windows.Forms.RichTextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // koord
-            // 
-            this.koord.Enabled = false;
-            this.koord.Location = new System.Drawing.Point(345, 56);
-            this.koord.Name = "koord";
-            this.koord.Size = new System.Drawing.Size(119, 390);
-            this.koord.TabIndex = 0;
-            this.koord.Text = "";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(332, 30);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(141, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Вычисленные координаты";
-            // 
             // code
             // 
-            this.code.BackColor = System.Drawing.SystemColors.Menu;
+            this.code.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.code.BackColor = System.Drawing.SystemColors.Info;
+            this.code.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.code.ForeColor = System.Drawing.Color.Black;
             this.code.Location = new System.Drawing.Point(12, 56);
             this.code.Name = "code";
-            this.code.ReadOnly = true;
-            this.code.Size = new System.Drawing.Size(311, 390);
+            this.code.Size = new System.Drawing.Size(452, 390);
             this.code.TabIndex = 2;
             this.code.Text = "";
             // 
@@ -79,8 +62,6 @@
             this.ClientSize = new System.Drawing.Size(476, 456);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.code);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.koord);
             this.Name = "DataAl";
             this.Text = "DataAl";
             this.Load += new System.EventHandler(this.DataAl_Load);
@@ -91,8 +72,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        public System.Windows.Forms.RichTextBox koord;
         private System.Windows.Forms.Label label2;
         public System.Windows.Forms.RichTextBox code;
     }

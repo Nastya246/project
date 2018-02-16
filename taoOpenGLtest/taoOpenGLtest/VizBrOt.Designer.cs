@@ -44,17 +44,6 @@
             this.dan = new System.Windows.Forms.Label();
             this.TextData1 = new System.Windows.Forms.RichTextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.выборАлгоритмаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.брензенхемДляОтрезкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.цДАToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.вуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.эллипсToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.окружностьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.назадToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.назадToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxX1 = new System.Windows.Forms.TextBox();
@@ -69,6 +58,17 @@
             this.textBoxA = new System.Windows.Forms.TextBox();
             this.textBoxB = new System.Windows.Forms.TextBox();
             this.textBoxR = new System.Windows.Forms.TextBox();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.выборАлгоритмаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.брезенхемДляОтрезкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.цДАToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.вуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.эллипсToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.окружностьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.назадToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -247,95 +247,6 @@
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
-            // menuStrip1
-            // 
-            this.menuStrip1.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.выборАлгоритмаToolStripMenuItem,
-            this.назадToolStripMenuItem,
-            this.назадToolStripMenuItem1,
-            this.справкаToolStripMenuItem,
-            this.оПрограммеToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(938, 24);
-            this.menuStrip1.TabIndex = 12;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // выборАлгоритмаToolStripMenuItem
-            // 
-            this.выборАлгоритмаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.брензенхемДляОтрезкаToolStripMenuItem,
-            this.цДАToolStripMenuItem,
-            this.вуToolStripMenuItem,
-            this.эллипсToolStripMenuItem,
-            this.окружностьToolStripMenuItem});
-            this.выборАлгоритмаToolStripMenuItem.Name = "выборАлгоритмаToolStripMenuItem";
-            this.выборАлгоритмаToolStripMenuItem.Size = new System.Drawing.Size(118, 20);
-            this.выборАлгоритмаToolStripMenuItem.Text = "Выбор алгоритма";
-            // 
-            // брензенхемДляОтрезкаToolStripMenuItem
-            // 
-            this.брензенхемДляОтрезкаToolStripMenuItem.Name = "брензенхемДляОтрезкаToolStripMenuItem";
-            this.брензенхемДляОтрезкаToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
-            this.брензенхемДляОтрезкаToolStripMenuItem.Text = "Брензенхем для отрезка";
-            this.брензенхемДляОтрезкаToolStripMenuItem.Click += new System.EventHandler(this.брензенхемДляОтрезкаToolStripMenuItem_Click);
-            // 
-            // цДАToolStripMenuItem
-            // 
-            this.цДАToolStripMenuItem.Name = "цДАToolStripMenuItem";
-            this.цДАToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
-            this.цДАToolStripMenuItem.Text = "ЦДА";
-            this.цДАToolStripMenuItem.Click += new System.EventHandler(this.цДАToolStripMenuItem_Click);
-            // 
-            // вуToolStripMenuItem
-            // 
-            this.вуToolStripMenuItem.Name = "вуToolStripMenuItem";
-            this.вуToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
-            this.вуToolStripMenuItem.Text = "Ву";
-            this.вуToolStripMenuItem.Click += new System.EventHandler(this.вуToolStripMenuItem_Click);
-            // 
-            // эллипсToolStripMenuItem
-            // 
-            this.эллипсToolStripMenuItem.Name = "эллипсToolStripMenuItem";
-            this.эллипсToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
-            this.эллипсToolStripMenuItem.Text = "Эллипс";
-            this.эллипсToolStripMenuItem.Click += new System.EventHandler(this.эллипсToolStripMenuItem_Click);
-            // 
-            // окружностьToolStripMenuItem
-            // 
-            this.окружностьToolStripMenuItem.Name = "окружностьToolStripMenuItem";
-            this.окружностьToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
-            this.окружностьToolStripMenuItem.Text = "Окружность";
-            this.окружностьToolStripMenuItem.Click += new System.EventHandler(this.окружностьToolStripMenuItem_Click);
-            // 
-            // назадToolStripMenuItem
-            // 
-            this.назадToolStripMenuItem.Name = "назадToolStripMenuItem";
-            this.назадToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
-            this.назадToolStripMenuItem.Text = "Визуализация";
-            this.назадToolStripMenuItem.Click += new System.EventHandler(this.назадToolStripMenuItem_Click);
-            // 
-            // назадToolStripMenuItem1
-            // 
-            this.назадToolStripMenuItem1.Name = "назадToolStripMenuItem1";
-            this.назадToolStripMenuItem1.Size = new System.Drawing.Size(51, 20);
-            this.назадToolStripMenuItem1.Text = "Назад";
-            // 
-            // справкаToolStripMenuItem
-            // 
-            this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
-            this.справкаToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
-            this.справкаToolStripMenuItem.Text = "Справка";
-            this.справкаToolStripMenuItem.Click += new System.EventHandler(this.справкаToolStripMenuItem_Click);
-            // 
-            // оПрограммеToolStripMenuItem
-            // 
-            this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
-            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
-            this.оПрограммеToolStripMenuItem.Text = "О программе";
-            this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -448,6 +359,93 @@
             this.textBoxR.Size = new System.Drawing.Size(35, 20);
             this.textBoxR.TabIndex = 31;
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.выборАлгоритмаToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.справкаToolStripMenuItem,
+            this.оПрограммеToolStripMenuItem,
+            this.назадToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(938, 24);
+            this.menuStrip1.TabIndex = 32;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // выборАлгоритмаToolStripMenuItem
+            // 
+            this.выборАлгоритмаToolStripMenuItem.Checked = true;
+            this.выборАлгоритмаToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Indeterminate;
+            this.выборАлгоритмаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.брезенхемДляОтрезкаToolStripMenuItem,
+            this.цДАToolStripMenuItem,
+            this.вуToolStripMenuItem,
+            this.эллипсToolStripMenuItem,
+            this.окружностьToolStripMenuItem});
+            this.выборАлгоритмаToolStripMenuItem.Name = "выборАлгоритмаToolStripMenuItem";
+            this.выборАлгоритмаToolStripMenuItem.Size = new System.Drawing.Size(118, 20);
+            this.выборАлгоритмаToolStripMenuItem.Text = "Выбор алгоритма";
+            // 
+            // брезенхемДляОтрезкаToolStripMenuItem
+            // 
+            this.брезенхемДляОтрезкаToolStripMenuItem.CheckOnClick = true;
+            this.брезенхемДляОтрезкаToolStripMenuItem.Name = "брезенхемДляОтрезкаToolStripMenuItem";
+            this.брезенхемДляОтрезкаToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.брезенхемДляОтрезкаToolStripMenuItem.Text = "Брезенхем для отрезка";
+            // 
+            // цДАToolStripMenuItem
+            // 
+            this.цДАToolStripMenuItem.Name = "цДАToolStripMenuItem";
+            this.цДАToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.цДАToolStripMenuItem.Text = "ЦДА";
+            // 
+            // вуToolStripMenuItem
+            // 
+            this.вуToolStripMenuItem.Name = "вуToolStripMenuItem";
+            this.вуToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.вуToolStripMenuItem.Text = "Ву";
+            // 
+            // эллипсToolStripMenuItem
+            // 
+            this.эллипсToolStripMenuItem.Name = "эллипсToolStripMenuItem";
+            this.эллипсToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.эллипсToolStripMenuItem.Text = "Эллипс";
+            // 
+            // окружностьToolStripMenuItem
+            // 
+            this.окружностьToolStripMenuItem.Name = "окружностьToolStripMenuItem";
+            this.окружностьToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.окружностьToolStripMenuItem.Text = "Окружность";
+            // 
+            // справкаToolStripMenuItem
+            // 
+            this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
+            this.справкаToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
+            this.справкаToolStripMenuItem.Text = "Справка";
+            this.справкаToolStripMenuItem.Click += new System.EventHandler(this.справкаToolStripMenuItem_Click_1);
+            // 
+            // оПрограммеToolStripMenuItem
+            // 
+            this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
+            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
+            this.оПрограммеToolStripMenuItem.Text = "О программе";
+            this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click_1);
+            // 
+            // назадToolStripMenuItem
+            // 
+            this.назадToolStripMenuItem.Name = "назадToolStripMenuItem";
+            this.назадToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
+            this.назадToolStripMenuItem.Text = "Назад";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(95, 20);
+            this.toolStripMenuItem1.Text = "Визуализация";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
             // VizBrOt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -477,7 +475,6 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
             this.Name = "VizBrOt";
             this.Text = "Визуализация";
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.VizBrOt_MouseClick);
@@ -510,17 +507,6 @@
         private System.Windows.Forms.Label dan;
         private System.Windows.Forms.RichTextBox TextData1;
         private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem выборАлгоритмаToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem брензенхемДляОтрезкаToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem цДАToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem вуToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem эллипсToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem окружностьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem назадToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem назадToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxX1;
@@ -535,6 +521,17 @@
         private System.Windows.Forms.TextBox textBoxA;
         private System.Windows.Forms.TextBox textBoxB;
         private System.Windows.Forms.TextBox textBoxR;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem выборАлгоритмаToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem брезенхемДляОтрезкаToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem цДАToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem вуToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem эллипсToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem окружностьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem назадToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
     }
 }
 
