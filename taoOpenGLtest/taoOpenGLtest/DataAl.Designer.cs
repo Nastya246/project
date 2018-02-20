@@ -42,6 +42,7 @@
             this.code.ForeColor = System.Drawing.Color.Black;
             this.code.Location = new System.Drawing.Point(12, 56);
             this.code.Name = "code";
+            this.code.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
             this.code.Size = new System.Drawing.Size(452, 390);
             this.code.TabIndex = 2;
             this.code.Text = "";
@@ -64,6 +65,7 @@
             this.Controls.Add(this.code);
             this.Name = "DataAl";
             this.Text = "DataAl";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.DataAl_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -65,10 +65,10 @@
             this.вуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.эллипсToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.окружностьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.назадToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -419,6 +419,13 @@
             this.окружностьToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.окружностьToolStripMenuItem.Text = "Окружность";
             // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(95, 20);
+            this.toolStripMenuItem1.Text = "Визуализация";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
             // справкаToolStripMenuItem
             // 
             this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
@@ -438,13 +445,6 @@
             this.назадToolStripMenuItem.Name = "назадToolStripMenuItem";
             this.назадToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
             this.назадToolStripMenuItem.Text = "Назад";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(95, 20);
-            this.toolStripMenuItem1.Text = "Визуализация";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // VizBrOt
             // 
